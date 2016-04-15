@@ -1,0 +1,3 @@
+array (
+  0 => 'STM_PURE_CORAL.jpg',
+)

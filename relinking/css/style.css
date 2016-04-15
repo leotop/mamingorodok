@@ -1,0 +1,12 @@
+.csv-form {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+}
+.center {
+  text-align: center;
+}
+.form-header {
+  margin-top: 0;
+  color: #ddd;
+}

@@ -1,0 +1,3 @@
+array (
+  0 => 'FERETTI_BLUE.jpg',
+)

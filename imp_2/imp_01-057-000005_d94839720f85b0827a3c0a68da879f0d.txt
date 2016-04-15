@@ -1,0 +1,3 @@
+array (
+  0 => 'QUIN_NATURAL_MAVIS.jpg',
+)

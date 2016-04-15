@@ -1,0 +1,3 @@
+array (
+  0 => '/data/mamingorodok.ru/docs/bitrix/catalog_export/yandex_indi.php',
+)

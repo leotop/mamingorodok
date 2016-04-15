@@ -1,0 +1,3 @@
+array (
+  0 => 'CYX_CACTUS.jpg',
+)

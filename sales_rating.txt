@@ -1,0 +1,17 @@
+array (
+  0 => 
+  array (
+    'ID' => '12546',
+    '~ID' => '12546',
+    'IBLOCK_ID' => '2',
+    '~IBLOCK_ID' => '2',
+    'NAME' => 'Сумка-переноска Cybex 2.GO',
+    '~NAME' => 'Сумка-переноска Cybex 2.GO',
+    'PROPERTY_SALES_RATING_VALUE' => '3',
+    '~PROPERTY_SALES_RATING_VALUE' => '3',
+    'PROPERTY_SALES_RATING_DESCRIPTION' => NULL,
+    '~PROPERTY_SALES_RATING_DESCRIPTION' => NULL,
+    'PROPERTY_SALES_RATING_VALUE_ID' => '12546:13',
+    '~PROPERTY_SALES_RATING_VALUE_ID' => '12546:13',
+  ),
+)

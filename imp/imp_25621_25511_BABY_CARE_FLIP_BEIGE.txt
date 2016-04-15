@@ -1,0 +1,8 @@
+array (
+  0 => 'find /home/www/docs/upload/import/goods_files/06-005-000001/ -type f -mtime -3 -iregex  \'.*\\/[a-zA-Z0-9_]+?\\.*?\\.\\(jpg\\|gif\\|png\\|bmp\\|jpeg\\)$\' ',
+  1 => 13,
+  2 => 'BABY_CARE_FLIP_BEIGE',
+  3 => 3,
+  4 => '12.11.2011 23:14:37',
+  5 => 'rr',
+)

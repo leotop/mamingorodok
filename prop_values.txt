@@ -1,0 +1,53 @@
+array (
+  0 => 
+  array (
+    'COLOR_CODE' => 'CYB_STONE',
+    'COLOR' => 'Stone',
+    'SIZE' => 'нет',
+    'MAIN_PRODUCT' => 12546,
+    'PICTURE_MINI' => 
+    CDBResult::__set_state(array(
+       'result' => NULL,
+       'arResult' => 
+      array (
+        0 => 
+        array (
+          'ID' => '3067850',
+          'TIMESTAMP_X' => '13.10.2011 11:37:36',
+          'MODULE_ID' => 'iblock',
+          'HEIGHT' => '947',
+          'WIDTH' => '600',
+          'FILE_SIZE' => '168662',
+          'CONTENT_TYPE' => 'image/jpeg',
+          'SUBDIR' => 'iblock/5f1',
+          'FILE_NAME' => '5f13ea199e249ed3be6bb12911d450d0.jpg',
+          'ORIGINAL_NAME' => '5f09dbdf6855a9aff31050c391556fa8.jpg',
+          'DESCRIPTION' => '',
+        ),
+      ),
+       'bNavStart' => false,
+       'bShowAll' => false,
+       'NavNum' => NULL,
+       'NavPageCount' => NULL,
+       'NavPageNomer' => NULL,
+       'NavPageSize' => NULL,
+       'NavShowAll' => NULL,
+       'NavRecordCount' => NULL,
+       'bFirstPrintNav' => true,
+       'PAGEN' => NULL,
+       'SIZEN' => NULL,
+       'add_anchor' => '',
+       'bPostNavigation' => false,
+       'bFromArray' => true,
+       'bFromLimited' => false,
+       'sSessInitAdd' => '',
+       'nPageWindow' => 11,
+       'nSelectedCount' => 1,
+       'arGetNextCache' => false,
+       'bDescPageNumbering' => false,
+       'arUserMultyFields' => false,
+       'SqlTraceIndex' => false,
+       'DB' => NULL,
+    )),
+  ),
+)

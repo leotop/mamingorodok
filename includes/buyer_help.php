@@ -1,0 +1,1 @@
+<!--noindex--><a href="/how-to-buy/" title="Помощь покупателю" rel="nofollow">Помощь покупателю</a><!--/noindex-->

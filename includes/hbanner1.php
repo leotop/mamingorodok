@@ -1,0 +1,1 @@
+<!--noindex--><a href="http://mamingorodok.ru/discounts/" title="Больше товаров - больше скидка!" >Скидки и подарки<span>!</span></a><!--/noindex-->

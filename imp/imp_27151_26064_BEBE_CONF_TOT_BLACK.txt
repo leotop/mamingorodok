@@ -1,0 +1,8 @@
+array (
+  0 => 'find /data/mamingorodok.ru/docs/upload/import/goods_files/01-012-000026/ -type f -mtime -2 -iregex  \'.*\\/[a-zA-Z0-9_]+?\\.*?\\.\\(jpg\\|gif\\|png\\|bmp\\|jpeg\\)$\' ',
+  1 => 43,
+  2 => 'BEBE_CONF_TOT_BLACK',
+  3 => 2,
+  4 => '18.11.2011 18:16:58',
+  5 => 'rr',
+)

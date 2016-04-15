@@ -1,0 +1,8 @@
+array (
+  0 => 'find /data/mamingorodok.ru/docs/upload/import/goods_files/02-060-000022/ -type f -mtime -2 -iregex  \'.*\\/[a-zA-Z0-9_]+?\\.*?\\.\\(jpg\\|gif\\|png\\|bmp\\|jpeg\\)$\' ',
+  1 => 5,
+  2 => 'NANIA_RED_FER',
+  3 => 2,
+  4 => '18.11.2011 18:00:14',
+  5 => 'rr',
+)

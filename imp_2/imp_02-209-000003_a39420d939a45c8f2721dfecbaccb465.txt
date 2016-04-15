@@ -1,0 +1,3 @@
+array (
+  0 => 'STM_CLAY_ORANGE.jpg',
+)

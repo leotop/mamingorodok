@@ -1,0 +1,3 @@
+array (
+  0 => 'PALI_WHITE_MAN.jpg',
+)

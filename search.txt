@@ -1,0 +1,4 @@
+bitrix/templates/Mami/components/individ/wish.list/wish.my/template.php:    let_wish_status_change = false;
+bitrix/templates/Mami/components/individ/wish.list/wish.my/template.php:        let_wish_status_change = true;
+bitrix/templates/Mami/js/jquery.jqtransform.js:					// пропускаем первый проход при загрузкe JQTransform (таймаут для флага let_wish_status_change на странице с вишлистом)
+bitrix/templates/Mami/js/jquery.jqtransform.js:						if (let_wish_status_change)

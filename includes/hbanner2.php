@@ -1,0 +1,1 @@
+<!--noindex--><a href="http://vk.com/mamingorodok" title="Присоединяйся и выигрывай скидки!" ><img src="/bitrix/templates/nmg/img/b1.png" width="20" height="20" alt="Присоединяйся и выигрывай скидки!"  /> <span>Спецпредложения тут!</span></a><!--/noindex-->

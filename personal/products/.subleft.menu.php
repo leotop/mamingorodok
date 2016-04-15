@@ -1,0 +1,32 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Обладаю", 
+		"/personal/products/own/", 
+		Array(), 
+		Array("CNT"=>"OWN"), 
+		"" 
+	),
+	Array(
+		"Мечтаю", 
+		"/personal/products/wishlist/", 
+		Array(), 
+		Array("CNT"=>"WISHLIST"), 
+		"" 
+	),
+	Array(
+		"Ожидают поставки", 
+		"/personal/products/track/", 
+		Array(), 
+		Array("CNT"=>"TRACK"), 
+		"" 
+	),
+	Array(
+		"Корзина", 
+		"/personal/products/cart/", 
+		Array(), 
+		Array("CNT"=>"BASKET"), 
+		"" 
+	)
+);
+?>

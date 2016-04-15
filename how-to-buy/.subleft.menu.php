@@ -1,0 +1,46 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Доставка", 
+		"/how-to-buy/how-to-get/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Оплата", 
+		"/how-to-buy/how-to-pay/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Сборка", 
+		"/service/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Гарантия", 
+		"/warranty/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Возврат и обмен", 
+		"/how-to-buy/warranty/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Контакты", 
+		"/contacts/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>
