@@ -99,7 +99,7 @@ if(CModule::IncludeModule("sale") && CModule::IncludeModule("catalog"))    // по
            "PERSON_TYPE_ID" => 1,
            "PAYED" => "N",
            "CANCELED" => "N",
-           "STATUS_ID" => "N",
+           "STATUS_ID" => "u",
            "PRICE" => $price["PRICE"],
            "CURRENCY" => "RUB",
            "NOTES" => "",

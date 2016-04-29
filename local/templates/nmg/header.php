@@ -456,7 +456,7 @@
         <div class="sk-phone sk-phone_newHed">
             <a class="showpUp getCallForm" href="#call_popup" title="Заказать обратный звонок">Заказать обратный звонок</a><br>
             <p><span>(499)</span> 400-27-73</p> 
-            <span class="after_phone">Call-центр работает: пн-вс с 9:00 до 21:00</span>
+            <span class="after_phone">Call-центр работает: пн-вс с 9:00 до 18:00</span>
         </div>
     </div>
     <div class="popup_block" id="callback-form"  data-popup-head="Обратная связь" style="display: none;">
