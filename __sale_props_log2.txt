@@ -6718,3 +6718,118 @@ Array
     [] => 
 )
 
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [] => 
+)
+
+Array
+(
+    [typ] => organic
+    [src] => google
+    [mdm] => organic
+    [cmp] => (none)
+    [cnt] => (none)
+    [trm] => (none)
+)
+
+Array
+(
+    [typ] => organic
+    [src] => google
+    [mdm] => organic
+    [cmp] => (none)
+    [cnt] => (none)
+    [trm] => (none)
+)
+
+Array
+(
+    [typ] => utm
+    [src] => ya_market
+    [mdm] => cpc
+    [cmp] => mamingorodok.ru
+    [cnt] => (none)
+    [trm] => (none)
+)
+
+Array
+(
+    [typ] => utm
+    [src] => ya_market
+    [mdm] => cpc
+    [cmp] => mamingorodok.ru
+    [cnt] => (none)
+    [trm] => (none)
+)
+
+Array
+(
+    [] => 
+)
+
