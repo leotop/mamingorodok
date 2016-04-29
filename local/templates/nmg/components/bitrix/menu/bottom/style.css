@@ -1,0 +1,25 @@
+/** bottom menu **/
+.bottommenu {
+	width:100%;
+	text-align:center;
+}
+.bottommenu a{
+	color:#805695;
+	font-weight:bold;
+}
+
+.bottommenu.selected{
+	color:#808080;
+	font-weight:bold;
+}
+
+.bottommenu ul li{
+	display:inline;
+	padding-left:20px;
+	background: url("images/point.png") no-repeat;
+}
+
+.bottommenu ul #nostyle{
+	background: none;
+	padding-left:0px;
+}

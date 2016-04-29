@@ -1,0 +1,107 @@
+
+.jcarousel-skin-color_chose_one .jcarousel-container-horizontal {
+    width: 295px;
+    margin: 7px 0 0 0; 
+    padding: 0 14px 0 20px;
+    background: #fff;
+}
+.jcarousel-skin-color_chose_one { }
+.jcarousel-skin-color_chose_one .jcarousel-container-vertical {
+    width: 100px;
+    height: 360px;
+    padding: 10px 0;
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-clip {
+    padding: 6px 0px 5px 0px;
+    
+    overflow: hidden;
+    background: #fff;
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-clip-vertical {
+    width:  100px;
+    height: 360px;
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-item {
+    width: 54px;
+    height: 70px;
+    padding: 0 5px 0 0; 
+    text-align: center;
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-item-placeholder {
+    background: #fff;
+    color: #000;
+}
+
+/**
+ *  Horizontal Buttons
+ */
+.jcarousel-skin-color_chose_one .jcarousel-next-horizontal {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 14px;
+    height: 81px;
+    cursor: pointer;
+    background: transparent url(color-chose-arrow.png) no-repeat right bottom ;
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-direction-rtl .jcarousel-next-horizontal {
+    left: 0px;
+    right: auto;
+   /* background-image: url(color-chose-arrow.png);*/
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-next-horizontal:hover,
+.jcarousel-skin-color_chose_one .jcarousel-next-horizontal:focus {
+   /* background-position: -32px 0;*/
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-next-horizontal:active {
+    /*background-position: -64px 0;*/
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-next-disabled-horizontal,
+.jcarousel-skin-color_chose_one .jcarousel-next-disabled-horizontal:hover,
+.jcarousel-skin-color_chose_one .jcarousel-next-disabled-horizontal:focus,
+.jcarousel-skin-color_chose_one .jcarousel-next-disabled-horizontal:active {
+    cursor: default;
+    background-position: right top;
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-prev-horizontal {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 14px;
+    height: 81px;
+    cursor: pointer;
+     background:  url(color-chose-arrow.png) no-repeat left bottom ;
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-direction-rtl .jcarousel-prev-horizontal {
+    left: auto;
+    right: 5px;
+   /* background-image: url(next-horizontal.png);*/
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-prev-horizontal:hover, 
+.jcarousel-skin-color_chose_one .jcarousel-prev-horizontal:focus {
+    /*background-position: -32px 0;*/
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-prev-horizontal:active {
+    /*background-position: -64px 0;*/
+}
+
+.jcarousel-skin-color_chose_one .jcarousel-prev-disabled-horizontal,
+.jcarousel-skin-color_chose_one .jcarousel-prev-disabled-horizontal:hover,
+.jcarousel-skin-color_chose_one .jcarousel-prev-disabled-horizontal:focus,
+.jcarousel-skin-color_chose_one .jcarousel-prev-disabled-horizontal:active {
+    cursor: default;
+ background-position: left top;
+}
+

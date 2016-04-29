@@ -1,0 +1,19 @@
+
+a.rating-vote-plus {
+	background: url("images/add_rating.png") no-repeat;
+	width:20px;
+	height:20px;
+	position:absolute;
+	right:0px;
+	top:-2px;
+	cursor:pointer;
+}
+
+span.rating-vote-plus {
+	background: url("images/add_rating.png") no-repeat;
+	width:20px;
+	height:20px;
+	position:absolute;
+	right:0px;
+	top:-2px;
+}

@@ -1,0 +1,1 @@
+	<div class="friend">		<img src="<?=SITE_TEMPLATE_PATH?>/images/blog/foto2.png">		<a href="/community/user/2/blog/">Виктор Моретти</a>		<center><?$APPLICATION->IncludeFile(SITE_TEMPLATE_PATH."/includes/raiting.php", array(), array("MODE"=>"html") );?></center>	</div>	

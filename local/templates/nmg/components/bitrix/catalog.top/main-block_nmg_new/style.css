@@ -1,0 +1,142 @@
+.main_product_list{
+    padding: 0 0 20px 0 !important;
+}
+.bx-wrapper .bx-viewport{
+    box-shadow:none !important;
+}
+.bx-viewport{
+    height: 276px!important;   
+    margin-left:24px;
+}
+.catalog_list {
+    margin-left:62px;
+}
+.but_list {
+    margin-right:31px; 
+}
+.ul_slider {
+    border:0 !important;
+  /*  border-top: 1px solid #cdcdcd !important; */
+    border-top: 1px solid white !important;
+    height: 350px !important;
+    width:782px !important;
+}
+
+.bx-wrapper .bx-viewport {
+    height:350px !important;
+}
+
+
+.rating .comment {
+    float:left;
+}
+.catalog_list li {
+    width:164px !important;
+}
+.catalog_list li .rating {
+    width:150px;
+}   
+
+.catalog_list li .rating a {
+    margin-left: 0 !important;
+}
+
+.catalog_list .price {
+    margin-left:10px !important;
+}
+.catalog_list li:hover .price {
+    margin-left:-4px !important;
+}
+.fast_view {
+    margin-left:10px;
+}
+
+.catalog_list li .link {
+    margin-left: 10px !important;
+}   
+.catalog_list li:hover .link {
+    margin-left: -4px !important;
+}  
+
+div.card:hover .catalog_list .price {
+    margin-left: 0;
+}        
+
+div.card:hover .catalog_list li .link {
+    margin:0 !important;
+}
+
+div.card .info_block {
+    width:164px !important;
+}
+.addToLikeListaa, .deleteFromWishListaa, .showpUpss {
+    top:122px !important;
+}
+.comparison {
+    top:73px !important;
+   /* margin-top: 75px !important; */
+}
+div.card:hover .remember {
+    top:-24px !important;
+    left:-71px !important;
+}
+div.card:hover .comparison {
+ /*   top:59px !important;
+    left:-74px !important;   */
+    margin-left:5px;
+    margin-top:24px;
+}
+.bx-controls-direction {
+    display:none;
+}
+/*.bx-viewport {
+    margin-left:40px;
+}*/
+.all_new_items {
+    text-align: right;
+    display: block;
+    margin-top: 13px;
+    color: #0086da;
+}
+.catalog_list li:hover .photo p a {
+    margin-left:-12px;
+}
+.title_tab {
+    float:right !important;
+    clear:left;
+}
+.but_list .title_tab:first-child {
+    margin-right:18px;
+}
+.ul_slider {
+    position:relative;
+}
+/*.ul_slider:before */
+/*.but_list {
+    position:relative;
+}
+.but_list:before{
+    position:absolute;
+    top:71px;
+    left:-7px;
+    width:98.5%;
+    border-top:1px solid #cdcdcd;
+    content:"";
+} */
+.title_tab {
+    position:relative;
+}
+.title_tab:before {
+    position:absolute;
+    bottom:0px;
+    left:-1px;
+    width:102%;
+    border-top:1px solid #cdcdcd;
+    content:""; 
+}
+.rouble {
+    font-size:16px;
+    color:#805695;
+    line-height:17px;
+    margin-left:5px;
+}

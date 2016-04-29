@@ -1,0 +1,1 @@
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?><div class="Raiting"><?for($si = 0; $si<5; $si++){?><span class="<?=($si+1 <= $Raiting ? 'On': '')?>"></span><?}?><div class="clear"></div></div>

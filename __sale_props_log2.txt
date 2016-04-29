@@ -3348,3 +3348,23 @@ Array
     [trm] => (none)
 )
 
+Array
+(
+    [typ] => typein
+    [src] => typein
+    [mdm] => typein
+    [cmp] => (none)
+    [cnt] => (none)
+    [trm] => (none)
+)
+
+Array
+(
+    [typ] => typein
+    [src] => typein
+    [mdm] => typein
+    [cmp] => (none)
+    [cnt] => (none)
+    [trm] => (none)
+)
+

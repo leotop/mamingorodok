@@ -1,0 +1,189 @@
+.base
+{
+	z-index:1;
+	margin:0px;
+	margin-top:5px;
+}
+/*
+.container
+	{	
+	padding-left:30px;
+	padding-right:30px;
+	padding-top:25px;
+	}*/
+.mainmenu{
+	z-index:2;
+}
+#mainmenu5{
+	z-index:2;
+}
+.header{
+	z-index:4;
+}
+
+.header_right{
+	z-index:5;
+}
+.basket_all{
+	top:37px !important;
+}
+.basket_margin{
+	left:10px;
+}
+.searchInput input{
+	margin-top:5px;
+}
+.fotolink{
+	float:left !important;
+}
+
+.searchButton input{
+	font-size:0;
+	display:block;
+	line-height:0;
+	padding-left:100px;
+}
+.qw{
+	top:32px;
+}
+
+.pcihotypes{
+	padding:20px 20px 30px 20px;
+	margin:0px;
+}
+
+.marginingie{
+	margin-top:20px;
+}
+
+.authInput input{
+	margin-top:4px;
+}
+.btn{
+	padding-top:17px;
+	padding-bottom:0px;
+	margin-bottom:20px;
+}
+
+/*
+Каталог
+*/
+.goods h2 a  {margin-top: -17px;}
+
+.friendsTabs div{
+	line-height:1 !important;
+}
+
+.purple span span{
+	
+	height:25px;
+}
+
+.commentForm .purple span span{
+	margin-top:0px;
+}
+
+.searchBlogPage{
+	width:390px !important;
+}
+
+.group .head div .main{
+	line-height:1.3;
+}
+
+.group .head div .text p{
+	margin-top:0px !important;
+}
+
+.reg{
+	 top: 13px;
+}
+.btnSB2{
+	padding-left:2px !important;
+}
+
+.MiniBtn .commentForm{
+	width:100%;
+}
+
+.MiniBtn  #sBtnie7{
+	width:190px !important;
+	zoom:1;
+}
+.MiniBtn .commentForm   button.jqTransformButton span span{
+}
+
+.MiniBtn .commentForm  button.jqTransformButton.whiteBtn{
+	width:190px;
+	zoom:1;
+}
+.MiniBtn .commentForm   button.jqTransformButton.whiteBtn span span{
+	width:180px;
+	padding-top:8px;
+	line-height: 15px;
+	padding-left:8px;
+	padding-right:6px;
+}
+.MiniBtn .miniArea .notice{
+	left:-10px !important;
+}
+.product-type-selector.ie7-bug li span span, 
+.product-type-selector.ie7-bug span span,
+.product-type-selector li span span,
+.product-type-selector li.selected span span  {
+    padding-top:3px;
+    line-height:13px;
+    
+}
+
+#change_pwd span span{
+	width:110px;
+}
+.whiteBtn span span{
+	line-height:15px !important;
+	padding-top:7px !important;
+}
+
+#saveProfile span span{
+	width:130px;
+}
+
+#send_account_info span span{
+	width:130px;
+}
+
+.underline{
+	zoom:1;
+	position:relative;
+}
+
+.saveAuth{
+	top:4px;
+}
+.foto-form-personal{
+	margin-top:70px;
+}
+
+.mainAuthTabl .purple span span{
+	margin-top:2px !important;
+}
+
+.auth .content .top15, .auth .content .top5{
+	margin-top:2px;	
+}
+.basket_margin{
+	zoom:1;
+}
+.cn.bl, .cn.br{
+
+}
+.mainAuthTabl .soc{
+	top:195px !important;
+}
+.auth .deborder{
+	margin:0px -31px 0px 0px !important;
+	top: -1px;
+}
+.btt-specialoffert {
+    background: #FF7C7A url(/bitrix/templates/nmg/img/specoff_ie_bg.png) repeat-x 0 0;
+}

@@ -1,0 +1,11 @@
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+.compare-checkbox-layer {
+    margin-top: 4px;
+}
+
+.compare-checkbox {
+    top: -2px;
+}
+ 
+}

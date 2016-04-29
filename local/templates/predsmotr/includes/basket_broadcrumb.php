@@ -1,0 +1,31 @@
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
+<?
+	global $USER;
+	if(isset($arCrumb)):
+		$arCrumb = intval($arCrumb);
+		$APPLICATION->AddChainItem("Магазин", "/catalog/");
+		if($arCrumb<2)
+			$APPLICATION->AddChainItem("Корзина", "");
+		else
+			$APPLICATION->AddChainItem("Корзина", "/basket/");
+		if(!$USER->IsAuthorized()){
+			if($arCrumb<3)
+				$APPLICATION->AddChainItem("Авторизация", "");
+			else
+				$APPLICATION->AddChainItem("Авторизация", "2");
+		}
+		if($arCrumb<4)
+			$APPLICATION->AddChainItem("Доставка", "");
+		else
+			$APPLICATION->AddChainItem("Доставка", "/basket/order/");
+			
+		if($arCrumb<5)
+			$APPLICATION->AddChainItem("Способ оплаты", "");
+		else
+			$APPLICATION->AddChainItem("Способ оплаты", "4");
+		if($arCrumb<6)	
+			$APPLICATION->AddChainItem("Подтвержение заказа", "");
+		else
+			$APPLICATION->AddChainItem("Подтвержение заказа", "5");
+	endif;
+?>

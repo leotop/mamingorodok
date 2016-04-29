@@ -1,0 +1,65 @@
+.profile-block-hidden
+{
+	display: none;
+}
+
+.profile-block-shown
+{
+	display:block;
+}
+
+
+
+
+.profile-table
+{
+	width: 100%;
+}
+
+.profile-link
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-weight: bold;
+}
+
+.profile-table td {
+	vertical-align: top;
+	width:50%;
+}
+
+.right_sitebar .citem span.pol {
+   font-weight: normal;
+}
+
+.right_sitebar .citem .jqTransformButton span {
+   color: #FFF;
+}
+
+#soclink .bx-ss-icon {
+   background-image: url("/bitrix/templates/nmg/components/bitrix/socserv.auth.split/custom/images/socicons.gif");
+   background-repeat: no-repeat;
+   height: 33px;
+   width: 33px;
+}
+
+#soclink .facebook {
+   background-position: 0 -132px;
+}
+#soclink .twitter {
+   background-position: 0 -33px;
+}
+#soclink .vkontakte {
+   background-position: 0 0;
+}
+#soclink .openid-mail-ru {
+   background-position: 0 -165px;
+}
+#soclink .google {
+   background-position: 0 -99px;
+}
+#soclink .odnoklassniki {
+   background-position: 0 -66px;
+}

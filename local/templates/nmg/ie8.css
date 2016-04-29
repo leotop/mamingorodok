@@ -1,0 +1,13 @@
+#BlogLeft .items {
+	text-indent:0!important;
+}
+.jqTransformInputInner div input {
+	padding-top:8px!important;
+}
+.itemMainLast{
+	margin-top:0px !important;
+}
+
+.btt-specialoffert {
+    background: #FF7C7A url(/bitrix/templates/nmg/img/specoff_ie_bg.png) repeat-x 0 0;
+}

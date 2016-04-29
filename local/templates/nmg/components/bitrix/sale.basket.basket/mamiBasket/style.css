@@ -1,0 +1,217 @@
+/*Table*/
+table.sale_basket_basket
+{
+	width:100%;
+	
+	font-size:12px;
+}
+
+/*Table head*/
+table.sale_basket_basket th
+{
+	color:#80568D;
+	padding: 13px 0 6px 20px;
+	
+}
+
+/* Table cells and heads*/
+table.sale_basket_basket th, table.sale_basket_basket td
+{
+	border-bottom:1px solid #ae98ba;
+	vertical-align:middle;
+	text-align:left;
+	
+}
+
+table.sale_basket_basket td{
+	padding: 13px 0 10px 20px;
+}
+
+table.sale_basket_basket  th.th1{
+	
+}
+table.sale_basket_basket  th.th3{
+	width:10px;
+}
+table.sale_basket_basket  th.th5{
+	width:5px;
+}
+table.sale_basket_basket  th.th6, table.sale_basket_basket  th.th2, table.sale_basket_basket  th.th4{
+	width:10%;
+}
+table.sale_basket_basket  th.th2{
+	text-align:right;
+	padding-right:20px;
+	width:9%;
+}
+table.sale_basket_basket  td.td1{
+	width:10px;
+}
+table.sale_basket_basket  td.td4, table.sale_basket_basket  td.td5{
+	text-align:center;
+}
+
+
+table.sale_basket_basket  .delete{
+	display:block;
+	background: url("images/close_flip.png") no-repeat 0 0;
+	width:20px;
+	height:21px;
+}
+
+table.sale_basket_basket  .delete:hover{
+	background: url("images/close_flip.png") no-repeat 0 -22px;
+}
+
+input.QUANTITY{
+	width:30px;
+}
+
+table.sale_basket_basket  td.td5{
+	padding-left:35px;
+}
+
+table.sale_basket_basket  .bskt_info{
+	float:left;
+	width:440px;
+}
+table.sale_basket_basket   .bskt_img{
+	width:110px;
+	overflow:hidden;
+	height:100px;
+	float:left;
+}
+
+table.sale_basket_basket  .bskt_info .bskt_lnk{
+	font-size:14px;
+	font-weight:bold;
+	margin-top:10px;
+}
+
+table.sale_basket_basket  .bskt_info .bskt_rtg{
+	margin-top:5px;
+}
+
+table.sale_basket_basket  .bskt_info .bskt_color{
+	margin-top:7px;
+}
+
+.redPr{
+	font-size:16px;
+	color:#FF680D;
+	position:relative;
+	top:-4px;
+	font-weight:bold;
+}
+
+.allSum{
+	position:relative;
+/*	width:100%;*/
+	height:130px;
+	float:right;
+	white-space:nowrap
+}
+.allSum .total{ 
+	position:absolute;
+	top:10px;
+	right:10px;
+}
+.allSum .points{ 
+	position:absolute;
+	top:15px;
+	left:20px;
+	
+}
+
+.allSum .points label{
+	position:relative;
+	top:2px;
+	display:inline;
+	margin:0 0 0 0;
+	font-weight:normal;
+	font-size:11px;
+	float:none;
+}
+.allSum  .selectCertificate{
+	position:absolute;
+	top:35px;
+	left:43px;
+}
+.allSum  .selectCertificate a{
+	font-size:11px;
+}
+.allSum   .sale{
+	position:absolute;
+	top:35px;
+	font-size:11px;
+	right:10px;
+}
+.allSum  .certificate{
+	position:absolute;
+	top:35px;
+	font-size:11px;
+	right:10px;
+}
+
+.allSum  .totalSale{
+	position:absolute;
+	/*bottom:50px;*/
+	right:10px;
+    
+    bottom:70px;
+}
+
+.allSum  .order{
+	position:absolute;
+	bottom:0px;
+	right:10px;
+}
+.hasError{
+	color:red !important;
+}
+.infoline{
+	background-color:#fff7ff;
+	color:#80568D;
+}
+
+.certdiv{
+}
+.certdiv .certItem{
+	float:left;
+	width:150px;
+	margin-right:40px;
+	margin-top:15px;
+}
+.certdiv .certItem .certItem_checkbox{
+	float:left;
+	margin-right:5px;
+	margin-top:16px
+}
+.certdiv .certItem .certItem_picture{
+	float:left;
+	margin-right:5px;
+	
+}
+.certdiv .certItem .certItem_price{
+	float:left;
+	margin-right:5px;
+	margin-top:15px
+}
+#cerfBasket{
+	width:600px;
+}
+
+#cerfBasket .top30{
+	margin-top:30px;
+}
+
+
+.basketActions {padding:10px; padding-bottom:0px;}
+.basketActions div {width:600px; text-align:justify; clear:left; padding-bottom:30px;}
+.basketActions img {float:left; padding:0 10px 10px 50px;}
+
+.basket_red {color:#F00;}
+
+.element{
+    display: none; 
+}
