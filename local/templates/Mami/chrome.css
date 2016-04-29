@@ -1,0 +1,56 @@
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+.compare-checkbox-layer {
+    margin-top: 4px;
+}
+
+.compare-checkbox {
+    top: -2px;
+}
+ 
+ .jqTransformSafari .jqTransformInputInner div input{
+	height:32px !important;
+	top:0px !important;
+ }
+ .former input {
+	padding-top:0!important;
+ }
+ 
+ 
+.jqTransformTextarea td{
+	font-size:0px !important;
+} 
+
+.blog-post-buttons button{
+	margin-top:10px;
+}
+.blog-post-buttons button.preview{
+	margin-top:0px !important;
+	top: -4px !important;
+}
+
+.friendsTabs div {
+	line-height:0.8;
+}
+
+.commentForm .blog-required-field {
+  left:-19px;
+  position:relative;
+  top:3px;
+}
+ 
+ .commentForm .blog-required-field{
+	padding-left:20px;
+}
+.dfgfdsdf{
+	position:relative;
+	left:-20px;
+}
+ 
+}
+
+body:last-child:not(:root:root) .class {
+.jqTransformTextarea td{
+	font-size:0px !important;
+} 
+}

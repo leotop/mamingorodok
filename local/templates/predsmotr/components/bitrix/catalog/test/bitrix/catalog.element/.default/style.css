@@ -1,0 +1,12 @@
+.catalog-price {
+    color:red;
+}
+.product_name_popup{
+    font-family: Arial !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+    color:#7C4C95 !important;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #D1C9D2;
+    margin-bottom: 15px !important;
+}

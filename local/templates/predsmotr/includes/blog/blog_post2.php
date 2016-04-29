@@ -1,0 +1,14 @@
+<div class="items">
+		<div class="headers">
+			<a href="/community/group/1/1/">Для чего нужны лыжи?</a>
+		</div>
+		<img class="foto" src="<?=SITE_TEMPLATE_PATH;?>/images/blog/foto.png"></td>
+		<div class="info">
+			<a href="/community/user/2/blog/">Анастасия Ивановна</a> <span class="rating">Рейтинг</span> +37</td>
+		</div>
+		<div class="clear"></div>
+		В общем-то не плохой трансформер, но китайский вариант нас не устроил, а английский стоит уже другие деньги. В интернет-магазине, где мы ее покупали нам объяснили, что "Производитель очень часто без уведомления поставщиков и тем более продавцов изменяет конструкцию и вносит изменения в свои товары. К сожалению, так произошло с люлькой Sleepover Sport, дизайн которой был изменен производителем без каких-либо уведомлений. Даже на официальном сайте новых фотографий Вы не найдете".
+		<a href="/community/group/1/1/">Читать полностью</a>
+		<div class="mark">Метка: <a href="#" class="grey">автокресла</a> <a href="#" class="grey">инфа</a></div>
+		<?$APPLICATION->IncludeFile(SITE_TEMPLATE_PATH."/includes/blog/panel.php", array(), array("MODE"=>"html") );?>
+	</div>

@@ -1,0 +1,47 @@
+a.search-page-params {
+	border-bottom: 1px dashed blue;
+	text-decoration: none;
+}
+div.search-page-params {
+	margin-top: 6px;
+}
+.search-item-rate {font-size: 11px;}
+.search-page{
+    background: rgba(0, 0, 0, 0) url("/bitrix/templates/nmg/img/input_bg1.png") no-repeat scroll 0 0;
+    float: left;
+    height: 28px;
+    margin: 0 10px 0 0;
+    position: relative;
+    width: 314px;    
+}
+.searchInp{
+    color: #000000; 
+    background: transparent none repeat scroll 0 0;
+    border: medium none;
+    display: block;
+    font: 12px Arial,Helvetica,sans-serif;
+    left: 8px;
+    position: absolute;
+    top: 6px;
+    width: 280px; 
+    border-collapse: separate;  
+}
+.searchButt{
+    background: transparent none repeat scroll 0 0;
+    border: medium none;
+    cursor: pointer;
+    display: block;
+    height: 28px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 26px; 
+    border-collapse: separate;
+    font-family: inherit;
+    font-size: 100%;
+    font-style: inherit;
+    font-weight: inherit;  
+}
+.notetext{
+    display: none;
+}

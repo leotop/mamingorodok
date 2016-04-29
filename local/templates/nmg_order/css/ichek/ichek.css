@@ -1,0 +1,54 @@
+/* iCheck.js ichek skin
+----------------------------------- */
+.icheckbox_ichek,
+.iradio_ichek {
+    display: inline-block;
+    margin: 0 0 0 0;
+    padding: 0;
+    width: 15px;
+    height: 15px;
+
+    background: url(ichek.png) no-repeat;
+    border: none;
+    cursor: pointer;
+    top: 0px;
+    vertical-align: middle;
+}
+
+.icheckbox_ichek,
+.icheckbox_ichek.static:hover {
+    background-position: -30px 0;
+}
+    .icheckbox_ichek.hover,
+    .icheckbox_ichek:hover {
+    
+    }
+    .icheckbox_ichek.checked {
+        background-position:  -45px 0;
+    }
+    .icheckbox_ichek.disabled {
+        background-position: -30px 0;
+        cursor: default;
+    }
+    .icheckbox_ichek.checked.disabled {
+         background-position:  -45px 0;
+    }
+
+.iradio_ichek,
+.iradio_ichek.static:hover {
+    background-position: 0 0;
+}
+    .iradio_ichek.hover,
+    .iradio_ichek:hover {
+    
+    }
+    .iradio_ichek.checked {
+        background-position:  right 0;
+    }
+    .iradio_ichek.disabled {
+          background-position: 0px 0;
+        cursor: default;
+    }
+    .iradio_ichek.checked.disabled {
+         background-position:  0 0;
+    }

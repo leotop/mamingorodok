@@ -1,0 +1,22 @@
+div.subscribe-edit .red {
+	color:red;
+}
+div.subscribe-edit .green {
+	color:green;
+}
+div.subscribe-edit .errorcolor {
+	color:red;
+}
+div.subscribe-edit .successcolor {
+	color:green;
+}
+.data-table p {
+    margin:10px 0;
+}
+
+.data-table {
+    margin-top: 20px;
+}
+.subscribe-edit p {
+    margin:10px 0;
+}

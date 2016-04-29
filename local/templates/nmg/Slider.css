@@ -1,0 +1,162 @@
+/* Required styles (Don't edit these values) */ 
+
+.tpgSliderRail {
+	position: absolute; left: 0; top: 40px;}
+
+.tpgSliderThumb {
+	/*
+	Gecko browsers seem to need the thumb's font size to be set to 1em in order to correctly size the thumb using ems
+	Originally this was achieved by always setting the font-size to 1em directly, but this caused IE to incorrectly 
+	covert ems to pixels when a text size other than 'normal' is chosen. As a temp fix, we now use 'inherit' as a value
+	which currently isn't support by IE (hence the try-catch). NEEDS BETTER FIX
+	*/
+	font-size: inherit; width: 10px!important; height: 14px!important; top: 4px!important;	position: absolute;
+	z-index : 5;
+}
+
+#tpgSlider_tpgDoubleSlider_doubleSlider1_end { width: 14px!important;}
+
+
+.tpgSliderInnerRail {
+	position: absolute;
+	z-index: 2;
+	overflow: hidden; height: 4px!important; top: 4px!important; background: #d9ccdd;
+}
+
+.tpgDynLabel {
+	position: absolute;
+}
+
+.tpgRangeIndicator {
+	position: absolute;
+	z-index: 3;
+}
+
+/* Scale */ 
+
+.tpgScaleValues li, .tpgScaleValues dd{
+	position: absolute;
+}
+
+.tpgScaleValues {
+	position: aboslute;
+}
+
+ .tpgSliderScaleH span, .tpgSliderScaleV span {
+	position: absolute;
+	overflow: hidden; /* needed for IE6*/
+}
+
+/* edit these at your own risk */
+
+/* Rail */
+.tpgVerticalSlider .tpgSliderRail{
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+
+/* Scale */ 
+.tpgSliderScaleH span{
+	background-color: black;
+	height: 5px;
+	bottom: -5px;
+	width: 1px;	
+}
+
+.tpgSliderScaleV span{
+	background-color: black;
+	width: 5px;
+	right: -5px;
+	height: 1px;	
+}
+
+.tpgScaleValues { position: absolute; left: -5000px; top: -5000px;}
+
+.tpgScaleValues li, .tpgScaleValues dd{
+	list-style: none;
+	background: none;
+	margin: 0em;
+	padding: 0em; top: -24px!important;
+}
+
+.tpgScaleValues li span, .tpgScaleValues dd span{
+	font-size: 10px; font-family: Arial, Helvetica, sans-serif;
+	white-space: nowrap;
+	font-weight: normal;
+}
+ 
+/* Adjustments for labels and such */
+
+.tpgHorizontalSlider .tpgDynLabel {
+	top: -2em;
+}
+
+/* input and label */
+
+.tpgHorizontalSlider .tpgSliderInput { float: left; position: relative; left: -3px; top: -42px; margin: 0 20px 0 0;
+display: block; width: 51px; height: 27px!important; background: url(/bitrix/templates/nmg/img/input_bg2.png) no-repeat; border: none; font: 12px Arial, Helvetica, sans-serif!important; color: #b1b1b1; padding: 3px 0 0 9px;}
+
+input.tpgSliderInput {
+	width: 3em;
+	border: 1px solid #BBBBBB;
+}
+
+.tpgHorizontalSlider label {
+	float: left;
+}
+.tpgVerticalSlider label {
+	display: block;
+}
+
+/* dynamic label */
+
+.tpgDynLabel, .tpgSliderScaleH { display: none;}
+
+.tpgRangeIndicator {
+	background-color: #00abff;	
+	z-index: 3; height: 4px!important; top: 4px!important;
+	overflow: hidden; 
+}
+
+div.focused {
+	border: 1px solid black;
+}
+
+.focused .tpgSliderInnerRail {
+	background-color: #00CCCC;
+	border: 1px solid #000;
+}
+
+/* clearfix */
+	.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+html[xmlns] .clearfix {
+	display: block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+/* hidden contextual info */
+
+.tpgHidden {
+	position: fixed;
+	top: -100em;
+	left: -100em;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}

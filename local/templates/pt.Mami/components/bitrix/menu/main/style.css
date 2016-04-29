@@ -1,0 +1,107 @@
+/** main menu **/
+.mainmenu {
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:220px;
+}
+.mainmenu a{
+	color:#808080;
+}
+
+.mainmenu td{
+	width:157px;
+}
+
+.mainmenu .selected{
+	font-weight:bold;
+}
+#mainmenu0{
+	float: left;
+    height: 26px;
+    padding-top: 5px;
+    width: 86px;
+}
+#mainmenu00{
+	display: block;
+    float: left;
+    height: 17px;
+    padding-bottom: 15px;
+    padding-left: 40px;
+	background: url("images/shop.png") no-repeat 0 0;
+}
+#mainmenu1{
+	float: left;
+    height: 26px;
+    padding-top: 0;
+    width: 86px;
+}
+#mainmenu01{
+	background: url("images/review.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    height: 17px;
+    padding-bottom: 15px;
+    padding-left: 40px;
+}
+
+#mainmenu2{
+	float: left;
+    height: 26px;
+    padding-top: 5px;
+    width: 86px;
+}
+#mainmenu02{
+	display: block;
+    float: left;
+    height: 17px;
+    padding-bottom: 15px;
+    padding-left: 40px;
+	background: url("images/advice.png") no-repeat 0 0;
+}
+#mainmenu3{
+	float: left;
+    height: 26px;
+    width: 86px;
+	padding-top: 5px;
+}
+#mainmenu03{
+	display: block;
+    float: left;
+    height: 17px;
+    padding-bottom: 15px;
+    padding-left: 40px;
+	background: url("images/community.png") no-repeat 0 0;
+}
+#mainmenu4{
+	float: left;
+    height: 26px;
+    padding-top: 5px;
+    width: 86px;
+}
+#mainmenu04{
+	display: block;
+    float: left;
+    height: 17px;
+    padding-bottom: 15px;
+    padding-left: 40px;
+	background: url("images/blog.png") no-repeat 0 0;
+}
+#mainmenu5{
+	float: left;
+    height: 26px;
+    padding-top: 5px;
+    width: 86px;
+}
+#mainmenu05{
+	display: block;
+    float: left;
+    height: 17px;
+    padding-bottom: 15px;
+    padding-left: 40px;
+	background: url("images/profile.png") no-repeat 0 0;
+}
+
+.hvrLnk{
+	text-decoration:none !important;
+}
+
