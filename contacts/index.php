@@ -11,7 +11,18 @@
         </span></h1>
 
     <div> 
-        <div><b>Телефон в Москве</b>  +7(495) 988-32-39 </div>
+        <div><b>Телефон в Москве</b>  
+            <?$APPLICATION->IncludeComponent(
+                    "bitrix:main.include",
+                    "",
+                    Array(
+                        "AREA_FILE_SHOW" => "file",
+                        "PATH" => "/includes/phone.php",
+                        "EDIT_TEMPLATE" => ""
+                    ),
+                    false
+                );?>
+        </div>
 
         <div><b>Бесплатный  телефон для Регионов РФ</b> 8-800-775-9136 </div>
 
@@ -38,14 +49,14 @@
         </div>
     </div>
 
-<h1> 
+    <h1> 
         <br />
         Приглашаем в наш ШОУРУМ!</h1>
-<br />
+    <br />
     <div>- <b>Адрес выставочного зала:</b> Москва, 1-й Институтский проезд, дом 3, стр №5 </div>
     <div>- <b>График работы:</b>с 9:00 до 18:00 с понедельника по пятницу (суббота и воскресенье - ВЫХОДНОЙ) </div><br />
     <div>- <b>Схема проезда:</div>
-<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=iOZrGSlBfWAvusqTCyyWkAE60mhf3FbR&width=100%&height=400&lang=ru_RU&sourceType=constructor&scroll=true"></script>
+    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=iOZrGSlBfWAvusqTCyyWkAE60mhf3FbR&width=100%&height=400&lang=ru_RU&sourceType=constructor&scroll=true"></script>
 
     <h1> 
         <br />
