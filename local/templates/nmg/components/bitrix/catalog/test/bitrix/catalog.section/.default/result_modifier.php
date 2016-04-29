@@ -25,10 +25,9 @@
         }
     }
 
-    //arshow($arResult["META"]);
 
     if(strlen($arResult["SECTION"]["UF_H1"])<=0)
-        $arResult["META"]["H1"] = "Детские ".decapitalizeString($arResult["SECTION"]["NAME"]);
+        $arResult["META"]["H1"] = decapitalizeString($arResult["SECTION"]["NAME"]);
 
     if($GLOBALS["SET_SEO"]["type"] == 'producer')
     {
@@ -44,12 +43,12 @@
 
     $strDecapitalizedTitle = decapitalizeString($arResult["SECTION"]["NAME"]);
     $strDecapitalizedTitlePad = decapitalizeString($arResult["META"]["UF_NAME_PAD"]);
-
+    
     if(strlen($arResult["META"]["UF_TITLE"])<=0)
-        $arResult["META"]["UF_TITLE"] = "Детские ".$strDecapitalizedTitle." по выгодной цене - купить ".$strDecapitalizedTitle." для детей с доставкой по Москве - интернет-магазин ".$strDecapitalizedTitlePad." «Мамин городок»";
+        $arResult["META"]["UF_TITLE"] = $strDecapitalizedTitle." по выгодной цене - купить ".$strDecapitalizedTitle." для детей с доставкой по Москве - интернет-магазин ".$strDecapitalizedTitlePad." «Мамин городок»";
 
     if(strlen($arResult["META"]["UF_DESCRIPTION"])<=0)
-        $arResult["META"]["UF_DESCRIPTION"] = "Детские ".$strDecapitalizedTitle." отличного качества! Бесплатная доставка при заказе от 3 000 рублей по Москве! Большой выбор в интернет-магазине ".$strDecapitalizedTitlePad." «Мамин городок».";
+        $arResult["META"]["UF_DESCRIPTION"] = $strDecapitalizedTitle." отличного качества! Бесплатная доставка при заказе от 3 000 рублей по Москве! Большой выбор в интернет-магазине ".$strDecapitalizedTitlePad." «Мамин городок».";
 
     //Получаем бренды  
     /*
@@ -340,8 +339,8 @@
         $APPLICATION->SetPageProperty("description",$arResult["SEO"]["DESCRIPTION"]);
     }
 
-    if(isset($arResult["SEO"]["TITLE"]) && !empty($arResult["SEO"]["TITLE"]) && empty($arResult["META"]["UF_TITLE"])) {
+    /*if(isset($arResult["SEO"]["TITLE"]) && !empty($arResult["SEO"]["TITLE"]) && empty($arResult["META"]["UF_TITLE"])) {
         $APPLICATION->SetTitle($arResult["SEO"]["TITLE"]);
-    }
+    }*/
 
     $GLOBALS["ALLELEMENT"] = $arResult["ALLELEMENT"];?>
