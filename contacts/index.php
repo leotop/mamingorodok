@@ -2,7 +2,7 @@
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
     $APPLICATION->SetTitle("Контакты");
     $APPLICATION->SetPageProperty("description", "Контакты.");
-?> 
+?>
 <div class="formatted"> 
     <h1>Контакты и график работы. <span style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: 16px; font-weight: normal;"> 
             <br />
@@ -18,6 +18,8 @@
         <div><b>Электронная почта</b> - info@mamingorodok.ru <span style="font-size: 16px;">для связи по любым вопросам</span></div>
 
         <div><font color="#ee1d24">Внимание!</font> Письма, приходящие на данную почту, читает руководитель интернет-магазина. Мы открыты для общения, благодарности и критики. Критику мы уважаем и обязательно к ней прислушиваемся. Так мы стремимся стать лучше и радовать вас, вовремя доставленными заказами!</div>
+
+        <div><b>Шоурум:</b> Москва, 1-й Институтский проезд, дом 3, стр №5</div>
 
         <div> 
             <br />
@@ -35,6 +37,15 @@
             <div>- <b>Доставка </b>осуществляется <b>с 12:00 до 20:00,</b> на следующий после заказа день, если вы сделали заказ до 17:00 текущего дня и через день, если заказ сделан после 17:00 текущего дня. </div>
         </div>
     </div>
+
+<h1> 
+        <br />
+        Приглашаем в наш ШОУРУМ!</h1>
+<br />
+    <div>- <b>Адрес выставочного зала:</b> Москва, 1-й Институтский проезд, дом 3, стр №5 </div>
+    <div>- <b>График работы:</b>с 9:00 до 18:00 с понедельника по пятницу (суббота и воскресенье - ВЫХОДНОЙ) </div><br />
+    <div>- <b>Схема проезда:</div>
+<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=iOZrGSlBfWAvusqTCyyWkAE60mhf3FbR&width=100%&height=400&lang=ru_RU&sourceType=constructor&scroll=true"></script>
 
     <h1> 
         <br />
