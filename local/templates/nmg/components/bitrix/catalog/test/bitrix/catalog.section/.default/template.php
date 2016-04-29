@@ -5,10 +5,9 @@
 
     $parent_catalog = substr_count($_SERVER["REQUEST_URI"],"/catalog/filter/");
 
-
     $isSearch = $arParams["SEARCH"] == "Y";
 
-    $strH1 = $arResult["META"]["H1"];
+    $strH1 = $arResult["NAME"];
     $strH2 = $arResult["META"]["H2"];
 
     if($GLOBALS["SET_SEO"]["type"] == 'producer')
@@ -23,12 +22,11 @@
         $strCategoryName = $arResult["PATH"][count($arResult["PATH"])-1]["NAME"];
         $strH1 = $strCategoryName.' '.ToLower($GLOBALS["SET_SEO"]["DATA"]["ENUM"]["VALUE"]);
         $strH2 = $strH1;
+
     }
 
     if(strlen($arResult["SEO"]["H1"])>0) $strH1 = $arResult["SEO"]["H1"];
     if(strlen($arResult["SEO"]["H2"])>0) $strH2 = $arResult["SEO"]["H2"];
-
-
 
     if(!$isSearch)
     {
@@ -65,7 +63,7 @@
         */
     ?>
     <br> 
-    <h1 class="secth"><?=$strH1Addon.$strH1?></h1>
+    <h1 class="secth"><?=$strH1?></h1>
     <br><?
 
         if(strlen($arResult["DESCRIPTION"])>0 && $_REQUEST["PAGEN_1"]<=1 && $arResult["IBLOCK_SECTION_ID"]=='688')
@@ -371,12 +369,12 @@
                         <?
                             //echo showNoindex(false);?>
                         <div class="clear"></div>
-                        
+
                     </div>
 
                 </li>
                 <?
-                   }?>
+            }?>
             <?
         }?>
     </ul>
