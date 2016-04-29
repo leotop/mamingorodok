@@ -1,0 +1,359 @@
+ .cn{
+            display: none !important;
+        }
+        #fancybox-close{
+            right: -40px !important;
+            top:-10px !important;
+        }
+        .noRegister{
+            display: none;
+            width: 450px;
+            height: 112px;
+            position: fixed;
+            top:50%;
+            left:50%;
+            margin: -56px 0 0 -225px;
+            background-color: white;
+            z-index:5005;
+            border-radius:10px;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+    .bx-pager-item{
+        display: none !important;
+    }
+
+    .noRegister{
+        display: none;
+        width: 450px;
+        height: 112px;
+        position: fixed;
+        top:50%;
+        left:50%;
+        margin: -56px 0 0 -225px;
+        background-color: white;
+        z-index:5005;
+        border-radius:10px;
+        text-align: center;
+        font-size: 16px;
+    }
+    .overla{
+        position: fixed;
+        width: 150%;
+        height: 150%;
+        left:-200px;
+        top:-200px;
+        z-index:5004;
+        display: none;  
+        opacity: 0.5;
+        background-color: black;
+    }
+    div.noRegister .title{ 
+        text-align: center;
+        padding-top: 10px;      
+    }
+    div.noRegister .noRegister{
+        padding-left: 42px;
+        padding-right: 20px;   
+    }
+    
+    .closeAfterBuy{
+        cursor: pointer;
+        position: absolute;
+        right: -5px;
+        top: -5px;
+    }
+
+    div.card{
+        overflow: hidden !important;
+        height: 298px;
+    }  
+    /*div.card:hover{
+        overflow: visible;
+        height: 320px;
+        width: 218px !important; 
+        position: relative;
+        left: -60px;
+    }
+    div.card:hover .carousel_contain{
+        display: block;
+    } 
+    div.card:hover .photo{
+        margin-left: 60px !important;
+    } 
+    div.card:hover .fast_view{
+        position: relative;
+        left:-15px;
+    }
+    .li_hover_mod:hover{
+        height: 350px;  
+    }*/
+    div.podrob{
+        text-align: center;
+        margin: 0 30px;
+    }
+    p.podrob{
+
+    }
+    p.rememb{
+        padding-left: 28px;
+    }
+    div.rememb{
+        float: left;
+        width: 40px;
+        margin-top: 1px;
+        margin-left: 8px;
+    }
+    div.fast_vie{
+        float: right;
+        width: 120px;
+        margin-top: 4px;
+    }
+    .heart_rem{
+        float: left;    
+    }
+    img.zoom{
+        width: 20px;
+        float: left;
+        padding-top: 5px;
+    }
+    a.fast_view{
+        font-size: 12px !important;
+        height: 21px;   
+        padding-top: 4px;   
+        vertical-align: middle;
+        width: 150px;  
+        margin-top: 2px;                            
+    }
+    a.fast_view:before{
+        content: "";
+        display: block;
+        background-image: url("/i/zzoomm.png");
+        background-size: 20px ;
+        width: 20px;
+        height: 20px;
+        background-repeat: no-repeat;
+        float: left;
+        position: relative;
+        /*top:7px;                                  */
+        padding-right: 5px;
+    }
+    .compare{
+        width: 17px;
+        height: 17px;
+        display: block;
+        position: relative;
+        float: left;
+    }
+    input[type="checkbox"]+span.com_span{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: url("/bitrix/templates/nmg/img/compare.png") no-repeat;
+        cursor: pointer;
+        background-position: 0 -17px;
+    }
+    .input29{
+        opacity:0;
+    }
+    input[type="checkbox"]:checked + span.com_span      {
+        background-position: 0 0;
+    } 
+    .cn{
+        display: none !important;
+    }
+    #fancybox-close{
+        right: -40px !important;
+        top:-10px !important;
+    }
+    .slider_element{
+        height: 50px!important;
+        width: 50px!important;
+    }
+    .carousel_contain{
+        float: left;
+        width: 55px;
+        position: relative;
+        display: none;
+     /*   left: -60px;     */
+    } 
+    .bx-pager-item{
+        display: none !important;
+    }
+    .bx-viewport{
+        height: 185px;
+    }
+    .tovar_card{
+        height: 200px;
+        width: 60px;
+        overflow: hidden;
+      /*  float: left;     */
+        z-index: 1500;
+        position: relative;
+        
+    }
+    .carusel_body{
+        height: 250px;
+        display: none;   
+        width: 60px;
+        float: left;
+    }
+    .carusel{
+        width: 60px;             
+        position: relative;
+    }
+    /*div.card:hover .carusel_body{
+        display: block;
+    }*/
+    .down{
+        width: 20px;
+        height: 30px;
+        background: url(/i/up_ar.png) no-repeat;
+        position: relative;
+        cursor: pointer;
+        left: 16px;
+        top:7px;
+    }
+    .up{
+        position: relative;
+        width: 20px;
+        height: 30px;
+        background: url(/i/down_ar.png) no-repeat;
+        cursor: pointer;
+        left: 16px;
+    }
+    .info_block{
+        position: absolute;
+        right: 0;
+        top: 205px;
+        width: 164px;
+        margin-right: 7px;
+    }
+    .catalog_list li .rating{
+        margin: 5px 0 90px !important;
+    }
+    .catalog_list li .link{
+      /*  text-align: center;    */
+    }
+    .catalog_list li .comparison{
+        margin-top: 39px;
+        padding: 2px 0 0 5px;
+        margin-left: 63px;
+    }
+    .right_sitebar .catalog_list li{
+        height: 342px;
+    }
+    .deleteFromWishListaa{
+        float: left;
+        position: relative;
+        top:39px;
+        left:10px;
+    }
+    .addToLikeListaa{
+        float: left;
+        position: relative;
+        top:39px;
+        left:10px;   
+    }
+    .showpUpss{
+        float: left;
+        position: relative;
+        top:39px;
+        left:10px;    
+    }
+    .like_com{
+        width: 250px;
+        height: 40px;
+        position: fixed;
+        left: 50%;
+        top:50%;
+        margin: -20px 0 0 -125px;
+        border: 1px solid black;
+        border-radius: 15px;
+        background-color: white;
+        z-index: 3000;
+        text-align: center;
+    }
+    .compare_com{
+        width: 250px;
+        height: 40px;
+        position: fixed;
+        left: 50%;
+        top:50%;
+        margin: -20px 0 0 -125px;           
+        border: 1px solid black;
+        border-radius: 15px;
+        background-color: white;
+        z-index: 3000;
+        text-align: center;    
+    }
+    .like_comment{
+     /*   width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity:0.7;     */
+    }
+    .compare_comment{
+   /*     width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity:0.7;     */
+    }
+    .input21{
+        width:162px!important;
+    }
+    .fast_view{
+        /*border: 1px solid #ff701a;
+        background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #ff9f01 0%, #ff701a 100%) repeat scroll 0 0; 
+        border-radius:6px;
+        text-shadow:1px 1px 0 #696969;           */
+        color:#808080 !important;
+        text-decoration: underline;        
+        font-size: 14px; 
+    }
+    .remember{
+        cursor: pointer;
+    }
+    /*div.card:hover .remember{
+        position: relative;
+        top:-30px;
+        left:-10px;
+    }
+    div.card:hover .comparison{
+        position: relative;
+        top:-30px;
+        left:-10px;
+    }*/
+    .white_plash .content{
+        background: none;
+    }
+    .white_plash .content .content{
+        background: none;
+    }
+    .heart_like{
+        
+    }
+    .remembering{
+        font-size: 14px;
+        left: 20px;
+        position: relative;
+        top: -20px;
+        margin-top: 4px!important;
+        margin-left: 2px!important;
+    }
+    .comparsion_title{
+        color: #0086da;
+        font-size: 14px;
+        left: 20px;
+        position: relative;
+        text-decoration: underline;
+        top: -18px!important;
+        cursor: pointer; 
+        background: none!important;   
+    }
+    .catalog_list li .price{
+        height: 23px!important;
+    }

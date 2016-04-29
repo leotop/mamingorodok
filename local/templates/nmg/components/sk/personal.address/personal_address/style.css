@@ -1,0 +1,14 @@
+.ad_new {
+   background-color: #F9F7FA;
+   height: 310px;
+   padding: 20px;
+}
+
+.ad_new_add {
+   font-size: 15px;
+   font-weight: bold;
+}
+
+form button.top10 {
+   margin-top: 10px;
+}

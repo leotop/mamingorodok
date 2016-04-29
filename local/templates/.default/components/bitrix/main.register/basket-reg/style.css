@@ -1,0 +1,32 @@
+#registerForm .custom-radio{
+    clear: both;
+    float: left;
+    padding-bottom: 10px;   
+}
+#registerForm .regFormDel {
+    margin-top: 40px;
+}
+.reg_input{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 460px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #7A4795;
+    margin-left: -230px;
+    margin-top: -52px;
+}
+.reg_input b{
+    padding-left: 10px;
+}
+#close_reg{
+    width: 50px;
+    text-align: center;
+    padding: 5px 0px;
+    margin: 10px auto 0;
+    background-color: #F69700;
+    color: #fff;
+    cursor: pointer;
+}

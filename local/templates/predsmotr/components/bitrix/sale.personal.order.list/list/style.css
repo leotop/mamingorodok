@@ -1,0 +1,37 @@
+/*Table*/
+table.sale_personal_order_list
+{
+	width:100%;
+	border-collapse:collapse;
+	font-size:12px;
+	border:1px solid #ADC3D5;
+}
+
+/*Table head*/
+table.sale_personal_order_list th
+{
+	text-align: left;
+	color:#25639A;
+}
+
+/* Table cells and heads*/
+table.sale_personal_order_list th, table.sale_personal_order_list td
+{
+	padding: 3px 5px;
+	vertical-align:top;
+}
+
+table.sale_personal_order_list_table
+{
+	width:100%;
+	font-size:12px;
+}
+
+.order_actions button {
+   background: none;
+   border: none;
+   color: #0086da;
+   float: left;
+   margin-right: 17px;
+   text-decoration: underline;
+}

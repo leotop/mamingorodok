@@ -1,0 +1,1 @@
+	<div class="friend">		<img src="<?=SITE_TEMPLATE_PATH?>/images/blog/foto2.png">		<a href="/community/user/2/blog/">Виктор Моретти</a>		<a href="/community/user/2/blog/" class="grey">Перейти к блогу</a>		<a href="#" class="del lnk">Удалить</a>	</div>	

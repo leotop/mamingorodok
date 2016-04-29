@@ -1,0 +1,6 @@
+.relClass .tp-pr {
+    right: 16px !important;
+    top: -42px !important;
+    z-index: 99;
+    zoom: 1;
+}

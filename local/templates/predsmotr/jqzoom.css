@@ -1,0 +1,22 @@
+
+div.zoomdiv {
+z-index                 : 100;
+position                : absolute;
+top:0px;
+left:40px;
+width                   : 500px;
+height                  : 300px;
+background: #ffffff;
+border:1px solid #CCCCCC;
+display:none;
+text-align: center; 
+overflow: hidden;
+
+}
+
+
+img.jqzoom{
+cursor: url("images/cursor.png"), pointer !important;
+position:relative;
+
+}

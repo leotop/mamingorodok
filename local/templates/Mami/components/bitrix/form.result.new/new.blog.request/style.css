@@ -1,0 +1,34 @@
+.form {
+    width: 430px;
+}
+.form .form-caption {
+    color: #000000;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.form.jqtransform-cover input,
+.form .answer textarea {
+    width:400px !important;
+
+}
+.form .answer select {
+    width:480px;
+
+}
+.form .answer {
+    margin-bottom: 15px;
+}
+.form textarea {
+    height:100px;
+}
+.form .question {
+    margin-top:27px;
+    margin-bottom:10px;
+    font-size:13px;
+    font-weight: bold;
+}
+.oktext {
+    margin:0 !important;
+}
