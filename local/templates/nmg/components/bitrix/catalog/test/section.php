@@ -6,7 +6,7 @@
         $rsSection = CIBlockSection::GetList(array(), array("IBLOCK_ID"=>2,"CODE"=>$arResult["VARIABLES"]["SECTION_CODE"]),false, array("UF_TITLE","UF_DESCRIPTION","UF_KEYWORDS"))->Fetch();
         $arResult["META"] = $rsSection;
         */
-
+        
         //проверяем наличие фильтрации по строке в урле. если функция вернет значение > 0 значит фильтр установлен
         $filter = substr_count($_SERVER["REQUEST_URI"],"/filter/");
 
