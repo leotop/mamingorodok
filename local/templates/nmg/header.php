@@ -449,7 +449,18 @@
         ?>
         <div class="sk-hotLine">
             Бесплатный телефон для регионов<br>
-            <strong>8-800-775-9136</strong>
+            <strong>
+                <?$APPLICATION->IncludeComponent(
+                        "bitrix:main.include",
+                        "",
+                        Array(
+                            "AREA_FILE_SHOW" => "file",
+                            "PATH" => "/includes/region-phone.php",
+                            "EDIT_TEMPLATE" => ""
+                        ),
+                        false
+                    );?>
+            </strong>
         </div>
 
 
@@ -776,35 +787,35 @@
                 {
 
                 ?><?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section.list", 
-	"index_left_col", 
-	array(
-		"IBLOCK_TYPE" => "catalog",
-		"IBLOCK_ID" => "2",
-		"SECTION_ID" => "",
-		"SECTION_CODE" => "",
-		"COUNT_ELEMENTS" => "N",
-		"TOP_DEPTH" => "1",
-		"SECTION_FIELDS" => array(
-			0 => "ID",
-			1 => "NAME",
-			2 => "SORT",
-			3 => "",
-		),
-		"SECTION_USER_FIELDS" => array(
-			0 => "UF_MENU_TITLE",
-			1 => "UF_INDEX",
-			2 => "",
-		),
-		"SECTION_URL" => "/catalog/#CODE#/",
-		"CACHE_TYPE" => "A",
-		"CACHE_TIME" => "36000000",
-		"CACHE_GROUPS" => "Y",
-		"ADD_SECTIONS_CHAIN" => "N",
-		"COMPONENT_TEMPLATE" => "index_left_col"
-	),
-	false
-);?><?
+                        "bitrix:catalog.section.list", 
+                        "index_left_col", 
+                        array(
+                            "IBLOCK_TYPE" => "catalog",
+                            "IBLOCK_ID" => "2",
+                            "SECTION_ID" => "",
+                            "SECTION_CODE" => "",
+                            "COUNT_ELEMENTS" => "N",
+                            "TOP_DEPTH" => "1",
+                            "SECTION_FIELDS" => array(
+                                0 => "ID",
+                                1 => "NAME",
+                                2 => "SORT",
+                                3 => "",
+                            ),
+                            "SECTION_USER_FIELDS" => array(
+                                0 => "UF_MENU_TITLE",
+                                1 => "UF_INDEX",
+                                2 => "",
+                            ),
+                            "SECTION_URL" => "/catalog/#CODE#/",
+                            "CACHE_TYPE" => "A",
+                            "CACHE_TIME" => "36000000",
+                            "CACHE_GROUPS" => "Y",
+                            "ADD_SECTIONS_CHAIN" => "N",
+                            "COMPONENT_TEMPLATE" => "index_left_col"
+                        ),
+                        false
+                    );?><?
                 }
                 /*                if(strpos($_SERVER["REQUEST_URI"]) !== false && ERROR_404 != "Y")
                 {
