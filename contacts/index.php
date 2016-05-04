@@ -24,7 +24,17 @@
                 );?>
         </div>
 
-        <div><b>Бесплатный  телефон для Регионов РФ</b> 8-800-775-9136 </div>
+        <div><b>Бесплатный  телефон для Регионов РФ</b>
+            <?$APPLICATION->IncludeComponent(
+                "bitrix:main.include",
+                "",
+                Array(
+                    "AREA_FILE_SHOW" => "file",
+                    "PATH" => "/includes/region-phone.php",
+                    "EDIT_TEMPLATE" => ""
+                ),
+                false
+            );?></div>
 
         <div><b>Электронная почта</b> - info@mamingorodok.ru <span style="font-size: 16px;">для связи по любым вопросам</span></div>
 
