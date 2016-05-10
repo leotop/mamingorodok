@@ -149,7 +149,7 @@
 
     $GLOBALS['IBLOCK_ID'] = IntVal($IBLOCK_ID);
     $db_iblock = CIBlock::GetByID($IBLOCK_ID);
-    if (!($ar_iblock = $db_iblock->Fetch()))
+    if (!($arIblock = $db_iblock->Fetch()))
         $strExportErrorMessage .= "Information block #".$IBLOCK_ID." does not exist.\n";
     else
     {
@@ -157,20 +157,20 @@
 
         if (strlen($SETUP_SERVER_NAME) <= 0)
         {
-            if (strlen($ar_iblock['SERVER_NAME']) <= 0)
+            if (strlen($arIblock['SERVER_NAME']) <= 0)
             {
-                $rsSite = CSite::GetList(($b="sort"), ($o="asc"), array("LID" => $ar_iblock["LID"]));
+                $rsSite = CSite::GetList(($b="sort"), ($o="asc"), array("LID" => $arIblock["LID"]));
                 if($arSite = $rsSite->Fetch())
-                    $ar_iblock["SERVER_NAME"] = $arSite["SERVER_NAME"];
-                if(strlen($ar_iblock["SERVER_NAME"])<=0 && defined("SITE_SERVER_NAME"))
-                    $ar_iblock["SERVER_NAME"] = SITE_SERVER_NAME;
-                if(strlen($ar_iblock["SERVER_NAME"])<=0)
-                    $ar_iblock["SERVER_NAME"] = COption::GetOptionString("main", "server_name", "");
+                    $arIblock["SERVER_NAME"] = $arSite["SERVER_NAME"];
+                if(strlen($arIblock["SERVER_NAME"])<=0 && defined("SITE_SERVER_NAME"))
+                    $arIblock["SERVER_NAME"] = SITE_SERVER_NAME;
+                if(strlen($arIblock["SERVER_NAME"])<=0)
+                    $arIblock["SERVER_NAME"] = COption::GetOptionString("main", "server_name", "");
             }
         }
         else
         {
-            $ar_iblock['SERVER_NAME'] = $SETUP_SERVER_NAME;
+            $arIblock['SERVER_NAME'] = $SETUP_SERVER_NAME;
         }
     }
 
@@ -223,7 +223,7 @@
         @fwrite($fp, "<name>".htmlspecialchars($APPLICATION->ConvertCharset(COption::GetOptionString("main", "site_name", ""), LANG_CHARSET, 'windows-1251'))."</name>\n");
 
         @fwrite($fp, "<company>".htmlspecialchars($APPLICATION->ConvertCharset(COption::GetOptionString("main", "site_name", ""), LANG_CHARSET, 'windows-1251'))."</company>\n");
-        @fwrite($fp, "<url>http://".htmlspecialchars($ar_iblock['SERVER_NAME'])."</url>\n");
+        @fwrite($fp, "<url>http://".htmlspecialchars($arIblock['SERVER_NAME'])."</url>\n");
 
         $strTmp = "<currencies>\n";
 
@@ -324,52 +324,22 @@
             $rsOffersSize = CIBlockElement::GetList(Array(), $arOffersFilter, array("PROPERTY_SIZE"));
             $intOfferSizeCnt = $rsOffersSize -> SelectedRowsCount();
 
-            $arOffersFilter = Array("IBLOCK_ID"=>OFFERS_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_CML2_LINK"=>$arAcc["ID"]);
-            $rsOffers = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arOffersFilter, false, false, array("ID", "IBLOCK_ID", "XML_ID", "CATALOG_GROUP_1", "PROPERTY_PICTURE_MAXI", "PROPERTY_TSVET", "PROPERTY_RAZMER", "PROPERTY_SHASSI"));
+            $isComplect = CCatalogProductSet::isProductInSet($arAcc["ID"]);
+            if(empty($arAcc["PROPERTIES"]["STATUS_TOVARA"]["VALUE_ENUM_ID"])) {  
 
-            //Check status
-            if(empty($arAcc["PROPERTIES"]["STATUS_TOVARA"]["VALUE_ENUM_ID"])) {
-                while($arOffer = $rsOffers -> GetNext())
-                {
-                    $offerMinPrice = 0;
-                    if ($arPrice = CCatalogProduct::GetOptimalPrice($arOffer["ID"], 1, array(2), 'N', array(), $ar_iblock['LID']))
-                    {
-                        $offerMinPrice = $arPrice['DISCOUNT_PRICE'];
-                        $offerMinPriceCurrency = $arPrice["CURRENCY"];
-                    }
+                if ($isComplect==true) {
+                        $setArray = CCatalogProduct::GetByID($arAcc["ID"]);
+                        $setQuantity = $setArray["QUANTITY"];
 
-                    //Get quantity from paramets
-                    $quantityForDisplay = COption::GetOptionString("grain.customsettings","QUANTITY_FOR_DISPLAY"); 
+                        if (intval($setQuantity) > 0) {
 
-                    if(intval($arOffer["CATALOG_QUANTITY"])>intval($quantityForDisplay))  {
+                            $strUrl = str_replace(' ', '%20', 'http://'.$arIblock['SERVER_NAME'].htmlspecialchars($arAcc["~DETAIL_PAGE_URL"]).
+                                (strstr($arAcc['DETAIL_PAGE_URL'], '?') === false ? '?' : '&amp;').'utm_source=ya_market&amp;utm_medium=cpc&amp;utm_campaign=mamingorodok.ru');
 
-                        if($offerMinPrice>=500)
-                        {
-
-                            if($intOfferSizeCnt>1)
-                            {
-                                /*(!empty($arAcc["PROPERTIES"]["CHTO_VYBIRAEM"]["VALUE"]))
-                                $strName = $arAcc["NAME"].', '.$arAcc["PROPERTIES"]["CHTO_VYBIRAEM"]["VALUE"].' - '.$arOffer["PROPERTY_SIZE_VALUE"].', цвет - '.$arOffer["PROPERTY_COLOR_VALUE"];
-                                else $strName = $arAcc["NAME"].', размер - '.$arOffer["PROPERTY_SIZE_VALUE"].', цвет - '.$arOffer["PROPERTY_COLOR_VALUE"];
-                                } else $strName = $arAcc["NAME"].", ".$arOffer["PROPERTY_COLOR_VALUE"];  */
-
+                            if ($arPrice = CCatalogProduct::GetOptimalPrice($arAcc["ID"], 1, array(2), 'N', array(), $arIblock['LID'])) {
+                                $offerMinPrice = $arPrice['DISCOUNT_PRICE'];
+                                $offerMinPriceCurrency = $arPrice["CURRENCY"];
                             }
-
-                            /*$strUrl = $usedProtocol.$arAcc['SERVER_NAME'].htmlspecialcharsbx($arAcc["~DETAIL_PAGE_URL"]).(strstr($arAcc['DETAIL_PAGE_URL'], '?') === false ? '?' : '&amp;')."r1=<?echo \$_GET[\"referer1\"]; ?>&amp;r2=<?echo \$_GET[\"referer2\"]; ?>"; */
-                            $strUrl = str_replace(' ', '%20', 'http://'.$ar_iblock['SERVER_NAME'].htmlspecialchars($arAcc["~DETAIL_PAGE_URL"]).
-                                (strstr($arAcc['DETAIL_PAGE_URL'], '?') === false ? '?' : '&amp;').'utm_source=ya_market&amp;utm_medium=cpc&amp;utm_campaign=mamingorodok.ru').'&amp;showOffer='.$arOffer["ID"];
-
-                            if (!empty($arOffer["PROPERTY_SHASSI_VALUE"])) {
-                                $strOfferProp = "(".$arOffer["PROPERTY_TSVET_VALUE"].", ".$arOffer["PROPERTY_SHASSI_VALUE"].")";
-                            } else if (!empty($arOffer["PROPERTY_RAZMER_VALUE"])) {
-                                $strOfferProp = "(".$arOffer["PROPERTY_TSVET_VALUE"].", ".$arOffer["PROPERTY_RAZMER_VALUE"].")";
-                            } else {
-                                $strOfferProp = "(".$arOffer["PROPERTY_TSVET_VALUE"].")"; 
-                            }
-
-                            $intItemSection = 0;
-                            $boolCurrentSections = false;
-                            $bNoActiveGroup = true;
 
                             $rsTmpSections = CIBlockElement::GetElementGroups($arAcc["ID"]);
                             while ($arTmpSection = $rsTmpSections->Fetch())
@@ -382,116 +352,196 @@
                                 }
                             }
 
-                            if ($bNoActiveGroup) continue;
-                            $strResult .= $arOffer["PROPERTY_SIZE_VALUE"]."\n";
-                            $strResult .= $arOffer["PROPERTY_COLOR_VALUE"]."\n";
-
-                            $strResult .= "<offer id=\"".$arOffer["ID"]."\" available='true'>\n";
+                            $strResult .= "<offer id=\"".$arAcc["ID"]."\" available='true'>\n";
                             $strResult .= '<url>'.$strUrl.'</url>'.$strNL;
                             $strResult .= '<price>'.$offerMinPrice.'</price>'.$strNL;
                             $strResult .= '<currencyId>RUR</currencyId>'.$strNL;
                             $strResult .= $strOfferCat;
-
-                            $arLiveSections[$intItemSection] = false;
-                            if($arAvailGroups[$intItemSection]["IBLOCK_SECTION_ID"]>0) $arLiveSections[$arAvailGroups[$intItemSection]["IBLOCK_SECTION_ID"]] = false;
-
-                            $bigImg["src"] = getResizedIMGPath($arOffer["XML_ID"]);
+                            $bigImg["src"] = getResizedIMGPath($arAcc["XML_ID"]);
                             if (empty($bigImg["src"])) {
-
                                 $tmpImg = CFile::GetFileArray($arAcc["DETAIL_PICTURE"]);
-                                $strResult.="<picture>http://".$ar_iblock['SERVER_NAME'].$tmpImg["SRC"]."</picture>\n";
+                                $strResult.="<picture>http://".$arIblock['SERVER_NAME'].$tmpImg["SRC"]."</picture>\n";
                             }  else {
 
                                 $strResult.="<picture>".$bigImg["src"]."</picture>\n";
                             }
-                            /*if ($arOffer["ID"]==110243) {
-                            die;
-                            }*/
-                            /*arshow($strResult);
-                            arshow($arOffer);
-                            if ($arOffer["ID"]==88124){
-                            die;
-                            }      */
-
-                            //                        $strResult .= '<store>false</store>'.$strNL;
-                            //                        $strResult .= '<pickup>false</pickup>'.$strNL;
-                            //                        $strResult .= '<delivery>true</delivery>'.$strNL;
-                            //                        $strResult .= '<local_delivery_cost>'.($offerMinPrice>3000?0:300).'</local_delivery_cost>'.$strNL;
-                            //                        $strResult .= '<vendor>'.yandex_text2xml($arAcc["PROPERTY_CH_PRODUCER_NAME"], true).'</vendor>'.$strNL;
-                            //                        $strResult .= '<name>'.yandex_text2xml($strName, true).'</name>'.$strNL;
-                            //                        $strResult .= '<description>'.$arAcc["NAME"].'</description>'.$strNL;
-
-                            //Check delivery price
-                            /*if (intval($offerMinPrice)>0 && intval($offerMinPrice)<1500) {
-                            $deliveryCost=500;
-                            } else if (intval($offerMinPrice)>=1500 && intval($offerMinPrice)<3000) {
-                            $deliveryCost=350;
-                            } else if (intval($offerMinPrice)>=3000 && intval($offerMinPrice)<5000) {
-                            $deliveryCost=200;
-                            } else if (intval($offerMinPrice)>=5000) {
-                            $deliveryCost=0;
-                            } */
-                            $deliveryCost = calcYandexDelivery($offerMinPrice, $arRules);  
-
+                            $deliveryCost = calcYandexDelivery($offerMinPrice, $arRules); 
                             if(!empty($deliveryCost) || $deliveryCost==0) {
                                 $strResult.= "<local_delivery_cost>".$deliveryCost."</local_delivery_cost>\n";
                             }
-                            $strResult.= "<name>".yandex_text2xml($arAcc["~NAME"]." ".$strOfferProp, true)."</name>\n";
-                            $strResult.= 
-                            "<description>".
-                            yandex_text2xml(TruncateText(
-                                ($arAcc["PREVIEW_TEXT_TYPE"]=="html"?
-                                    strip_tags(preg_replace_callback("'&[^;]*;'", "yandex_replace_special", $arAcc["~PREVIEW_TEXT"])) : preg_replace_callback("'&[^;]*;'", "yandex_replace_special", $arAcc["~PREVIEW_TEXT"])),
-                                255), true).
-                            "</description>\n";
-
-                            //                        $strResult .= '<sales_notes>'.($boolIsActionItem?'Акция! ':'').'Официальная поставка! Принимаем карты!</sales_notes>'.$strNL;
-                            if(!empty($arAcc["PROPERTIES"]["manufacturer_warrant"]["VALUE"]))
-                                $strResult .= '<manufacturer_warranty>'.$arAcc["PROPERTIES"]["manufacturer_warrant"]["VALUE"].'</manufacturer_warranty>'.$strNL;
-                            if(!empty($arAcc["PROPERTY_CH_STRANA_1_NAME"]))
-                                $strResult .= '<country_of_origin>'.yandex_text2xml($arAcc["PROPERTY_CH_STRANA_1_NAME"]).'</country_of_origin>'.$strNL;
-
-                            if($intItemSection == 319) // кроватки
-                            {
-                                $strResult .= '<param name="Тип">'.yandex_text2xml($arAcc["PROPERTIES"]["CH_KROV_TYPE"]["VALUE"]).'</param>'.$strNL;
-                                if(stripos($arAcc["PROPERTIES"]["CH_MEH_KACH"]["VALUE"], "маятн") !== false)
-                                    $strResult .= '<param name="Маятниковый механизм">есть</param>'.$strNL;
-                            } elseif($intItemSection == 315) { // коляски
-                                $arKolType = array(
-                                    2100520 => "Прогулочная",
-                                    2100518 => 'Универсальная',
-                                    2100517 => 'Транспортная система',
-                                    2100519 => 'Люлька',
-                                    2100516 => 'Трансформер'
-                                );
-                                $arKolBlock = array(
-                                    2100521 => 'один',
-                                    2100522 => 'два (для двойни)'
-                                );
-                                $arKolPack = array(
-                                    2100525 => 'трость',
-                                    2100526 => 'книжка'
-                                );
-                                $arKolWheels = array(
-                                    2100581 => 'три точки опоры',
-                                    2100582 => 'четыре точки опоры'
-                                );
-
-                                $strResult .= '<param name="Тип">'.(isset($arKolType[$arAcc["PROPERTIES"]["CH_KOL_TYPE"]["VALUE_ENUM_ID"]])?$arKolType[$arAcc["PROPERTIES"]["CH_KOL_TYPE"]["VALUE_ENUM_ID"]]:$arAcc["PROPERTIES"]["CH_KOL_TYPE"]["VALUE"]).'</param>'.$strNL;
-                                $strResult .= '<param name="Количество блоков">'.(isset($arKolBlock[$arAcc["PROPERTIES"]["CH_KOL_MEST"]["VALUE_ENUM_ID"]])?$arKolBlock[$arAcc["PROPERTIES"]["CH_KOL_MEST"]["VALUE_ENUM_ID"]]:$arAcc["PROPERTIES"]["CH_KOL_MEST"]["VALUE_ENUM_ID"]).'</param>'.$strNL;
-                                $strResult .= '<param name="Механизм складывания">'.(isset($arKolPack[$arAcc["PROPERTIES"]["CH_KOL_TYPE_SKLAD"]["VALUE_ENUM_ID"]])?$arKolPack[$arAcc["PROPERTIES"]["CH_KOL_TYPE_SKLAD"]["VALUE_ENUM_ID"]]:$arAcc["PROPERTIES"]["CH_KOL_TYPE_SKLAD"]["VALUE_ENUM_ID"]).'</param>'.$strNL;
-                                $strResult .= '<param name="Конструкция">'.(isset($arKolWheels[$arAcc["PROPERTIES"]["CH_KOL_KOLVO_KOLES"]["VALUE_ENUM_ID"]])?$arKolWheels[$arAcc["PROPERTIES"]["CH_KOL_KOLVO_KOLES"]["VALUE_ENUM_ID"]]:$arAcc["PROPERTIES"]["CH_KOL_KOLVO_KOLES"]["VALUE_ENUM_ID"]).'</param>'.$strNL;
-                                $strResult .= '<param name="Перекладина перед ребенком">'.$arAcc["PROPERTIES"]["CH_KOL_PEREKLAD"]["VALUE"].'</param>'.$strNL;
-                            } elseif($intItemSection == 305) { // автокресла
-                                $strResult .= '<param name="Группа">'.$arAcc["PROPERTIES"]["CH_AK_GROUP"]["VALUE"].'</param>'.$strNL;
-                                if($arAcc["PROPERTIES"]["CH_AK_KREPL_TYPE"]["VALUE_ENUM_ID"] == 2100587)
-                                    $strResult .= '<param name="Крепление Isofix">есть</param>'.$strNL;
+                            $strResult.= "<name>".yandex_text2xml($arAcc["NAME"], true)."</name>\n";
+                            if (!empty($arAcc["PREVIEW_TEXT"])) {
+                                $strResult.= "<description>".yandex_text2xml(TruncateText(($arAcc["PREVIEW_TEXT_TYPE"]=="html"?
+                                    strip_tags(preg_replace_callback("'&[^;]*;'", "yandex_replace_special", $arAcc["PREVIEW_TEXT"])) : preg_replace_callback("'&[^;]*;'", "yandex_replace_special", $arAcc["PREVIEW_TEXT"])),
+                                    255), true)."</description>\n";
                             }
 
                             $strResult.= "</offer>\n";
-                            @fwrite($tmpHandle, $strResult);
-                            $strResult = '';
-                        }	
+                        }
+                                         
+                } else {  
+
+                    $arOffersFilter = Array("IBLOCK_ID"=>OFFERS_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_CML2_LINK"=>$arAcc["ID"]);
+                    $rsOffers = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arOffersFilter, false, false, array("ID", "IBLOCK_ID", "XML_ID", "CATALOG_GROUP_1", "PROPERTY_PICTURE_MAXI", "PROPERTY_TSVET", "PROPERTY_RAZMER", "PROPERTY_SHASSI"));
+
+                    //Check status
+
+                    while($arOffer = $rsOffers -> GetNext())
+                    {
+                        $offerMinPrice = 0;
+                        if ($arPrice = CCatalogProduct::GetOptimalPrice($arOffer["ID"], 1, array(2), 'N', array(), $arIblock['LID']))
+                        {
+                            $offerMinPrice = $arPrice['DISCOUNT_PRICE'];
+                            $offerMinPriceCurrency = $arPrice["CURRENCY"];
+                        }
+
+                        //Get quantity from paramets
+                        $quantityForDisplay = COption::GetOptionString("grain.customsettings","QUANTITY_FOR_DISPLAY"); 
+
+                        if(intval($arOffer["CATALOG_QUANTITY"])>intval($quantityForDisplay))  {
+
+                            if($offerMinPrice>=500)
+                            {
+
+                                if($intOfferSizeCnt>1)
+                                {
+                                    /*(!empty($arAcc["PROPERTIES"]["CHTO_VYBIRAEM"]["VALUE"]))
+                                    $strName = $arAcc["NAME"].', '.$arAcc["PROPERTIES"]["CHTO_VYBIRAEM"]["VALUE"].' - '.$arOffer["PROPERTY_SIZE_VALUE"].', цвет - '.$arOffer["PROPERTY_COLOR_VALUE"];
+                                    else $strName = $arAcc["NAME"].', размер - '.$arOffer["PROPERTY_SIZE_VALUE"].', цвет - '.$arOffer["PROPERTY_COLOR_VALUE"];
+                                    } else $strName = $arAcc["NAME"].", ".$arOffer["PROPERTY_COLOR_VALUE"];  */
+
+                                }
+
+                                /*$strUrl = $usedProtocol.$arAcc['SERVER_NAME'].htmlspecialcharsbx($arAcc["~DETAIL_PAGE_URL"]).(strstr($arAcc['DETAIL_PAGE_URL'], '?') === false ? '?' : '&amp;')."r1=<?echo \$_GET[\"referer1\"]; ?>&amp;r2=<?echo \$_GET[\"referer2\"]; ?>"; */
+                                $strUrl = str_replace(' ', '%20', 'http://'.$arIblock['SERVER_NAME'].htmlspecialchars($arAcc["~DETAIL_PAGE_URL"]).
+                                    (strstr($arAcc['DETAIL_PAGE_URL'], '?') === false ? '?' : '&amp;').'utm_source=ya_market&amp;utm_medium=cpc&amp;utm_campaign=mamingorodok.ru').'&amp;showOffer='.$arOffer["ID"];
+
+                                if (!empty($arOffer["PROPERTY_SHASSI_VALUE"])) {
+                                    $strOfferProp = "(".$arOffer["PROPERTY_TSVET_VALUE"].", ".$arOffer["PROPERTY_SHASSI_VALUE"].")";
+                                } else if (!empty($arOffer["PROPERTY_RAZMER_VALUE"])) {
+                                    $strOfferProp = "(".$arOffer["PROPERTY_TSVET_VALUE"].", ".$arOffer["PROPERTY_RAZMER_VALUE"].")";
+                                } else {
+                                    $strOfferProp = "(".$arOffer["PROPERTY_TSVET_VALUE"].")"; 
+                                }
+
+                                $intItemSection = 0;
+                                $boolCurrentSections = false;
+                                $bNoActiveGroup = true;
+
+                                $rsTmpSections = CIBlockElement::GetElementGroups($arAcc["ID"]);
+                                while ($arTmpSection = $rsTmpSections->Fetch())
+                                {
+                                    if (isset($arTmpCat[$arTmpSection["ID"]]))
+                                    {
+                                        $strOfferCat = '<categoryId>'.$arTmpSection["ID"].'</categoryId>'.$strNL;
+                                        $intItemSection = $arTmpSection["ID"];
+                                        $bNoActiveGroup = false;
+                                    }
+                                }
+
+                                if ($bNoActiveGroup) continue;
+                                $strResult .= $arOffer["PROPERTY_SIZE_VALUE"]."\n";
+                                $strResult .= $arOffer["PROPERTY_COLOR_VALUE"]."\n";
+
+                                $strResult .= "<offer id=\"".$arOffer["ID"]."\" available='true'>\n";
+                                $strResult .= '<url>'.$strUrl.'</url>'.$strNL;
+                                $strResult .= '<price>'.$offerMinPrice.'</price>'.$strNL;
+                                $strResult .= '<currencyId>RUR</currencyId>'.$strNL;
+                                $strResult .= $strOfferCat;
+
+                                $arLiveSections[$intItemSection] = false;
+                                if($arAvailGroups[$intItemSection]["IBLOCK_SECTION_ID"]>0) $arLiveSections[$arAvailGroups[$intItemSection]["IBLOCK_SECTION_ID"]] = false;
+
+                                $bigImg["src"] = getResizedIMGPath($arOffer["XML_ID"]);
+                                if (empty($bigImg["src"])) {
+
+                                    $tmpImg = CFile::GetFileArray($arAcc["DETAIL_PICTURE"]);
+                                    $strResult.="<picture>http://".$arIblock['SERVER_NAME'].$tmpImg["SRC"]."</picture>\n";
+                                }  else {
+
+                                    $strResult.="<picture>".$bigImg["src"]."</picture>\n";
+                                }
+                                /*if ($arOffer["ID"]==110243) {
+                                die;
+                                }*/
+                                /*arshow($strResult);
+                                arshow($arOffer);
+                                if ($arOffer["ID"]==88124){
+                                die;
+                                }      */
+
+                                //                        $strResult .= '<store>false</store>'.$strNL;
+                                //                        $strResult .= '<pickup>false</pickup>'.$strNL;
+                                //                        $strResult .= '<delivery>true</delivery>'.$strNL;
+                                //                        $strResult .= '<local_delivery_cost>'.($offerMinPrice>3000?0:300).'</local_delivery_cost>'.$strNL;
+                                //                        $strResult .= '<vendor>'.yandex_text2xml($arAcc["PROPERTY_CH_PRODUCER_NAME"], true).'</vendor>'.$strNL;
+                                //                        $strResult .= '<name>'.yandex_text2xml($strName, true).'</name>'.$strNL;
+                                //                        $strResult .= '<description>'.$arAcc["NAME"].'</description>'.$strNL;
+
+                                //Check delivery price
+                                $deliveryCost = calcYandexDelivery($offerMinPrice, $arRules);  
+
+                                if(!empty($deliveryCost) || $deliveryCost==0) {
+                                    $strResult.= "<local_delivery_cost>".$deliveryCost."</local_delivery_cost>\n";
+                                }
+
+                                $strResult.= "<name>".yandex_text2xml($arAcc["~NAME"]." ".$strOfferProp, true)."</name>\n";
+                                $strResult.= 
+                                "<description>".
+                                yandex_text2xml(TruncateText(
+                                    ($arAcc["PREVIEW_TEXT_TYPE"]=="html"?
+                                        strip_tags(preg_replace_callback("'&[^;]*;'", "yandex_replace_special", $arAcc["~PREVIEW_TEXT"])) : preg_replace_callback("'&[^;]*;'", "yandex_replace_special", $arAcc["~PREVIEW_TEXT"])),
+                                    255), true).
+                                "</description>\n";
+
+                                //                        $strResult .= '<sales_notes>'.($boolIsActionItem?'Акция! ':'').'Официальная поставка! Принимаем карты!</sales_notes>'.$strNL;
+                                if(!empty($arAcc["PROPERTIES"]["manufacturer_warrant"]["VALUE"]))
+                                    $strResult .= '<manufacturer_warranty>'.$arAcc["PROPERTIES"]["manufacturer_warrant"]["VALUE"].'</manufacturer_warranty>'.$strNL;
+                                if(!empty($arAcc["PROPERTY_CH_STRANA_1_NAME"]))
+                                    $strResult .= '<country_of_origin>'.yandex_text2xml($arAcc["PROPERTY_CH_STRANA_1_NAME"]).'</country_of_origin>'.$strNL;
+
+                                if($intItemSection == 319) // кроватки
+                                {
+                                    $strResult .= '<param name="Тип">'.yandex_text2xml($arAcc["PROPERTIES"]["CH_KROV_TYPE"]["VALUE"]).'</param>'.$strNL;
+                                    if(stripos($arAcc["PROPERTIES"]["CH_MEH_KACH"]["VALUE"], "маятн") !== false)
+                                        $strResult .= '<param name="Маятниковый механизм">есть</param>'.$strNL;
+                                } elseif($intItemSection == 315) { // коляски
+                                    $arKolType = array(
+                                        2100520 => "Прогулочная",
+                                        2100518 => 'Универсальная',
+                                        2100517 => 'Транспортная система',
+                                        2100519 => 'Люлька',
+                                        2100516 => 'Трансформер'
+                                    );
+                                    $arKolBlock = array(
+                                        2100521 => 'один',
+                                        2100522 => 'два (для двойни)'
+                                    );
+                                    $arKolPack = array(
+                                        2100525 => 'трость',
+                                        2100526 => 'книжка'
+                                    );
+                                    $arKolWheels = array(
+                                        2100581 => 'три точки опоры',
+                                        2100582 => 'четыре точки опоры'
+                                    );
+
+                                    $strResult .= '<param name="Тип">'.(isset($arKolType[$arAcc["PROPERTIES"]["CH_KOL_TYPE"]["VALUE_ENUM_ID"]])?$arKolType[$arAcc["PROPERTIES"]["CH_KOL_TYPE"]["VALUE_ENUM_ID"]]:$arAcc["PROPERTIES"]["CH_KOL_TYPE"]["VALUE"]).'</param>'.$strNL;
+                                    $strResult .= '<param name="Количество блоков">'.(isset($arKolBlock[$arAcc["PROPERTIES"]["CH_KOL_MEST"]["VALUE_ENUM_ID"]])?$arKolBlock[$arAcc["PROPERTIES"]["CH_KOL_MEST"]["VALUE_ENUM_ID"]]:$arAcc["PROPERTIES"]["CH_KOL_MEST"]["VALUE_ENUM_ID"]).'</param>'.$strNL;
+                                    $strResult .= '<param name="Механизм складывания">'.(isset($arKolPack[$arAcc["PROPERTIES"]["CH_KOL_TYPE_SKLAD"]["VALUE_ENUM_ID"]])?$arKolPack[$arAcc["PROPERTIES"]["CH_KOL_TYPE_SKLAD"]["VALUE_ENUM_ID"]]:$arAcc["PROPERTIES"]["CH_KOL_TYPE_SKLAD"]["VALUE_ENUM_ID"]).'</param>'.$strNL;
+                                    $strResult .= '<param name="Конструкция">'.(isset($arKolWheels[$arAcc["PROPERTIES"]["CH_KOL_KOLVO_KOLES"]["VALUE_ENUM_ID"]])?$arKolWheels[$arAcc["PROPERTIES"]["CH_KOL_KOLVO_KOLES"]["VALUE_ENUM_ID"]]:$arAcc["PROPERTIES"]["CH_KOL_KOLVO_KOLES"]["VALUE_ENUM_ID"]).'</param>'.$strNL;
+                                    $strResult .= '<param name="Перекладина перед ребенком">'.$arAcc["PROPERTIES"]["CH_KOL_PEREKLAD"]["VALUE"].'</param>'.$strNL;
+                                } elseif($intItemSection == 305) { // автокресла
+                                    $strResult .= '<param name="Группа">'.$arAcc["PROPERTIES"]["CH_AK_GROUP"]["VALUE"].'</param>'.$strNL;
+                                    if($arAcc["PROPERTIES"]["CH_AK_KREPL_TYPE"]["VALUE_ENUM_ID"] == 2100587)
+                                        $strResult .= '<param name="Крепление Isofix">есть</param>'.$strNL;
+                                }
+
+                                $strResult.= "</offer>\n";
+                                @fwrite($tmpHandle, $strResult);
+                                $strResult = '';
+                            }    
+                        }
                     }
                 }
             }
