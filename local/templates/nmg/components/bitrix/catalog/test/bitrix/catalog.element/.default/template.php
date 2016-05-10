@@ -1857,7 +1857,7 @@
         var name = $("#qoName").val();
         var email = $("#qoEmail").val();
 
-        var mail = /^\w+@\w+\.\w{2,4}$/i;
+        var mail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         if (!mail.test(email)) {
             email = "";
         }
