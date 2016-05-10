@@ -319,7 +319,7 @@
             $boolIsAvailable = !($arAcc["PROPERTIES"]["CH_SNYATO"]["VALUE_ENUM_ID"] == 2100923);
             $boolIsActionItem = in_array($arAcc["ID"], $arResult["ACTION_ITEMS"]);
             $str_AVAILABLE = ($arAcc['CATALOG_AVAILABLE'] == 'Y' ? ' available="true"' : ' available="false"');
-
+             
 
             $rsOffersSize = CIBlockElement::GetList(Array(), $arOffersFilter, array("PROPERTY_SIZE"));
             $intOfferSizeCnt = $rsOffersSize -> SelectedRowsCount();
@@ -403,7 +403,7 @@
                             }  else {
 
                                 $strResult.="<picture>".$bigImg["src"]."</picture>\n";
-                            }
+                            }  
                             /*if ($arOffer["ID"]==110243) {
                             die;
                             }*/
