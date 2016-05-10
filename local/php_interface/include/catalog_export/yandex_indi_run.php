@@ -319,7 +319,7 @@
             $boolIsAvailable = !($arAcc["PROPERTIES"]["CH_SNYATO"]["VALUE_ENUM_ID"] == 2100923);
             $boolIsActionItem = in_array($arAcc["ID"], $arResult["ACTION_ITEMS"]);
             $str_AVAILABLE = ($arAcc['CATALOG_AVAILABLE'] == 'Y' ? ' available="true"' : ' available="false"');
-
+             
 
             $rsOffersSize = CIBlockElement::GetList(Array(), $arOffersFilter, array("PROPERTY_SIZE"));
             $intOfferSizeCnt = $rsOffersSize -> SelectedRowsCount();
@@ -364,8 +364,41 @@
                             }  else {
 
                                 $strResult.="<picture>".$bigImg["src"]."</picture>\n";
+<<<<<<< HEAD
                             }
                             $deliveryCost = calcYandexDelivery($offerMinPrice, $arRules); 
+=======
+                            }  
+                            /*if ($arOffer["ID"]==110243) {
+                            die;
+                            }*/
+                            /*arshow($strResult);
+                            arshow($arOffer);
+                            if ($arOffer["ID"]==88124){
+                            die;
+                            }      */
+
+                            //                        $strResult .= '<store>false</store>'.$strNL;
+                            //                        $strResult .= '<pickup>false</pickup>'.$strNL;
+                            //                        $strResult .= '<delivery>true</delivery>'.$strNL;
+                            //                        $strResult .= '<local_delivery_cost>'.($offerMinPrice>3000?0:300).'</local_delivery_cost>'.$strNL;
+                            //                        $strResult .= '<vendor>'.yandex_text2xml($arAcc["PROPERTY_CH_PRODUCER_NAME"], true).'</vendor>'.$strNL;
+                            //                        $strResult .= '<name>'.yandex_text2xml($strName, true).'</name>'.$strNL;
+                            //                        $strResult .= '<description>'.$arAcc["NAME"].'</description>'.$strNL;
+
+                            //Check delivery price
+                            /*if (intval($offerMinPrice)>0 && intval($offerMinPrice)<1500) {
+                            $deliveryCost=500;
+                            } else if (intval($offerMinPrice)>=1500 && intval($offerMinPrice)<3000) {
+                            $deliveryCost=350;
+                            } else if (intval($offerMinPrice)>=3000 && intval($offerMinPrice)<5000) {
+                            $deliveryCost=200;
+                            } else if (intval($offerMinPrice)>=5000) {
+                            $deliveryCost=0;
+                            } */
+                            $deliveryCost = calcYandexDelivery($offerMinPrice, $arRules);  
+
+>>>>>>> upstream/master
                             if(!empty($deliveryCost) || $deliveryCost==0) {
                                 $strResult.= "<local_delivery_cost>".$deliveryCost."</local_delivery_cost>\n";
                             }
