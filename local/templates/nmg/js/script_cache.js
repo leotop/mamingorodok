@@ -308,7 +308,7 @@ $(document).ready(function() {
     });
 
     $(".getCallForm").click(function(){
-        $.get("/callfree.php",function(data){
+        $.get("ajax/callfree.php",function(data){
             $("#call_popup .data").html(data);
             $("#callfreeform").jqTransform();
         });
