@@ -563,7 +563,6 @@
 ?></div>
 
 <?
-    //arshow($_SESSION["additionalNavChain"],true);
     //доформировываем дополнительные элементы для хлебных крошек. вывод в section.php
     $text = $arResult["SECTION"]["NAME"];
     if (count($_SESSION["additionalNavChain"]) > 0) {

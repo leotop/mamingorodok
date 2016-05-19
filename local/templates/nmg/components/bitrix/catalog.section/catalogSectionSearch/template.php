@@ -175,8 +175,6 @@
                         }
                     }
                 ?>
-
-                <?//arshow($arResult)?>
                 <li id="<?=$strMainID?>" class="li_hover_mod">
                     <?
                         $smallImg = null;
@@ -202,7 +200,6 @@
                             if ($tmp_path){
                                 $smallImg[$arTovar["ID"]] = $tmp_path;
                                 $offerPrices[$arTovar["ID"]] = $priceCheck["PRICE"];
-                                //echo $smallImg[$arTovar["ID"]]."<br>";
                             }
                             else {continue;};
 

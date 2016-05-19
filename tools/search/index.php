@@ -2,12 +2,12 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Поиск");
 ?><?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.search", 
-	"searchNew", 
+	"bitrix:catalog.search",
+	"searchNew",
 	array(
 		"COMPONENT_TEMPLATE" => "searchNew",
 		"IBLOCK_TYPE" => "catalog",
-		"IBLOCK_ID" => "2",
+		"IBLOCK_ID" => $IblockId["BLOCK_ID"],
 		"ELEMENT_SORT_FIELD" => "sort",
 		"ELEMENT_SORT_ORDER" => "asc",
 		"ELEMENT_SORT_FIELD2" => "id",
