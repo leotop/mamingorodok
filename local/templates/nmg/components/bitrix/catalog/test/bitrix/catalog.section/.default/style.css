@@ -19,7 +19,7 @@
             text-align: center;
             font-size: 16px;
         }
-        
+
     .bx-pager-item{
         display: none !important;
     }
@@ -45,19 +45,19 @@
         left:-200px;
         top:-200px;
         z-index:5004;
-        display: none;  
+        display: none;
         opacity: 0.5;
         background-color: black;
     }
-    div.noRegister .title{ 
+    div.noRegister .title{
         text-align: center;
-        padding-top: 10px;      
+        padding-top: 10px;
     }
     div.noRegister .noRegister{
         padding-left: 42px;
-        padding-right: 20px;   
+        padding-right: 20px;
     }
-    
+
     .closeAfterBuy{
         cursor: pointer;
         position: absolute;
@@ -68,27 +68,27 @@
     div.card{
         overflow: hidden !important;
         height: 298px;
-    }  
+    }
     /*when go to new server uncomment*/
     /*div.card:hover{
         overflow: visible;
         height: 320px;
-        width: 218px !important; 
+        width: 218px !important;
         position: relative;
         left: -60px;
     }
     div.card:hover .carousel_contain{
         display: block;
-    } 
+    }
     div.card:hover .photo{
         margin-left: 60px !important;
-    } 
+    }
     div.card:hover .fast_view{
         position: relative;
         left:-15px;
     }
     .li_hover_mod:hover{
-        height: 350px;  
+        height: 350px;
     }*/
     div.podrob{
         text-align: center;
@@ -112,7 +112,7 @@
         margin-top: 4px;
     }
     .heart_rem{
-        float: left;    
+        float: left;
     }
     img.zoom{
         width: 20px;
@@ -121,11 +121,11 @@
     }
     a.fast_view{
         font-size: 12px !important;
-        height: 21px;   
-        padding-top: 4px;   
+        height: 21px;
+        padding-top: 4px;
         vertical-align: middle;
-        width: 150px;  
-        margin-top: 2px;                            
+        width: 150px;
+        margin-top: 2px;
     }
     a.fast_view:before{
         content: "";
@@ -162,7 +162,7 @@
     }
     input[type="checkbox"]:checked + span.com_span      {
         background-position: 0 0;
-    } 
+    }
     .cn{
         display: none !important;
     }
@@ -180,7 +180,7 @@
         position: relative;
         display: none;
      /*   left: -60px;     */
-    } 
+    }
     .bx-pager-item{
         display: none !important;
     }
@@ -194,16 +194,16 @@
       /*  float: left;     */
         z-index: 1500;
         position: relative;
-        
+
     }
     .carusel_body{
         height: 250px;
-        display: none;   
+        display: none;
         width: 60px;
         float: left;
     }
     .carusel{
-        width: 60px;             
+        width: 60px;
         position: relative;
     }
     /*div.card:hover .carusel_body{
@@ -257,13 +257,13 @@
         float: left;
         position: relative;
         top:39px;
-        left:10px;   
+        left:10px;
     }
     .showpUpss{
         float: left;
         position: relative;
         top:39px;
-        left:10px;    
+        left:10px;
     }
     .like_com{
         width: 250px;
@@ -284,12 +284,12 @@
         position: fixed;
         left: 50%;
         top:50%;
-        margin: -20px 0 0 -125px;           
+        margin: -20px 0 0 -125px;
         border: 1px solid black;
         border-radius: 15px;
         background-color: white;
         z-index: 3000;
-        text-align: center;    
+        text-align: center;
     }
     .like_comment{
      /*   width: 100%;
@@ -308,12 +308,12 @@
     }
     .fast_view{
         /*border: 1px solid #ff701a;
-        background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #ff9f01 0%, #ff701a 100%) repeat scroll 0 0; 
+        background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #ff9f01 0%, #ff701a 100%) repeat scroll 0 0;
         border-radius:6px;
         text-shadow:1px 1px 0 #696969;           */
         color:#808080 !important;
-        text-decoration: underline;        
-        font-size: 14px; 
+        text-decoration: underline;
+        font-size: 14px;
     }
     .remember{
         cursor: pointer;
@@ -335,7 +335,7 @@
         background: none;
     }
     .heart_like{
-        
+
     }
     .remembering{
         font-size: 14px;
@@ -352,9 +352,36 @@
         position: relative;
         text-decoration: underline;
         top: -18px!important;
-        cursor: pointer; 
-        background: none!important;   
+        cursor: pointer;
+        background: none!important;
     }
     .catalog_list li .price{
         height: 23px!important;
+    }
+    .photo .bx_stick_disc {
+        position: absolute;
+        width: 72px;
+        height: 74px;
+        background: url(/local/templates/.default/components/bitrix/catalog.bigdata.products/personal_Item_BigData/images/stick_disc.png) no-repeat center;
+        color: #fff;
+        text-align: center;
+        text-shadow: 0 1px 0 #ba3434;
+        font-weight: bold;
+        font-size: 23px;
+        line-height: 74px;
+        bottom: 5px;
+        right: 0;
+    }
+    .price .acess_price{
+        float: left;
+        text-decoration: line-through;
+        color: #999;
+        display: block;
+        margin-right: 25px;
+        line-height: 1.3;
+    }
+    .price .currency{
+        width: auto;
+        float: left;
+        line-height: 1;
     }

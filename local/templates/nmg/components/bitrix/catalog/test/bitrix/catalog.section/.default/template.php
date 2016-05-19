@@ -52,24 +52,24 @@
         <p class="title">Для того чтобы добавить товар в список "Избранное" требуется</p>
         <a href="/personal/registaration/" class="registation">регистрация</a>
         <span> или </span>
-        <a href="/personal/profile/" class="">авторизация</a> 
-        <img src="/bitrix/templates/nmg/img/close_bg.png" class="closeAfterBuy">                                    
-    </div>            
-    <div class="overla"></div> 
+        <a href="/personal/profile/" class="">авторизация</a>
+        <img src="/bitrix/templates/nmg/img/close_bg.png" class="closeAfterBuy">
+    </div>
+    <div class="overla"></div>
     <?   /*
         <script type="text/javascript">
         var i = 0;
-        </script> 
+        </script>
         */
     ?>
-    <br> 
+    <br>
     <h1 class="secth"><?=$strH1?></h1>
     <br><?
 
         if(strlen($arResult["DESCRIPTION"])>0 && $_REQUEST["PAGEN_1"]<=1 && $arResult["IBLOCK_SECTION_ID"]=='688')
         {
             $arPreview = smart_trim(strip_tags($arResult["~DESCRIPTION"]), 460, false, '<span class="full_hide">...</span>', true);
-        ?>        
+        ?>
         <div class="catalogFilter">
             <div class="stext"><?
                 if(strlen($arResult["~UF_DESCR_PREVIEW"])>0)
@@ -132,13 +132,13 @@
     <?//arshow($_GET);?>
     <div class="sorting_block"><?
             if(!$isSearch)
-            {?> 
+            {?>
             <?$APPLICATION->IncludeFile(SITE_TEMPLATE_PATH.'/includes/catalog/choose_nmg.php',array("arChoose"=>array(
-                    "0"=>array("NAME"=>"по скидкам", "CODE" => "PROPERTY_DISCOUNT", "sort"=>"DESC"),   
+                    "0"=>array("NAME"=>"по скидкам", "CODE" => "PROPERTY_DISCOUNT", "sort"=>"DESC"),
                     "1"=>array("NAME"=>"новинкам", "CODE" => "PROPERTY_NOVINKA", "sort"=>"DESC"),
                     "2"=>array("NAME"=>"популярности", "CODE" => "PROPERTY_KHIT_PRODAZH", "sort"=>"DESC"),
                     "3"=>array("NAME"=>"названию", "CODE" => "NAME", "sort"=>"ASC"),
-                    "4"=>array("NAME"=>"цене", "CODE"=> "CATALOG_PRICE_".$arResult["PRICES_ALLOW"][0], "sort"=>"ASC"),    
+                    "4"=>array("NAME"=>"цене", "CODE"=> "CATALOG_PRICE_".$arResult["PRICES_ALLOW"][0], "sort"=>"ASC"),
                 )));?><?
         }?>
         <?=$arResult["NAV_STRING"]?>
@@ -151,18 +151,18 @@
 
 ?>
 <form method="POST" action="<?$APPLICATION->GetCurPage()?>" name="orders_filter" style="margin: 20px 0">
-    <div class="access_check fl">  
+    <div class="access_check fl">
         <input value="" <?=$_COOKIE["namber_order"];?> name="namber_order"  onclick="filter_click();submit();" type="checkbox" id="cat_for_access" class="fl">
         <label for="cat_for_access">Отображать только имеющиеся в наличии</label>
     </div>
-</form>   
+</form>
 <div class="catalog_block">
     <ul class="catalog_list"><?
             $intLastSection = 0;
             foreach($arResult["ROWS"] as $arRow)
             {
                 foreach($arRow as $arElement)
-                {  
+                {
                     $this->AddEditAction($arElement['ID'], $arElement['EDIT_LINK'], $strElementEdit);
                     $this->AddDeleteAction($arElement['ID'], $arElement['DELETE_LINK'], $strElementDelete, $arElementDeleteParams);
                     $strMainID = $this->GetEditAreaId($arElement['ID']);
@@ -180,13 +180,13 @@
                     }
                 ?>
                 <li id="<?=$strMainID?>" class="li_hover_mod">
-                    <?   
+                    <?
                         $smallImg = null;
                         $offerPrices = array();
-                        $torgPred=0;  
+                        $torgPred=0;
 
                         //---------------------------------------------------получаем картинки----------------------------------------------------------------------
-                        $rsOffers = CCatalogSKU::getOffersList($arElement["ID"],0,array(">CATALOG_QUANTITY"=>0),array('XML_ID','CATALOG_QUANTITY'));   //получаем список торговых предложений              
+                        $rsOffers = CCatalogSKU::getOffersList($arElement["ID"],0,array(">CATALOG_QUANTITY"=>0),array('XML_ID','CATALOG_QUANTITY'));   //получаем список торговых предложений
                         foreach($rsOffers[$arElement["ID"]] as $arTovar){
                             //arshow($arTovar,true);
                             $tmp_path=getResizedIMGPath($arTovar['XML_ID']);
@@ -196,31 +196,31 @@
                             if ($tmp_path && $priceCheck["PRICE"]){
                                 $smallImg[$arTovar["ID"]] = $tmp_path;
                                 $offerPrices[$arTovar["ID"]] = $priceCheck["PRICE"];
-                                //echo $smallImg[$arTovar["ID"]]."<br>";    
+                                //echo $smallImg[$arTovar["ID"]]."<br>";
 
                             }
                             else {continue;};
 
-                            ++$torgPred;    
-                        }            
+                            ++$torgPred;
+                        }
                         //-----------------------------------------------------------------------------------------------------------------------------------------
                         $width=count($smallImg)*60;
                     ?>
 
                     <div class="catalog_bg stock-item card">
-                        <div class="carusel_body">   
+                        <div class="carusel_body">
                             <?if($torgPred>4){?><div class="down" data-id="<?echo($arElement["ID"])?>" data-width="<?echo $width?>"></div><?}
                                 else{?><div style="height: 26px;"></div><?}?>
                             <div class="tovar_card">
                                 <div class="<?echo('carusel_'.$arElement["ID"])?> itemPreviewCarousel">
                                     <?foreach($smallImg as $oID=>$pict){?>
-                                        <div class="slider_element"><img src="<?=(empty($pict)?'/img/no_photo_52x52.png':$pict)?>" titile="" alt="<?=$strH1orName?>" data-price="<?=number_format($offerPrices[$oID], 0, ',', ' ');?>"> </div>                                                                                                                     
-                                        <?}?> 
-                                </div>             
+                                        <div class="slider_element"><img src="<?=(empty($pict)?'/img/no_photo_52x52.png':$pict)?>" titile="" alt="<?=$strH1orName?>" data-price="<?=number_format($offerPrices[$oID], 0, ',', ' ');?>"> </div>
+                                        <?}?>
+                                </div>
                             </div>
                             <?if($torgPred>4){?><div class="up" data-id="<?echo($arElement["ID"])?>" data-width="<?echo $width?>"></div><?}?>
-                        </div>      
-                        <?   
+                        </div>
+                        <?
                             if($arElement["ACTIVE"] == "N")
                                 echo '<div class="element_inactive">Деактивирован</div>';
                             if(isset($arResult["ACTIONS_ITEMS"][$arElement["ID"]]))
@@ -240,12 +240,12 @@
                                 }?>
                                 <div class="gift_info ">
                                     <div class="gift_info_text">
-                                        <div style="text-align: center;">Акция!</div> <?=$arAction["PREVIEW_TEXT"]?>                                         
+                                        <div style="text-align: center;">Акция!</div> <?=$arAction["PREVIEW_TEXT"]?>
                                     </div><div class="gift_info_bg"></div></div></div><?
                             }
 
                             if(!empty($arElement["DETAIL_PICTURE"]["ID"])){
-                                $arFileTmp = CFile::ResizeImageGet(                 
+                                $arFileTmp = CFile::ResizeImageGet(
                                     $arElement["DETAIL_PICTURE"]["ID"],
                                     array("width" => 160, 'height' => 160),
                                     BX_RESIZE_IMAGE_PROPORTIONAL,
@@ -254,7 +254,7 @@
                             }else{
                                 $arFileTmp["src"] = "/img/no_foto.jpg";
                                 $arFileTmp["width"] = "160";
-                                $arFileTmp["height"] = "160";   
+                                $arFileTmp["height"] = "160";
                             }
 
                             if($arFileTmp["height"] == 0){$arFileTmp["height"] = "auto" ;}else {$arFileTmp["height"] = "160";}
@@ -262,15 +262,19 @@
 
                         ?>
                         <div class="photo">
+                        <?//arshow($arElement["MIN_PRICE"])?>
                             <?$APPLICATION->IncludeFile("/includes/shields_2.php",array("props" => $arElement["PROPERTIES"]),array("SHOW_BORDER" => false))?>
                             <p><i title="<?=$arElement['DETAIL_PAGE_URL']?>"><img width="<?=$arFileTmp["width"]?>" height="<?=$arFileTmp["height"]?>" src="<?=$arFileTmp["src"]?>" alt="<?=(empty($arElement["PROPERTIES"]["SEO_H1"]["~VALUE"])?$arElement["NAME"]:$arElement["PROPERTIES"]["SEO_H1"]["~VALUE"])?>"></i><span>&nbsp;</span></p>
+                            <div id="<? echo $arItemIDs['SECOND_DSC_PERC']; ?>" class="bx_stick_disc right bottom" style="display:<? echo(0 < $arElement['MIN_PRICE']['DISCOUNT_DIFF_PERCENT'] ? '' : 'none'); ?>;">
+                                -<? echo $arElement['MIN_PRICE']['DISCOUNT_DIFF_PERCENT']; ?>%
+                            </div>
                         </div>
                         <?
                             $strAddon = "";
                             if(!$isSearch) {
                                 //   $strAddon = '#REPORT_COUNT_'.$arElement["ID"].'#';
                                 $strAddon = '<a class="comment grey" href="'.$arElement['DETAIL_PAGE_URL'].'#comment">Написать отзыв</a>';
-                            } 
+                            }
                             else  {
                                 $strAddon = '<a class="comment grey" href="'.$arElement['DETAIL_PAGE_URL'].'#comment">Написать отзыв</a>';
                             }
@@ -287,7 +291,7 @@
                                 <div class="textPreview"><?=smart_trim(strip_tags($arElement["DETAIL_TEXT"]), 120)?></div><?
                             }?>
                             <div class="price">
-                                <?  
+                                <?
                                     $arElement["PROPERTIES"]["PRICE_CODE"]["VALUE"] = substr($price, 0, strlen($price)-3);
                                     //  if($USER->IsAdmin()){arshow($arElement["PROPERTIES"]);};
                                     $price = GetOfferMinPrice($arParams["IBLOCK_ID"],$arElement["ID"]);
@@ -295,11 +299,12 @@
                                     // arshow($arElement["PROPERTIES"]["CATALOG_AVAILABLE"]);
                                     if($arElement["PROPERTIES"]["CATALOG_AVAILABLE"]["VALUE"] != "Y"/*$price == 0 || $arElement["PROPERTIES"]["STATUS_TOVARA"]["VALUE"] != "" || $arElement["COUNT_SKLAD"] <=0*/) //проверка цены если больше 0 ....//если количество товаров меньше 2
                                         echo '<span class="currency" style="width: 100%;font-size:12px">Нет в наличии</span>';
-                                    else 
+                                    else
                                     {?>
-
-
-                                    <span class="currency" style="width: auto;" rel="<?=CurrencyFormat($price, "")?>"><?=number_format($price, 0, '.', ' ' );?> <div class='rub_none'>руб.</div><span class='rouble'>a</span></span>
+                                    <?if($arElement['MIN_PRICE']['DISCOUNT_DIFF_PERCENT'] > 0){?>
+                                        <span class="acess_price">&nbsp;<?=CurrencyFormat($price , "")?><?=number_format($price, 0, '.', ' ' );?><div class="rub_none">руб.</div><span class="rub"> a</span></span>
+                                    <?}?>
+                                    <span class="currency" style="width: auto;" rel="<?=CurrencyFormat($arElement["MIN_PRICE"]["DISCOUNT_VALUE"], "")?>"><?=number_format($arElement["MIN_PRICE"]["DISCOUNT_VALUE"], 0, '.', ' ' );?> <div class='rub_none'>руб.</div><span class='rouble'>a</span></span>
                                     <!-- <span class="currency" style="width: auto;"><?=CurrencyFormat($arElement["PROPERTIES"]["PRICE"]["VALUE"], "RUB")?></span>--><?
                                         if($arElement["PROPERTIES"]["OLD_PRICE"]["VALUE"]>0)
                                         {?>
@@ -310,7 +315,7 @@
                                 if(strlen($arElement["PROPERTIES"]["CH_SNYATO"]["VALUE_ENUM_ID"]) <= 0 || $arElement["PROPERTIES"]["CH_SNYATO"]["VALUE_ENUM_ID"] == 2100923)
                                 {
                                 ?><?/*<i class="addToCartList" title="<?=$arElement["DETAIL_PAGE_URL"]?>"><button type="button" class="input21">Купить</button></i>*/?>
-                                <a href="<?=$arElement["DETAIL_PAGE_URL"]?>?pred=Y" class="fast_view">Быстрый просмотр</a>   
+                                <a href="<?=$arElement["DETAIL_PAGE_URL"]?>?pred=Y" class="fast_view">Быстрый просмотр</a>
                                 <?
                                 } elseif($arElement["PROPERTIES"]["CH_SNYATO"]["VALUE_ENUM_ID"] == 2100920) {
                                 ?>Новинка! Ожидаем поставку.<?
@@ -328,7 +333,7 @@
                             ?>
                         </div>
 
-                        <div class="<?echo('rememb_'.$arElement['ID'])?> remember"> 
+                        <div class="<?echo('rememb_'.$arElement['ID'])?> remember">
                             <?if($USER->GetID() > 0){
                                     $rsI = CIBlockElement::GetList(Array("ID" => "DESC"), array(
                                         "ACTIVE" => "Y",
@@ -346,11 +351,11 @@
                                     if($arI = $rsI->GetNext()){
                                         echo ('<a class="deleteFromWishListaa" data-id="'.$arI["ID"].'" data-remId="'.$arElement["ID"].'"  title="В избранное"><img class="heart_like" src="/bitrix/templates/nmg/img/heart_t.png" width="20" height="17" alt="" /><p class="remembering">Запомнить</p></a>');
 
-                                    }                 
+                                    }
                                     else{
-                                        echo ('<a class="add addToLikeListaa" data-remId="'.$arElement["ID"].'"  title="В избранное"><img class="heart_like" src="/bitrix/templates/nmg/img/heart_f.png" width="20" height="17" alt="" /><p class="remembering">Запомнить</p></a> ');   
+                                        echo ('<a class="add addToLikeListaa" data-remId="'.$arElement["ID"].'"  title="В избранное"><img class="heart_like" src="/bitrix/templates/nmg/img/heart_f.png" width="20" height="17" alt="" /><p class="remembering">Запомнить</p></a> ');
 
-                                    }    
+                                    }
                                 }
                                 else{
                                     echo ('<a class="showpUpss" class="userNoAuthaa" data-id="'.$arElement["ID"].'" href="#messageNoUser1" title="В избранное"><img class="heart_like" src="/bitrix/templates/nmg/img/heart_f.png" width="20" height="17" alt="" /><p class="remembering">Запомнить</p></a>');
@@ -361,10 +366,10 @@
 
 
 
-                        <div class="comparison"> 
+                        <div class="comparison">
                             <label class="compare"><input type="checkbox" class="input29 add-to-compare-list-ajax" value="<?=$arElement["ID"]?>" /><span class="com_span" data-check=''></span><span class="comparsion_title">Сравнить</span></label>
 
-                        </div> 
+                        </div>
 
                         <?
                             //echo showNoindex(false);?>
@@ -386,11 +391,11 @@
                 if(!$isSearch)
                 {?>
                 <?$APPLICATION->IncludeFile(SITE_TEMPLATE_PATH.'/includes/catalog/choose_nmg.php',array("arChoose"=>array(
-                        "0"=>array("NAME"=>"по скидкам", "CODE" => "PROPERTY_DISCOUNT", "sort"=>"DESC"),   
+                        "0"=>array("NAME"=>"по скидкам", "CODE" => "PROPERTY_DISCOUNT", "sort"=>"DESC"),
                         "1"=>array("NAME"=>"новинкам", "CODE" => "PROPERTY_NOVINKA", "sort"=>"DESC"),
                         "2"=>array("NAME"=>"популярности", "CODE" => "PROPERTY_KHIT_PRODAZH", "sort"=>"DESC"),
                         "3"=>array("NAME"=>"названию", "CODE" => "NAME", "sort"=>"ASC"),
-                        "4"=>array("NAME"=>"цене", "CODE"=> "CATALOG_PRICE_".$arResult["PRICES_ALLOW"][0], "sort"=>"ASC"), 
+                        "4"=>array("NAME"=>"цене", "CODE"=> "CATALOG_PRICE_".$arResult["PRICES_ALLOW"][0], "sort"=>"ASC"),
                     )));?><?
             }?>
 
@@ -399,11 +404,11 @@
             <div class="clear"></div>
         </div>
 
-        <?/******************************/?>    
+        <?/******************************/?>
 
         <?$APPLICATION->IncludeComponent(
-                "bitrix:catalog.section", 
-                "rand_section_test", 
+                "bitrix:catalog.section",
+                "rand_section_test",
                 array(
                     "TEMPLATE_THEME" => "blue",
                     "PRODUCT_DISPLAY_MODE" => "N",
@@ -432,7 +437,7 @@
                         1 => "",
                     ),
                     "ELEMENT_SORT_FIELD" => "PROPERTY_1498",
-                    "ELEMENT_SORT_ORDER" => "desc", 
+                    "ELEMENT_SORT_ORDER" => "desc",
                     "ELEMENT_SORT_FIELD2" => "RAND",
                     "ELEMENT_SORT_ORDER2" => "RAND",
                     "FILTER_NAME" => "arrFilter",
@@ -523,13 +528,13 @@
                 false
             );?>
 
-        <?/******************************/?>   
+        <?/******************************/?>
 
         <?
         }
         if ($parent_catalog<1) {
-            echo $arResult["SEO_LINKING"];    
-        } 
+            echo $arResult["SEO_LINKING"];
+        }
     ?>
 
     <p class="about_error">Сообщить об ошибке: выделить текст и нажать Ctrl+Enter</p>
@@ -537,7 +542,7 @@
         if(strlen($arResult["DESCRIPTION"])>0 && $_REQUEST["PAGEN_1"]<=1 && $arResult["IBLOCK_SECTION_ID"]!='688')
         {
             $arPreview = smart_trim(strip_tags($arResult["~DESCRIPTION"]), 460, false, '<span class="full_hide">...</span>', true);
-        ?>        
+        ?>
         <div class="catalogFilter">
             <h2 class="underlined"><?=$strH2?></h2>
             <div class="stext"><?
@@ -555,10 +560,10 @@
         </div><?
         }
 
-?></div>         
+?></div>
 
 <?
-    //arshow($_SESSION["additionalNavChain"],true); 
+    //arshow($_SESSION["additionalNavChain"],true);
     //доформировываем дополнительные элементы для хлебных крошек. вывод в section.php
     $text = $arResult["SECTION"]["NAME"];
     if (count($_SESSION["additionalNavChain"]) > 0) {
@@ -571,6 +576,6 @@
 
 
 
-    
-   
+
+
 
