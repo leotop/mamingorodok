@@ -6,7 +6,7 @@
     $parent_catalog = substr_count($_SERVER["REQUEST_URI"],"/catalog/filter/");
 
     $isSearch = $arParams["SEARCH"] == "Y";
-
+    $quantityForDisplay = COption::GetOptionString("grain.customsettings","QUANTITY_FOR_DISPLAY_PUBLIC");
     $strH1 = $arResult["META"]["H1"];
     $strH2 = $arResult["META"]["H2"];
 
@@ -158,9 +158,8 @@
                         $smallImg = null;
                         $offerPrices = array();
                         $torgPred=0;
-
                         //---------------------------------------------------получаем картинки----------------------------------------------------------------------
-                        $rsOffers = CCatalogSKU::getOffersList($arElement["ID"],0,array(">=CATALOG_QUANTITY"=>3),array('XML_ID','CATALOG_QUANTITY'));   //получаем список торговых предложений
+                        $rsOffers = CCatalogSKU::getOffersList($arElement["ID"],0,array(">=CATALOG_QUANTITY"=>$quantityForDisplay),array('XML_ID','CATALOG_QUANTITY'));   //получаем список торговых предложений
                         foreach($rsOffers[$arElement["ID"]] as $arTovar){
 
                             $tmp_path=getResizedIMGPath($arTovar['XML_ID']);

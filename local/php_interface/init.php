@@ -79,12 +79,11 @@
     define('CATALOG_RATING_PROPERTY_ID', 7);          // id свойтсва рейтинг
     define('PRODUCER_IBLOCK_PROPERTY_ID', 9);          // id свойства производитель
 
-    define('CATALOG_IBLOCK_RECOMMENDETION_LIST_ID', 7);  //
-    define('MY_SITE_ID', "s1");  //
+    define('CATALOG_IBLOCK_RECOMMENDATION_LIST_ID', 7);  //
+    define('MY_SITE_ID', SITE_ID);  //
     define('PAY_SYSTEM', 3);          // id банковской квитанцией
 
     if(!defined("isCronImport")) define("isCronImport", false);
-
 
 
     //игнорируемы способы доставки
@@ -116,7 +115,9 @@
     define('GROUP_BLOG_OWNER_USER_ID', 76); // владелец всех групповых блогов
     define('GROUP_BLOG_OWNER_USER_ID_PERSONAL_BLOG_ID', 44); // id личного блога владельца всех групповых блогов (чтобы исключать его при выборке)
 
-
+    CModule::IncludeModule("highloadblock");
+    use Bitrix\Highloadblock as HL;
+    use Bitrix\Main\Entity;
 
 
 
@@ -194,12 +195,6 @@
         // удал€ем во всех ссылках домен с http://  и если остались http - значит ссылка на другой сайт
         $strText = str_ireplace(array("http://mamingorodok.ru", "http://www.mamingorodok.ru"), array("", ""), $strText);
         if(stripos($strText, "http://") !== false) $boolClearReview = true;
-
-        //    if(!$boolClearReview) { // посчитаем кол-во ссылок в посте
-        //        preg_match_all("#<a.*?href=\"(.*?)\".*?/a>#", $strText, $arM);
-        //        echo '<pre>'.print_r($arM, true).'</pre>';
-        //        if(count($arM[0]) > 2) $boolClearReview = true;
-        //    }
 
         if($boolClearReview)
             return false;
@@ -379,23 +374,20 @@
         }
     }
 
-    function prepareMultilineText($str)
-    {
+    function prepareMultilineText($str){
         $str = normalizeBR($str);
         if(strpos($str, "<br>") !== false) $str = '&mdash;&nbsp;'.str_replace("<br>", "<br>&mdash;&nbsp;", $str);
         return $str;
     }
 
-    function normalizeBR($strSrc)
-    {
+    function normalizeBR($strSrc){
         $str = str_replace(array("</br>", "<BR>", "<br />", "<br/>"), array("<br>", "<br>", "<br>", "<br>"), trim($strSrc));
         $str = str_replace(array("<br><br>"), array("<br>"), trim($str));
         if(substr($str, -4) == "<br>") $str = substr($str, 0, strlen($str)-4);
         return $str;
     }
 
-    function processUserAvailNotify(&$arResult)
-    {
+    function processUserAvailNotify(&$arResult){
         CModule::IncludeModule("iblock");
 
         $el = new CIBlockElement;
@@ -407,15 +399,12 @@
         while($arA = $rsA -> Fetch())
             $arResult[$arA["PROPERTY_OFFER_VALUE"]][$arA["ID"]] = $arA;
 
-        if(count($arResult)>0)
-        {
+        if(count($arResult)>0){
             $el = new CIBlockElement;
 
             $rsO = CIBlockElement::GetList(Array(), array("IBLOCK_ID"=>OFFERS_IBLOCK_ID, "ACTIVE"=>"Y", "ID"=>array_keys($arResult)), false, false, array("ID", "CATALOG_GROUP_1", "PROPERTY_CML2_LINK.DETAIL_PAGE_URL", "PROPERTY_CML2_LINK.NAME"));
-            while($arO = $rsO -> GetNext())
-            {
-                if($arO["CATALOG_QUANTITY"]>0 && $arO["CATALOG_PRICE_1"]>0)
-                {
+            while($arO = $rsO -> GetNext()){
+                if($arO["CATALOG_QUANTITY"]>0 && $arO["CATALOG_PRICE_1"]>0){
                     $arSend = array(
                         "PRICE" => CurrencyFormat($arO["CATALOG_PRICE_1"], $arO["CATALOG_CURRENCY_1"]),
                         "LINK" => "http://www.mamingorodok.ru".str_replace("//", "/", $arO["PROPERTY_CML2_LINK_DETAIL_PAGE_URL"]).'?offerID='.$arO["ID"],
@@ -439,22 +428,18 @@
         $arResult = array();
         $arPrice = array();
         $rsA = CIBlockElement::GetList(Array(), array("IBLOCK_ID"=>NOTIFY_IBLOCK_ID, "ACTIVE"=>"Y", "CREATED_BY" => $USER -> GetID(), "!PROPERTY_PRODUCT"=>false), false, false, array("ID", "PROPERTY_PRODUCT", "XML_ID", "NAME", "CODE"));
-        while($arA = $rsA -> Fetch())
-        {
+        while($arA = $rsA -> Fetch()){
             // arshow($arA);
             //  if(in_array($arA["PROPERTY_PRODUCT_PROPERTY_CH_SNYATO_ENUM_ID"]))
             $arResult[$arA["ID"]] = array("EMAIL" => $arA["XML_ID"], "PRODUCT"=>$arA["PROPERTY_PRODUCT_VALUE"], "USER_NAME" => $arA["NAME"], "USER_PHONE" => $arA["CODE"]);
 
-            if(!isset($arPrice[$arA["ID"]]))
-            {
+            if(!isset($arPrice[$arA["ID"]])){
 
                 $rsP = CIBlockElement::GetList(Array("CATALOG_PRICE_3"=>"ASC"), array("IBLOCK_ID"=>OFFERS_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_CML2_LINK"=>$arA["PROPERTY_PRODUCT_VALUE"]), false, false, array("ID", "CATALOG_GROUP_2", "PROPERTY_CML2_LINK.DETAIL_PAGE_URL", "PROPERTY_CML2_LINK.NAME"));
                 if ($rsP->SelectedRowsCount() > 0) {
-                    while($arP = $rsP -> GetNext())
-                    {
+                    while($arP = $rsP -> GetNext()) {
 
-                        if($arP["CATALOG_QUANTITY"]>0)
-                        {
+                        if($arP["CATALOG_QUANTITY"]>0) {
                             $arPrice[$arA["PROPERTY_PRODUCT_VALUE"]] = $arP;
                             break;
                         }
@@ -472,10 +457,8 @@
         if(count($arPrice)>0)
         {
             //arshow($arPrice);
-            foreach($arResult as $intID => $arData)
-            {
-                if(isset($arPrice[$arData["PRODUCT"]]))
-                {
+            foreach($arResult as $intID => $arData) {
+                if(isset($arPrice[$arData["PRODUCT"]])) {
                     $arSend = array(
                         "PRICE" => CurrencyFormat($arPrice[$arData["PRODUCT"]]["CATALOG_PRICE_3"], $arPrice[$arData["PRODUCT"]]["CATALOG_CURRENCY_1"]),
                         "LINK" => "http://www.mamingorodok.ru".str_replace("//", "/", $arPrice[$arData["PRODUCT"]]["PROPERTY_CML2_LINK_DETAIL_PAGE_URL"]).'?offerID='.$arPrice[$arData["PRODUCT"]]["ID"],
@@ -492,8 +475,7 @@
             }
         }
     }
-    function getAvailText($intCnt)
-    {
+    function getAvailText($intCnt) {
         if($intCnt>3)
             return '¬ наличии';
         elseif($intCnt>0)
@@ -501,8 +483,7 @@
         else return "Ќет в наличии";
     }
 
-    function isWeekendORHoliday($unixDate)
-    {
+    function isWeekendORHoliday($unixDate) {
         if(CIBlockElement::GetList(Array(), array("IBLOCK_ID"=>15, "ACTIVE"=>"Y", "DATE_ACTIVE_FROM"=>date("d.m.Y", $unixDate), "!PROPERTY_WORKDAY"=>false), array())>0)
             return false;
         elseif(date("w", $unixDate) == 6 || date("w", $unixDate) == 0)
@@ -512,8 +493,7 @@
         else return false;
     }
 
-    function getFirstWorkDay($unixDate)
-    {
+    function getFirstWorkDay($unixDate) {
         for($i=1; $i<20;$i++) // дольше выходных у нас не бывает )
         {
             $currDate = $unixDate+$i * 86400;
@@ -524,12 +504,10 @@
         return $currDate;
     }
 
-    function getDeliveryDates($intCnt=3, $unixToday=false)
-    {
+    function getDeliveryDates($intCnt=3, $unixToday=false) {
         $arResult = array();
 
-        if(!$unixToday)
-        {
+        if(!$unixToday) {
             $unixToday =  mktime(0,0,0,date("m"), date("d"), date("Y"));
             $intHours = date("H");
         } else {
@@ -538,8 +516,7 @@
         }
 
         $intDate = $unixToday;
-        for($i=0;$i<$intCnt;$i++)
-        {
+        for($i=0;$i<$intCnt;$i++) {
             $intDate = getDeliveryDate(true, $intDate);
 
             $arResult[date("d.m.Y", $intDate)] = CIBlockFormatProperties::DateFormat("j F", $intDate);
@@ -548,12 +525,10 @@
         return $arResult;
     }
 
-    function getDeliveryDate($boolReturnUnix = false, $unixToday=false)
-    {
+    function getDeliveryDate($boolReturnUnix = false, $unixToday=false) {
         CModule::IncludeModule("iblock");
 
-        if(!$unixToday)
-        {
+        if(!$unixToday) {
             $unixToday =  mktime(0,0,0,date("m"), date("d"), date("Y"));
             $intHours = date("H");
         } else {
@@ -579,13 +554,11 @@
         else return CIBlockFormatProperties::DateFormat("j F", $calculatedDate);
     }
 
-    function sklonenie($n, $forms)
-    {
+    function sklonenie($n, $forms) {
         return $n%10==1&&$n%100!=11?$forms[0]:($n%10>=2&&$n%10<=4&&($n%100<10||$n%100>=20)?$forms[1]:$forms[2]);
     }
 
-    function getEnd($intCnt, $strType = 'товар')
-    {
+    function getEnd($intCnt, $strType = 'товар') {
         if($strType == 'товар')
             $arForms = array('товар', 'товара', 'товаров');
         elseif($strType == "отзыв")
@@ -597,8 +570,7 @@
         return sklonenie($intCnt, $arForms) ;
     }
 
-    function smart_trim($text, $max_len, $trim_middle = false, $trim_chars = '...', $boolReturnRest = false)
-    { // smartly trims text to desired length
+    function smart_trim($text, $max_len, $trim_middle = false, $trim_chars = '...', $boolReturnRest = false) { // smartly trims text to desired length
         $text = trim($text);
 
         if (strlen(strip_tags($text)) < $max_len) {
@@ -655,13 +627,11 @@
 
     AddEventHandler("main", "OnEpilog", "process404");
 
-    function inc404()
-    {
+    function inc404() {
         @define("ERROR_404", "Y");
     }
 
-    function process404()
-    {
+    function process404() {
         global $USER;
         if(
             !defined('ADMIN_SECTION') &&
@@ -679,8 +649,7 @@
         }
     }
 
-    function MyOnBeforePrologHandler()
-    {
+    function MyOnBeforePrologHandler() {
         global $APPLICATION, $USER;
 
         if(!isset($_SESSION["HOST_FROM"]) && !empty($_SERVER["HTTP_REFERER"])) {
@@ -717,51 +686,10 @@
                 // if(count($arTmp)>5) inc404();
             }
         }
-        // redirect old numeric url
-        /*if(preg_match("/\/catalog\/(\d+)\/(\d+)\//i", $APPLICATION->GetCurDir(), $arM))
-        {
-        CModule::IncludeModule("iblock");
-        $strPath = '/catalog/';
-        if($arM[1]>0)
-        {
-        $rsS = CIBlockSection::GetList(Array(), array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ID"=>$arM[1], "ACTIVE"=>"Y"), false);
-        if($arS = $rsS -> GetNext())
-        {
-        $strPath .= $arS["CODE"].'/';
-        if($arM[2]>0)
-        {
-        $rsI = CIBlockElement::GetList(Array(), array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ID"=>$arM[2], "ACTIVE"=>"Y"), false, false, array("CODE"));
-        if($arI = $rsI -> GetNext())
-        $strPath .= $arI["CODE"].'/';
 
-        LocalRedirect($strPath, true, "301 Moved permanently");
-        } else {
-        inc404();
-        }
-        } else {
-        inc404();
-        }
-        }
-        } elseif(preg_match("/\/catalog\/(\d+)\//i", $APPLICATION->GetCurDir(), $arM)) {
-        CModule::IncludeModule("iblock");
-        $strPath = '/catalog/';
-        $rsS = CIBlockSection::GetList(Array(), array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ID"=>$arM[1], "ACTIVE"=>"Y"), false);
-        if($arS = $rsS -> GetNext())
-        {
-        $strPath .= $arS["CODE"].'/';
-        LocalRedirect($strPath, true, "301 Moved permanently");
-        } else {
-        require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-        require($_SERVER['DOCUMENT_ROOT'].'/404.php');
-        exit();
-        }
-        }*/
-
-        if($_REQUEST["sef"] == "Y")
-        {
+        if($_REQUEST["sef"] == "Y") {
             $APPLICATION -> SetCurPage($_SERVER["REDIRECT_URL"], $_SERVER["QUERY_STRING"]);
-            if(strlen($_REQUEST["producerCode"])>0)
-            {
+            if(strlen($_REQUEST["producerCode"])>0) {
                 CModule::IncludeModule("iblock");
                 $rsP = CIBlockElement::GetList(Array(), array("IBLOCK_ID"=>5, "CODE"=>$_REQUEST["producerCode"]), false, false, array("ID", "NAME", "CODE", "PROPERTY_NAME_RUS"));
                 if($arP = $rsP -> GetNext())
@@ -775,8 +703,7 @@
             } elseif(strlen($_REQUEST["propertyCode"])>0) {
                 CModule::IncludeModule("iblock");
                 $rsP = CIBlockElement::GetList(Array(), array("IBLOCK_ID"=>17, "CODE"=>$_REQUEST["propertyCode"]), false, false, array("ID", "NAME", "CODE", "PREVIEW_TEXT", "DETAIL_TEXT", "PROPERTY_BREADCRUMB_TITLE"));
-                if($arP = $rsP -> GetNext())
-                {
+                if($arP = $rsP -> GetNext()) {
                     $_REQUEST["set_filter"] = 'Y';
                     $_REQUEST["arrLeftFilter_pf"][$arP["DETAIL_TEXT"]][] = $arP["PREVIEW_TEXT"];
 
@@ -1207,137 +1134,6 @@
             unset($timestamp_x);
             }
 
-
-
-            if($element["IBLOCK_ID"] == OFFERS_IBLOCK_ID)
-            {
-            $res = CIBlockElement::GetList(array(),array("IBLOCK_ID"=>OFFERS_IBLOCK_ID, "ID"=>$element["ID"]), false, false, array("TIMESTAMP_X","PROPERTY_CML2_LINK","PROPERTY_COLOR_CODE","PROPERTY_PICTURE_MINI","PROPERTY_PICTURE_MIDI","PROPERTY_PICTURE_MAXI"));
-            if($ar_fields = $res->GetNext())
-            {
-            $timestamp_x = $ar_fields["TIMESTAMP_X"];
-            $timestamp = str_replace(",",".",$timestamp_x);
-            $dt = explode(" ", $timestamp);
-
-            $date = explode(".",$dt[0]);
-            $time = explode(":",$dt[1]);
-
-            $timestamp = mktime($time[0],$time[1],$time[2],$date[1],$date[0],$date[2]); // дата изменени€ элемента unix like
-            $main_product = intval($ar_fields["PROPERTY_CML2_LINK_VALUE"]);
-            $COLOR_CODE = trim($ar_fields["PROPERTY_COLOR_CODE_VALUE"]);
-            $MINI_OLD = $ar_fields["PROPERTY_PICTURE_MINI_VALUE"];
-            $MIDI_OLD = $ar_fields["PROPERTY_PICTURE_MIDI_VALUE"];
-            $MAXI_OLD = $ar_fields["PROPERTY_PICTURE_MAXI_VALUE"];
-            }
-
-            if($main_product>0)
-            {
-            $res = CIBlockElement::GetList(array(),array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ID"=>$main_product), false, false, array("XML_ID"));
-            if($ar_fields = $res->GetNext())
-            {
-            $XML_ID = $ar_fields["XML_ID"];
-            if(strlen($XML_ID)>0)
-            $folderPicture = $_SERVER["DOCUMENT_ROOT"]."/upload/import/goods_files/".$XML_ID."/";
-            else $folderPicture = "";
-            }
-
-            if(!empty($XML_ID))
-            {
-            $MINI = "";
-            $MIDI = "";
-            $MAXI = "";
-
-            if(is_dir($folderPicture))
-            {
-            global $watermark, $watermarkPicture, $temps;
-            $temps = $_SERVER["DOCUMENT_ROOT"]."/upload/import/temp/";
-
-            if(strlen($COLOR_CODE) <= 0)
-            {
-            if(strlen($element["PROPERTY_VALUES"]["COLOR_CODE"])>0)
-            $COLOR_CODE = $element["PROPERTY_VALUES"]["COLOR_CODE"];
-            elseif(isset($element["PROPERTY_VALUES"]["20"])) {
-            foreach($element["PROPERTY_VALUES"]["20"] as $val)
-            $COLOR_CODE  = $val["VALUE"];
-            }
-            }
-
-            if(strlen($COLOR_CODE)<=0)
-            {
-            $db_props = CIBlockElement::GetProperty(OFFERS_IBLOCK_ID, $element["ID"], array("sort" => "asc"), Array("CODE"=>"COLOR_CODE"));
-            while($ar_props = $db_props->Fetch())
-            $COLOR_CODE = $ar_props["VALUE"];
-            }
-
-            $strMAXIName = '';
-            $arFiles = getFileDir($folderPicture);
-            if(is_array($arFiles) && count($arFiles)>0)
-            {
-            // get hash
-            $strFileHash = '';
-            $rsFH = CIBlockElement::GetProperty($element["IBLOCK_ID"], $element["ID"], array("sort" => "asc"), Array("CODE"=>"PICHASH"));
-            if($arFH = $rsFH -> Fetch()) $strFileHash = $arFH["VALUE"];
-
-            $strCurrentPicHash = md5(implode("::", $arFileHash));
-            if($strCurrentPicHash != $strFileHash)
-            {
-            foreach($arFiles as $strFileName)
-            {
-            if(preg_match("/^.*?".$COLOR_CODE."\.(jpg|gif|png|bmp|jpeg)+?$/i", $strFileName))
-            {
-            if(filectime($folderPicture.$strFileName) > $timestamp) // файл был закачан после последнего изменени€ элемента - апдейтим
-            {
-            if(strpos($strFileName, "MINI") === 0)
-            $MINI = CFile::MakeFileArray($folderPicture.$strFileName);
-            elseif(strpos($strFileName, "MIDI") === 0)
-            $MIDI = CFile::MakeFileArray($folderPicture.$strFileName);
-            else {
-            $MAXI = CFile::MakeFileArray($folderPicture.$strFileName);
-            $strMAXIName = $strFileName;
-            }
-            }
-            }
-            }
-            $GLOBALS["UPDATE_HACK_AFTER"][$ID]["PHASH"] = $strCurrentPicHash;
-            }
-            }
-            }
-
-
-            if(is_array($MAXI) && !is_array($MIDI)) $MIDI = CIBlock::ResizePicture(array_merge($MAXI, array("COPY_FILE"=>"Y")), array("WIDTH"=>256, "HEIGHT"=>256, "METHOD"=>"resample", "COMPRESSION"=>95));
-            if(is_array($MAXI) && !is_array($MINI)) $MINI = CIBlock::ResizePicture(array_merge($MAXI, array("COPY_FILE"=>"Y")), array("WIDTH"=>64, "HEIGHT"=>64, "METHOD"=>"resample", "COMPRESSION"=>95));
-
-            if(is_array($MINI)) CIBlockElement::SetPropertyValuesEx($element["ID"], OFFERS_IBLOCK_ID, array("PICTURE_MINI" => array($MINI)));
-            if(is_array($MIDI)) CIBlockElement::SetPropertyValuesEx($element["ID"], OFFERS_IBLOCK_ID, array("PICTURE_MIDI" => array($MIDI)));
-            if(is_array($MAXI)) CIBlockElement::SetPropertyValuesEx($element["ID"], OFFERS_IBLOCK_ID, array("PICTURE_MAXI" => array($MAXI)));
-            }
-            }
-
-            unset($defaultPicture);
-            unset($arFile);
-            unset($rsFile);
-            unset($PREVIEW_PICTURE);
-            unset($db_props);
-            unset($ar_props);
-            unset($a);
-            unset($command);
-            unset($files);
-            unset($filePic);
-            unset($filePicFull);
-            unset($res);
-            unset($ar_fields);
-            unset($totime);
-            unset($day);
-            unset($timestamp);
-            unset($MAXI_OLD);
-            unset($arFile3);
-            unset($MAXI);
-            unset($MIDI_OLD);
-            unset($arFile2);
-            unset($MIDI);
-            unset($arFile);
-            unset($MINI);
-            }
-
             if($element["IBLOCK_ID"] == 15) {
             $element["ACTIVE_FROM"] = substr($element["ACTIVE_FROM"], 0, 10);
             }
@@ -1540,11 +1336,9 @@
             }
         }
 
-        function OnAfterUserAddHandler(&$arFields)
-        {
+        function OnAfterUserAddHandler(&$arFields) {
             global $DB, $APPLICATION;
-            if($arFields["ID"]>0)
-            {
+            if($arFields["ID"] > 0) {
                 //отправка письма
                 CUser::SendUserInfo($arFields["ID"],SITE_ID);
 
@@ -3052,9 +2846,6 @@
     *
     * @param mixed $ID
     */
-    CModule::IncludeModule("highloadblock");
-    use Bitrix\Highloadblock as HL;
-    use Bitrix\Main\Entity;
 
     function checkSKUactive($ID) {
         if ($ID > 0) {
