@@ -79,8 +79,8 @@
     define('CATALOG_RATING_PROPERTY_ID', 7);          // id свойтсва рейтинг
     define('PRODUCER_IBLOCK_PROPERTY_ID', 9);          // id свойства производитель
 
-    define('CATALOG_IBLOCK_RECOMMENDATION_LIST_ID', 7);  //
-    define('MY_SITE_ID', SITE_ID);  //
+    define('CATALOG_IBLOCK_RECOMMENDETION_LIST_ID', 7);  //
+    define('MY_SITE_ID', 's1');  //
     define('PAY_SYSTEM', 3);          // id банковской квитанцией
 
     if(!defined("isCronImport")) define("isCronImport", false);
