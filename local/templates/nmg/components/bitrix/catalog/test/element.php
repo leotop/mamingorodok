@@ -10,7 +10,7 @@
         if($arS = $rsS -> GetNext())
             $arResult["VARIABLES"]["SECTION_ID"] = $arS["ID"];
     }
-    
+
     if(strlen($arResult["VARIABLES"]["ELEMENT_CODE"])>0)
     {
         $rsI = CIBlockElement::GetList(Array(), array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "CODE"=>$arResult["VARIABLES"]["ELEMENT_CODE"], "ACTIVE"=>"Y"), false, false, array("ID"));
@@ -67,7 +67,7 @@
     );
 
     $content = ob_get_contents();
-    ob_end_clean(); 
+    ob_end_clean();
 
     $ElementID = $arResult["VARIABLES"]["ELEMENT_ID"];
 
@@ -81,12 +81,12 @@
     $obProperty=CIBlockElement::GetProperty($arParams["IBLOCK_ID"],$ElementID,array(),array("CODE" => "SEO_TEXT"))->Fetch();
     $arRess["PROPERTIES"]["SEO_TEXT"]["VALUE"]=$obProperty["VALUE"];
 
-    $obProperty=CIBlockElement::GetProperty($arParams["IBLOCK_ID"],$ElementID,array(),array("CODE" => "CH_PRODUCER"))->Fetch(); 
+    $obProperty=CIBlockElement::GetProperty($arParams["IBLOCK_ID"],$ElementID,array(),array("CODE" => "CH_PRODUCER"))->Fetch();
     $arRess["PROPERTIES"]["CH_PRODUCER"]["VALUE"]=$obProperty["VALUE"];
 
     if($arRess["PROPERTIES"]["CH_PRODUCER"]["VALUE"]>0)
     {
-        $temp=GetProducerByID($arRess["PROPERTIES"]["CH_PRODUCER"]["VALUE"]); 
+        $temp=GetProducerByID($arRess["PROPERTIES"]["CH_PRODUCER"]["VALUE"]);
         if ($temp) $producer= $temp;
     }
 
@@ -139,7 +139,7 @@
                 $arResult["ITEMS"][$intProductID]["MIN_PRICE"] = min($arPrices);
         }
     }
-?> 
+?>
 <input type="hidden" id="elementDataId" value="<?=$arResult["ITEMS"][$ElementID]["ID"]?>"/>
 <input type="hidden" id="elementDataIdAdd" value="<?=$ElementID?>"/>
 <?  //echo($arResult["ITEMS"][$ElementID]["ID"]);
@@ -148,7 +148,7 @@
         $arSearchReplace = array();
         if($USER->GetID() > 0)
         {
-            $isInBabyList = CIBlockElement::GetList(Array(), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_USER_ID" => $USER->GetID(), "PROPERTY_PRODUCT_ID" => $ElementID, "!PROPERTY_STATUS"=> WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array());    
+            $isInBabyList = CIBlockElement::GetList(Array(), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_USER_ID" => $USER->GetID(), "PROPERTY_PRODUCT_ID" => $ElementID, "!PROPERTY_STATUS"=> WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array());
             if(!empty($arResult["ITEMS"][$ElementID]))
                 $add_to_wish_list_link = '<a id="deleteFromWishList" data-id="'.$arResult["ITEMS"][$ElementID]["ID"].'"  title="В избранное"><img src="/bitrix/templates/nmg/img/icon2.png" width="13" height="11" alt="В избранное" /><span>В избранное</span></a>';
             else $add_to_wish_list_link = '<a class="add addToLikeList" data-id="'.$ElementID.'"  title="В избранное"><img src="/bitrix/templates/nmg/img/grey-heart.png" width="13" height="11" alt="" /><span>В избранное</span></a>';
@@ -166,7 +166,7 @@
             {
                 $arFriends[] = $arFriend;
                 if($arFriend["FIRST_USER_ID"] != $USER->GetID()) $arFriendsIDs[] = $arFriend["FIRST_USER_ID"];
-            }            
+            }
         }
 
         // получаем список пользователей которые хотят этот товар
@@ -186,7 +186,7 @@
 
 
         $dbEl = CIBlockElement::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_USER_ID" => $arFriendsIDsI, "PROPERTY_PRODUCT_ID" => $ElementID, "!PROPERTY_STATUS" => WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array("PROPERTY_USER_ID"), array("nPageSize"=>$SHOWCOUNTPAGE), array("ID", "IBLOCK_ID", "PROPERTY_USER_ID"));
-        while($obEl = $dbEl->GetNext())            
+        while($obEl = $dbEl->GetNext())
             $arUsersWantIDs[] = $obEl["PROPERTY_USER_ID_VALUE"];
 
         $arResult["NAV_STRING"] = $dbEl->GetPageNavStringEx($navComponentObject, $arParams["PAGER_TITLE"], $arParams["PAGER_TEMPLATE"], "Y");
@@ -195,10 +195,10 @@
 
         if(count($arFriendsIDs)>0 && false)
         {
-            $dbEl = CIBlockElement::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_USER_ID" => $arFriendsIDs, "PROPERTY_PRODUCT_ID" => $ElementID, "!PROPERTY_STATUS" => WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array("PROPERTY_USER_ID"), array("nPageSize"=>$SHOWCOUNTPAGE), array("ID", "IBLOCK_ID", "PROPERTY_USER_ID"));    
-            while($obEl = $dbEl->GetNext())    
-            {         
-                $users_friends_want++;   
+            $dbEl = CIBlockElement::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_USER_ID" => $arFriendsIDs, "PROPERTY_PRODUCT_ID" => $ElementID, "!PROPERTY_STATUS" => WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array("PROPERTY_USER_ID"), array("nPageSize"=>$SHOWCOUNTPAGE), array("ID", "IBLOCK_ID", "PROPERTY_USER_ID"));
+            while($obEl = $dbEl->GetNext())
+            {
+                $users_friends_want++;
                 $arUsersWantFriendsIDs[] = $obEl["PROPERTY_USER_ID_VALUE"];
             }
             $arResult["NAV_STRING"] = $dbEl->GetPageNavStringEx($navComponentObject, $arParams["PAGER_TITLE"], $arParams["PAGER_TEMPLATE"], "Y");
@@ -207,10 +207,10 @@
         }
 
         // получаем список пользователей которые уже имеют этот товар
-        //$dbEl = CIBlockElement::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_USER_ID" => $arFriendsIDsI, "PROPERTY_PRODUCT_ID" => $ElementID, "PROPERTY_STATUS" => WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array("PROPERTY_USER_ID"), array("nPageSize"=>$SHOWCOUNTPAGE), array("ID", "IBLOCK_ID", "PROPERTY_USER_ID"));  
-        $dbEl = CIBlockElement::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_PRODUCT_ID" => $ElementID, "PROPERTY_STATUS" => WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array("PROPERTY_USER_ID"), array("nPageSize"=>15), array("ID", "IBLOCK_ID", "PROPERTY_USER_ID"));      
-        while($obEl = $dbEl->GetNext())    
-        {           
+        //$dbEl = CIBlockElement::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_USER_ID" => $arFriendsIDsI, "PROPERTY_PRODUCT_ID" => $ElementID, "PROPERTY_STATUS" => WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array("PROPERTY_USER_ID"), array("nPageSize"=>$SHOWCOUNTPAGE), array("ID", "IBLOCK_ID", "PROPERTY_USER_ID"));
+        $dbEl = CIBlockElement::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_PRODUCT_ID" => $ElementID, "PROPERTY_STATUS" => WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array("PROPERTY_USER_ID"), array("nPageSize"=>15), array("ID", "IBLOCK_ID", "PROPERTY_USER_ID"));
+        while($obEl = $dbEl->GetNext())
+        {
             if(!in_array($obEl["PROPERTY_USER_ID_VALUE"],$arUsersHaveIDs))
             {
                 $arUsersHaveIDs[] = $obEl["PROPERTY_USER_ID_VALUE"];
@@ -226,9 +226,9 @@
         $users_friends_have = 0;
         if(count($arFriendsIDs)>0 && false) // не разделяем на друзей и пользователей
         {
-            $dbEl = CIBlockElement::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_USER_ID" => $arFriendsIDs, "PROPERTY_PRODUCT_ID" => $ElementID, "PROPERTY_STATUS" => WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array("PROPERTY_USER_ID"), array("nPageSize"=>$SHOWCOUNTPAGE), array("ID", "IBLOCK_ID", "PROPERTY_USER_ID"));    
-            while($obEl = $dbEl->GetNext())    
-            {           
+            $dbEl = CIBlockElement::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_USER_ID" => $arFriendsIDs, "PROPERTY_PRODUCT_ID" => $ElementID, "PROPERTY_STATUS" => WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array("PROPERTY_USER_ID"), array("nPageSize"=>$SHOWCOUNTPAGE), array("ID", "IBLOCK_ID", "PROPERTY_USER_ID"));
+            while($obEl = $dbEl->GetNext())
+            {
                 if(!in_array($obEl["PROPERTY_USER_ID_VALUE"],$arUsersHaveFriendsIDs))
                     $arUsersHaveFriendsIDs[] = $obEl["PROPERTY_USER_ID_VALUE"];
             }
@@ -279,9 +279,9 @@
         if ($rating_add > 0)
         {
             // получаем текущий общий рейтинг и количество голосов
-            $dbEl = CIBlockElement::GetList(Array(), Array("ID"=>$arResult["VARIABLES"]["ELEMENT_ID"], "IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y"), false, false, array("ID", "IBLOCK_ID", "NAME", "PROPERTY_RATING_SUM", "PROPERTY_VOTES"));    
-            if($obEl = $dbEl->GetNext())    
-            {           
+            $dbEl = CIBlockElement::GetList(Array(), Array("ID"=>$arResult["VARIABLES"]["ELEMENT_ID"], "IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y"), false, false, array("ID", "IBLOCK_ID", "NAME", "PROPERTY_RATING_SUM", "PROPERTY_VOTES"));
+            if($obEl = $dbEl->GetNext())
+            {
                 $rating_sum = $obEl["PROPERTY_RATING_SUM_VALUE"] + $rating_add;
                 $votes = $obEl["PROPERTY_VOTES_VALUE"] + 1;
 
@@ -291,7 +291,7 @@
                     "VOTES" => $votes
                 );
                 CIBlockElement::SetPropertyValuesEx($arResult["VARIABLES"]["ELEMENT_ID"], false, $arSetProperties);
-            }            
+            }
         }
 
         if(!$USER -> IsAdmin() && false)
@@ -384,7 +384,7 @@
                 ?><?
                 }
 
-                // список всех пользователей, которые хотят или имеют    
+                // список всех пользователей, которые хотят или имеют
                 /*
                 $Want = array_unique(array_merge($arUsersWantIDs,$arUsersWantFriendsIDs));
                 $Have = array_unique(array_merge($arUsersHaveIDs,$arUsersHaveFriendsIDs));
@@ -697,7 +697,7 @@
 
     if (!$_REQUEST["IS_AJAX"] && false)
     {
-        // аксессуары 
+        // аксессуары
     ?>
     <?if (count($arRess["PROPERTIES"]["ACCESSORIES"]["VALUE"])>0)
         {?>
@@ -760,7 +760,7 @@
 
     <div class="CatalogCenterColumn RExist">
         <a name="review"></a>
-        <div class="goods GoodReview">       
+        <div class="goods GoodReview">
             <?
                 /////////////////////////////////////////////
                 // Обновляем рейтинг после отправки отзыва //
@@ -771,9 +771,9 @@
                 if ($rating_add > 0)
                 {
                     // получаем текущий общий рейтинг и количество голосов
-                    $dbEl = CIBlockElement::GetList(Array(), Array("ID"=>$arResult["VARIABLES"]["ELEMENT_ID"], "IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y"), false, false, array("ID", "IBLOCK_ID", "NAME", "PROPERTY_RATING_SUM", "PROPERTY_VOTES"));    
-                    if($obEl = $dbEl->GetNext())    
-                    {           
+                    $dbEl = CIBlockElement::GetList(Array(), Array("ID"=>$arResult["VARIABLES"]["ELEMENT_ID"], "IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y"), false, false, array("ID", "IBLOCK_ID", "NAME", "PROPERTY_RATING_SUM", "PROPERTY_VOTES"));
+                    if($obEl = $dbEl->GetNext())
+                    {
                         $rating_sum = $obEl["PROPERTY_RATING_SUM_VALUE"] + $rating_add;
                         $votes = $obEl["PROPERTY_VOTES_VALUE"] + 1;
 
@@ -783,7 +783,7 @@
                             "VOTES" => $votes
                         );
                         CIBlockElement::SetPropertyValuesEx($arResult["VARIABLES"]["ELEMENT_ID"], false, $arSetProperties);
-                    }            
+                    }
                 }
             ?>
 
@@ -811,7 +811,7 @@
                     "FILES_COUNT" => "2"
                     ),
                     false
-                );?>  
+                );?>
 
 
             <h2>Ваш отзыв</h2>
@@ -938,7 +938,7 @@
 <?
     if(false)
     {
-        // список всех пользователей, которые хотят или имеют    
+        // список всех пользователей, которые хотят или имеют
         $Want = array_unique(array_merge($arUsersWantIDs,$arUsersWantFriendsIDs));
         $Have = array_unique(array_merge($arUsersHaveIDs,$arUsersHaveFriendsIDs));
         $arAllUsers = array_unique(array_merge($Want, $Have));

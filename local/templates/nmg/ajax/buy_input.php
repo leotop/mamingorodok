@@ -26,7 +26,7 @@ while ($arItems = $dbBasketItems->Fetch())
     }
 
     if($produktID == $arItems["PRODUCT_ID"]){
-        $offer_id_basket = true;   
-        echo $offer_id_basket;                      
+        $offer_id_basket = true;
+        echo $offer_id_basket;
    }
-} 
+}

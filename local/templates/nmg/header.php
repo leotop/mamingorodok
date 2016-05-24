@@ -1,4 +1,4 @@
-<?  
+<?
     if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
     CModule::IncludeModule("iblock");
@@ -13,8 +13,8 @@
     {
         if (CModule::IncludeModule("blog"))
         {
-            $arBlog = CBlog::GetByOwnerID($user_id); 
-            if(is_array($arBlog)) 
+            $arBlog = CBlog::GetByOwnerID($user_id);
+            if(is_array($arBlog))
                 $user_blog = $arBlog["URL"];
         }
         $obCache->EndDataCache($user_blog);
@@ -30,10 +30,10 @@
     } else {
     ?>
     <!DOCTYPE html>
-    <html><?	
+    <html><?
     }
 ?>
-<head>   
+<head>
     <title><?$APPLICATION->ShowTitle(false)?></title>
     <?
         //Modified by Optimism.ru
@@ -43,7 +43,7 @@
         }
 
         $APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH.'/js/jquery-ui-1.9.11.custom.min.js');
-    ?>   
+    ?>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/jquery.easing-1.3.pack.js"></script>
     <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/fancybox/jquery.fancybox-1.3.4.js"></script>
@@ -60,12 +60,12 @@
     <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/jquery.jscrollpane.min.js"></script>
 
     <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/script_cache.js"></script>
-    <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/script2.js"></script>      
+    <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/script2.js"></script>
     <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/consultant.js"></script>
     <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/fxSlider.js"></script>
 
-    <script src="/bitrix/templates/nmg/js/scripts.js" type="text/javascript"></script> 
-    <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/datepicker/jquery-ui.min.js"></script>   
+    <script src="/local/templates/nmg/js/scripts.js" type="text/javascript"></script>
+    <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/datepicker/jquery-ui.min.js"></script>
 
     <?$APPLICATION->ShowCSS();?>
 
@@ -97,13 +97,13 @@
     <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/jquery.formstyler.js"> </script>
     <link rel="stylesheet" type="text/css" href="<?=SITE_TEMPLATE_PATH?>/jquery.formstyler.css" />
 
-    <link rel="stylesheet" type="text/css" href="/bitrix/templates/nmg/skins/accessory/skin.css" />
-    <link rel="stylesheet" type="text/css" href="/bitrix/templates/nmg/skins/tumb/skin.css" />
-    <link rel="stylesheet" type="text/css" href="/bitrix/templates/nmg/skins/color_chose/skin.css" />
-    <link rel="stylesheet" type="text/css" href="/bitrix/templates/nmg/skins/color_chose_one/skin.css" />
+    <link rel="stylesheet" type="text/css" href="/local/templates/nmg/skins/accessory/skin.css" />
+    <link rel="stylesheet" type="text/css" href="/local/templates/nmg/skins/tumb/skin.css" />
+    <link rel="stylesheet" type="text/css" href="/local/templates/nmg/skins/color_chose/skin.css" />
+    <link rel="stylesheet" type="text/css" href="/local/templates/nmg/skins/color_chose_one/skin.css" />
     <link rel="stylesheet" type="text/css" href="<?= SITE_TEMPLATE_PATH ?>/slider/jquery-ui-1.8.11.custom.css"/>
 
-    <link href="/bitrix/templates/nmg/components/individ/catalog.element/newCard/style_card.css" type="text/css" rel="stylesheet" />
+    <link href="/local/templates/nmg/components/individ/catalog.element/newCard/style_card.css" type="text/css" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="<?=SITE_TEMPLATE_PATH?>/recomend-lists.css" />
     <link rel="stylesheet" type="text/css" href="<?=SITE_TEMPLATE_PATH?>/cloud-zoom.css" />
@@ -130,7 +130,7 @@
     </script>
     <script type="text/javascript">
         VK.init({apiId: 2400096, onlyWidgets: true});
-    </script>  
+    </script>
 
     <script type="text/javascript">
 
@@ -141,7 +141,7 @@
         _gaq.push(['_addOrganic','blogs.yandex.ru', 'text', true]);
         _gaq.push(['_addOrganic','go.mail.ru', 'q']);
         _gaq.push(['_addOrganic','nova.rambler.ru', 'query']);
-        _gaq.push(['_addOrganic','nigma.ru', 's']); 
+        _gaq.push(['_addOrganic','nigma.ru', 's']);
         _gaq.push(['_addOrganic','webalta.ru', 'q']);
         _gaq.push(['_addOrganic','aport.ru', 'r']);
         _gaq.push(['_addOrganic','poisk.ru', 'text']);
@@ -150,7 +150,7 @@
         _gaq.push(['_addOrganic','quintura.ru', 'request']);
         _gaq.push(['_addOrganic','search.qip.ru', 'query']);
         _gaq.push(['_addOrganic','gde.ru', 'keywords']);
-        _gaq.push(['_addOrganic','ru.yahoo.com', 'p']); 
+        _gaq.push(['_addOrganic','ru.yahoo.com', 'p']);
         _gaq.push(['_trackPageview']);
         setTimeout('_gaq.push([\'_trackEvent\', \'NoBounce\', \'Over 10 seconds\'])',10000);
 
@@ -164,11 +164,11 @@
 
 </head>
 <?php// flush(); ?>
-<body> 
+<body>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     var yaParams = {/*Здесь параметры визита*/};
-</script>  
+</script>
 
 <script type="text/javascript">
     (function (d, w, c) {
@@ -191,7 +191,7 @@
     })(document, window, "yandex_metrika_callbacks");
 </script>
 <noscript><div><img src="//mc.yandex.ru/watch/8129698" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter --> 
+<!-- /Yandex.Metrika counter -->
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
 <?$APPLICATION->IncludeComponent("bitrix:socialnetwork.events_dyn", ".default", array(
         "DATE_TIME_FORMAT" => "d.m.Y H:i:s",
@@ -263,7 +263,7 @@
                         if(!empty($strTmp))
                             echo $strTmp;
                     }
-                ?>    
+                ?>
 
 
                 <li class="sk-top-menu_last"><a href="#" title="Обратная связь" id="feedbackFormHref">Обратная связь</a></li>
@@ -283,7 +283,7 @@
                     <li class="hover_menu"><a  href="javascript:void(0);">Здравствуйте, <?=$USER->GetFirstName()?></a>
                         <ul class="slide_effect">
                             <?if ($USER->IsAuthorized()){?>
-                                <li><a onclick="_gaq.push(['_trackEvent', 'Button', 'Cabinet', 'Header']);" href="/personal/" title="Мой кабинет">Личный кабинет</a></li> 
+                                <li><a onclick="_gaq.push(['_trackEvent', 'Button', 'Cabinet', 'Header']);" href="/personal/" title="Мой кабинет">Личный кабинет</a></li>
                                 <?}?>
                             <li><?
                                     if($USER -> IsAuthorized())
@@ -317,8 +317,8 @@
             <?=showNoindex()?>
             <?
                 $APPLICATION->IncludeComponent(
-                    "bitrix:search.title", 
-                    "search_header", 
+                    "bitrix:search.title",
+                    "search_header",
                     array(
                         "SHOW_INPUT" => "Y",
                         "INPUT_ID" => "title-search-input",
@@ -404,8 +404,8 @@
                 <li><a href="<? echo '/personal/products/wishlist/';  /*($USER->IsAuthorized()?'/community/user/'.$USER->GetID().'/':'/about-baby-list.php')*/?>" class="sk-mybar--babylist <?if (count($arResult["ITEMS"])>0) { echo 'babyListNotEmpty';}?>" title="Избранное">Избранное <?if (count($arResult["ITEMS"])>0) { echo '(<span id="likeCount" count="'.count($arResult["ITEMS"]).'">'.count($arResult["ITEMS"]).'</span>)';}?></a></li>
                 <li class="info_basket_peace">
                     <?$APPLICATION->IncludeComponent(
-                        "bitrix:sale.basket.basket.small", 
-                        "template1", 
+                        "bitrix:sale.basket.basket.small",
+                        "template1",
                         array(
                             "PATH_TO_BASKET" => "/basket/",
                             "PATH_TO_ORDER" => "/basket/order/",
@@ -416,11 +416,11 @@
                         ),
                         false
                     );?></li>
-            </ul> 
-        </div>	
+            </ul>
+        </div>
     </div>
     <div class="sk-logopane">
-        <div class="sk-logo"><a href="/" title="mamingorodok.ru"><img src="/bitrix/templates/nmg/img/header/logo.png" alt="" /></a></div>
+        <div class="sk-logo"><a href="/" title="mamingorodok.ru"><img src="/local/templates/nmg/img/header/logo.png" alt="" /></a></div>
         <?$APPLICATION->IncludeComponent(
                 "sk:banner.slider",
                 "",
@@ -475,7 +475,7 @@
     </div>
 </div>
 <!-- new header -->
-<? //} 
+<? //}
     /*else {
     <!-- Old header -->
 
@@ -574,8 +574,8 @@
     echo showNoindex();
 ?>
 <?$APPLICATION->IncludeComponent(
-        "bitrix:catalog.section.list", 
-        "top_menu", 
+        "bitrix:catalog.section.list",
+        "top_menu",
         array(
             "IBLOCK_TYPE" => "catalog",
             "IBLOCK_ID" => "2",
@@ -671,13 +671,13 @@
     if(!$NO_BROAD)
     {
         if($showSravn)
-        {?>                                                                                                
+        {?>
         <div class="rel" style="width:100%; height:1px; z-index:100;">
             <div class="sravn" id="sravn">
                 <?if(count($_SESSION["CATALOG_COMPARE_LIST"][CATALOG_IBLOCK_ID]["ITEMS"])>2):?>
                     <div class="add-to-compare-list">
-                        <a href="/catalog/compare/">сравнение товаров:</a> 
-                        <span><?=count($_SESSION["CATALOG_COMPARE_LIST"][CATALOG_IBLOCK_ID]["ITEMS"])?></span> 
+                        <a href="/catalog/compare/">сравнение товаров:</a>
+                        <span><?=count($_SESSION["CATALOG_COMPARE_LIST"][CATALOG_IBLOCK_ID]["ITEMS"])?></span>
                         <a id="clearCompear" href="#">очистить</a>
                     </div>
                     <?endif;?>
@@ -691,12 +691,12 @@
 
 <table class="contant_table" cellpadding="0" cellspacing="0">
 
-<tr><? 
+<tr><?
     if(preg_match("/\/catalog\/.+\/.+\//i", $APPLICATION->GetCurDir())) $HIDE_LEFT_COLUMN = true;
 
     if((!$HIDE_LEFT_COLUMN || ($HIDE_LEFT_COLUMN && $ignoreHideLeftColumn)) || ERROR_404 == "Y" )
-    {?>                      
-    <td class="left_sitebar">                  
+    {?>
+    <td class="left_sitebar">
         <div class="left_column<?=($IS_MAIN?'':'1')?>"><?
                 $APPLICATION->ShowProperty("leftMenuHtml"); // generates in footer
                 if(ERROR_404 == "Y")
@@ -727,18 +727,18 @@
                 if(strpos($APPLICATION -> GetCurDir(), "/tools/search/") === 0 ){
 
 
-                    global $arrSearchFilter;  
+                    global $arrSearchFilter;
                     if(strlen($_REQUEST["q"])>0) $GLOBALS["arrSearchFilter"][] = array(
                         "LOGIC"=>"OR",
                         array("NAME"=>'%'.htmlspecialchars($_REQUEST["q"]).'%'),
                         array("?PROPERTY_ARTICUL" => htmlspecialchars($_REQUEST["q"]))
-                        );          
+                        );
                     //  $arrFilterSpecial["!PROPERTY_1498"] = false;
                     //arshow($arrFilterSpecial);
 
                     $APPLICATION->IncludeComponent(
-                        "kombox:filter", 
-                        "catalog_filter", 
+                        "kombox:filter",
+                        "catalog_filter",
                         array(
                             "IBLOCK_TYPE" => "catalog",
                             "IBLOCK_ID" => "2",
@@ -779,7 +779,7 @@
                             )
                         ),
                         false
-                    ); 
+                    );
                 }
                 ///////////фильтр поиска///////////////////////////
 
@@ -787,8 +787,8 @@
                 {
 
                 ?><?$APPLICATION->IncludeComponent(
-                        "bitrix:catalog.section.list", 
-                        "index_left_col", 
+                        "bitrix:catalog.section.list",
+                        "index_left_col",
                         array(
                             "IBLOCK_TYPE" => "catalog",
                             "IBLOCK_ID" => "2",
@@ -851,7 +851,7 @@
                 "TOP_DEPTH_LEVEL" => 1
                 ),
                 false
-                );  
+                );
                 } */
                 if(strpos($_SERVER["REQUEST_URI"], "catalog") !== false && ERROR_404 != "Y")
                 {
@@ -861,8 +861,8 @@
 
                     $rsS = CIBlockSection::GetList(Array(), array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "CODE"=>$arURL[2], "ACTIVE"=>"Y"), false);
                     if($arS = $rsS -> GetNext())
-                        $current_section_id = $arS["ID"]; 
-                    else $current_section_id = -1;  
+                        $current_section_id = $arS["ID"];
+                    else $current_section_id = -1;
 
                     if (count($arURL) > 1 /*&& count($arURL) < 5*/) $SHOW_FILTER = true;
 
@@ -877,7 +877,7 @@
 
                     if(count($arURL) > 4)
                     {
-                        $IS_DETAIL = true;             
+                        $IS_DETAIL = true;
                         $IS_PARENT_SECTION = false;
                     }
 
@@ -935,7 +935,7 @@
                 } else {
                     if ($SHOW_FILTER)
                     {
-                        if(true) {  
+                        if(true) {
 
                             echo '<div id="catalogFilter" data-template="left-filter" data-section="'.
                             intval($current_section_id).'" data-query="ajax=Y'.
@@ -1033,8 +1033,8 @@
 
 
     $APPLICATION->IncludeComponent(
-        "inseco:9may", 
-        ".default", 
+        "inseco:9may",
+        ".default",
         array(
             "CACHE_TYPE" => "A",
             "CACHE_TIME" => "36000000",
@@ -1050,8 +1050,8 @@
 
 <?//Летающая корзина?>
 <?$APPLICATION->IncludeComponent(
-        "bitrix:sale.basket.basket.line", 
-        "flying-cart", 
+        "bitrix:sale.basket.basket.line",
+        "flying-cart",
         array(
             "PATH_TO_BASKET" => SITE_DIR."personal/cart/",
             "PATH_TO_PERSONAL" => SITE_DIR."personal/",
