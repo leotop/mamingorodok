@@ -15,7 +15,7 @@
     color:#0086da;
 }
 .basket{
-    display: none; 
+    display: none;
 }
 #priceHere .prise_cena{
     font-size: 25px!important;
@@ -24,12 +24,13 @@
     padding-top: 5px;
     padding-bottom: 0;
     position: relative;
+    color: #999!important;
 }
 #priceHere .prise_cena:after{
     content: "";
     width: 84%;
     height: 2px;
-    background-color: #7C4C95;
+    background-color: #999;
     position: absolute;
     left: 0;
     top: 20px;
@@ -54,7 +55,7 @@
 
 .size_span {
     position: relative;
-    top: -8px;  
+    top: -8px;
 }
 .product_block_info .sk-product-price_expects{
     width: 55%;
@@ -112,7 +113,7 @@
 }
 #similarItems{
     clear: both;
-    float: left;  
+    float: left;
 }
 .buy_button{
     background:#C0BBC1!important;
@@ -213,7 +214,7 @@
 }
 .form_alert,
 .form_alert_error {
-   text-align: center; 
+   text-align: center;
 }
 .form_alert_error{
     color: #F00;

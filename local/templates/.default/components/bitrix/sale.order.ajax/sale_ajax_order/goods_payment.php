@@ -16,9 +16,6 @@
 
    }
    ?>
-<?
- // arshow($arResult["GRID"]["ROWS"]);
-?>
         <table>
             <thead>
                 <tr>
@@ -32,10 +29,9 @@
                     $bPreviewPicture = false;
                     $bDetailPicture = false;
                     $imgCount = 0;
-                    // arshow($produkt_block_2);
-                    // prelimenary column handling
-                    foreach ($arResult["GRID"]["ROWS"] as $id => $arColumn)
-                    {   //
+
+
+                    foreach ($arResult["GRID"]["ROWS"] as $id => $arColumn) {
                         if ($arColumn["id"] == "PROPS")
                             $bPropsColumn = true;
 
@@ -102,7 +98,6 @@
             <tbody>
                   <?$num = 1?>
                 <?foreach ($arResult["GRID"]["ROWS"] as $arData):?>
-                <?//arshow($arData)?>
                 <tr>
                     <td class="count-prod"><?=$num++?></td>
                     <td class="itemphoto">
@@ -182,12 +177,10 @@
                     <?
                     // prelimenary check for images to count column width
                     foreach ($arResult["GRID"]["ROWS"] as $id => $arColumn)
-                    {
+                    {         
                         $arItem = (isset($arData["columns"][$arColumn["id"]])) ? $arData["columns"] : $arData;
-                        if (is_array($arItem[$arColumn["id"]]))
-                        {
-                            foreach ($arItem[$arColumn["id"]] as $arValues)
-                            {
+                        if (is_array($arItem[$arColumn["id"]])) {
+                            foreach ($arItem[$arColumn["id"]] as $arValues) {
                                 if ($arValues["type"] == "image")
                                     $imgCount++;
                             }
@@ -212,7 +205,7 @@
                             <td class="item" style="width:<?=$width?>%">
 
                                 <h2 class="bx_ordercart_itemtitle">
-                                <?//arshow($arItem);
+                                <?
                                 $db_vals = CCatalogSku::GetProductInfo($arItem["PRODUCT_ID"]);    // определяет является ли товар торговым предложением
                                 if(!empty($db_vals)){
                                     $ar_item = CIBlockElement::GetList(
@@ -270,10 +263,8 @@
 
                                         // is image property
                                         $isImgProperty = false;
-                                        foreach ($arProp["VALUES"] as $id => $arVal)
-                                        {
-                                            if (isset($arVal["PICT"]) && !empty($arVal["PICT"]))
-                                            {
+                                        foreach ($arProp["VALUES"] as $id => $arVal) {
+                                            if (isset($arVal["PICT"]) && !empty($arVal["PICT"])) {
                                                 $isImgProperty = true;
                                                 break;
                                             }
@@ -367,7 +358,7 @@
                         <?
                         elseif ($arColumn["id"] == "PRICE_FORMATED"):
                         ?>
-                            <td class="price <?//if (doubleval($arItem["DISCOUNT_PRICE"]) > 0){echo "right";}?>">
+                            <td class="price">
                                 <div class="current_price"><?=$arItem["PRICE_FORMATED"]?></div>
                                 <div class="old_price ">
                                     <?
@@ -391,10 +382,7 @@
                         <?
                         elseif ($arColumn["id"] == "DISCOUNT"):
                         ?>
-                            <!--<td class="custom right">
-                                <span><?=getColumnName($arColumn)?>:</span>
-                                <?=$arItem["DISCOUNT_PRICE_PERCENT_FORMATED"]?>
-                            </td>    -->
+
                         <?
                         elseif ($arColumn["id"] == "DETAIL_PICTURE" && $bPreviewPicture):
                         ?>
@@ -449,31 +437,11 @@
                                     if ($arValues["type"] == "image")
                                         $columnStyle = "width:20%";
                             ?>
-                            <!--<td class="custom" style="<?=$columnStyle?>">
-                                <span><?=getColumnName($arColumn)?>:</span>
-                                <?
-                                foreach ($arItem[$arColumn["id"]] as $arValues):
-                                    if ($arValues["type"] == "image"):
-                                    ?>
-                                        <div class="bx_ordercart_photo_container">
-                                            <div class="bx_ordercart_photo" style="background-image:url('<?=$arValues["value"]?>')"></div>
-                                        </div>
-                                    <?
-                                    else: // not image
-                                        echo $arValues["value"]."<br/>";
-                                    endif;
-                                endforeach;
-                                ?>
-                            </td>  -->
+
                             <?
                             else: // not array, but simple value
                             ?>
-                            <!--<td class="custom" style="<?=$columnStyle?>">
-                                <span><?=getColumnName($arColumn)?>:</span>
-                                <?
-                                    echo $arItem[$arColumn["id"]];
-                                ?>
-                            </td>  -->
+
                             <?
                             endif;
                         endif;
@@ -483,7 +451,6 @@
                 </tr>
                 <?$arorder = $arData["PRICE"] * $arData["QUANTITY"]?>
                 <?$arPrice += $arorder;?>
-                <?//arshow($arData)?>
                 <?endforeach;?>
             </tbody>
         </table>
