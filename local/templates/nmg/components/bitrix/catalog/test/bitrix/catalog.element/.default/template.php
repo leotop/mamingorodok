@@ -181,7 +181,7 @@
                                 <?//активность класса происходит при наличии 1 элемента $intCnt?>
                                 <?foreach($arResult["OFFERS"] as $offer){
                                     if($offer["ID"] == $arOffer["ID"]){?>
-                                        data-delivery-price="<?=$offer["MIN_PRICE"]["PRINT_DISCOUNT_VALUE"]?>"
+                                    data-delivery-price="<?=$offer["MIN_PRICE"]["PRINT_DISCOUNT_VALUE"]?>"
                                     <?}
                                 }?>
                                 data-code="<?=$arOffer["PROPERTY_ELEMENT_XML_1C_VALUE"]?>"
@@ -551,11 +551,11 @@
 
                                             <? }else{?>
 
-                                                <div class="sk-product-price-one">
-                                                    <?=($arResult["COLORS_HAS_SAME_PRICE"]?'':'от ')?>
-                                                    <?=number_format($arStartOffer["PRICE"], 0, '.', ' ')?>
-                                                    <div class="rub_none">руб.</div><span class="rouble">a</span>
-                                                </div><?
+                                            <div class="sk-product-price-one">
+                                                <?=($arResult["COLORS_HAS_SAME_PRICE"]?'':'от ')?>
+                                                <?=number_format($arStartOffer["PRICE"], 0, '.', ' ')?>
+                                                <div class="rub_none">руб.</div><span class="rouble">a</span>
+                                            </div><?
                                             }
                                         }
                                         if($arResult["PROPERTIES"]["CH_SNYATO"]["VALUE_ENUM_ID"] == 2100923)
@@ -630,7 +630,7 @@
                             <a class="count_arrow inc" href="javascript:void(0)" onclick="BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value++;">&#9650;</a>
                             <a class="count_arrow dec" href="javascript:void(0)" onclick="if (BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value &gt; 1) BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value--;">&#9660;</a>
 
-                       </div>
+                        </div>
                     </div>
 
                     <div class="right_col">
@@ -821,7 +821,7 @@
                                     <div class="sk-sd-features--head">Характеристики</div>
                                 </li>
 
-                                    <?
+                                <?
                                     if(strlen($arResult["DISPLAY_PROPERTIES"]["PROIZVODITEL"]["DISPLAY_VALUE"])>0)
                                     {?>
                                     <li><span class="s_like">Производитель:</span> <?=$arResult["DISPLAY_PROPERTIES"]["PROIZVODITEL"]["DISPLAY_VALUE"]?></li><?
@@ -945,7 +945,7 @@
 
                                             }
 
-                                             //  document.getElementById('map_distance').innerHTML(distance);
+                                            //  document.getElementById('map_distance').innerHTML(distance);
 
                                         });// needed route*/
                                     }); // start route
@@ -1007,7 +1007,7 @@
                                         }
                                     }
 
-                               ?>
+                                ?>
                                 <?=$strDeliveryData.$strConstruct?>
                                 <li>
                                     <a id="deliveryShowLink"
@@ -1100,7 +1100,7 @@
                                     else $strSizeHash = '';
 
                                     foreach($arColor as $arItem)
-                                    {    /
+                                    {    
                                         if ($arItem["PRICE"] > 0 && intval($arItem["CATALOG_QUANTITY"]) >= intval($quantityForDisplay) && !in_array($arItem["ID"], $element_id)){
 
                                             $strH1orName = $arResult["SEO_H1_FROM_NAME"] == "Y" ? $arResult["NAME"].' '.$arItem["PROPERTY_TSVET_VALUE"] : $arResult["PROPERTIES"]["SEO_H1"]["VALUE"];
@@ -1128,7 +1128,7 @@
                                                 $smallImg["height"] = "55";
                                             }
 
-                                            ?>
+                                        ?>
                                         <a<?=($intGallryCnt>13?' style="display:none;"':'')?>
                                             title="<?=$strGalleryItemName?>"
                                             class="sk-gallery-color-item cloud-zoom-gallery"
