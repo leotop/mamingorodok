@@ -1,5 +1,5 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
-<?    
+<?
 if (!function_exists("showFilePropertyField"))
 {
 	function showFilePropertyField($name, $property_fields, $values, $max_file_size_show=50000)
@@ -198,10 +198,10 @@ if (!function_exists("PrintPropsForm"))
 							</div> -->
                              <?if($arProperties['CODE'] == "DATA_DELYVERY"){
                                  /////////////..........///////////////
-                                     
+
                              }elseif($arProperties['CODE'] == "CITY"){?>
                                 <?global $userSelCity;?>
-                                 
+
                             <div class="bx_block r3x1">
                                 <input type="text" placeholder="<?=$arProperties["NAME"]?>" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?if($_POST["DELIVERY_ID"] == 2){echo "г. Москва м. Рязанский проспект";}else{?><?if($arProperties["VALUE"] ==""){echo $userSelCity;}else{echo $arProperties["VALUE"];}?><?}?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
 
@@ -225,9 +225,9 @@ if (!function_exists("PrintPropsForm"))
                                 $order = array('sort' => 'asc');
                                 $filter = array("ID"=>$USER->GetID());
                                 $rsUsers = CUser::GetList(($by="personal_phone"),$order, $filter)->Fetch();
-                            ?>  
-                            <?//arshow($arProperties);?>   
-                            <? 
+                            ?>
+                            <?//arshow($arProperties);?>
+                            <?
                             if(!empty($_SESSION["PAY_SISTEM_ID_ACTIVE"])){    // проверка если сессия не пуста и произошло переключение способа оплаты
                                 $pay_sistem = $_SESSION["PAY_SISTEM_ID_ACTIVE"];
                                 unset($_SESSION['PAY_SISTEM_ID_ACTIVE']);    // удаляем сессию с данным id платы
@@ -239,44 +239,48 @@ if (!function_exists("PrintPropsForm"))
                                    // arshow($db_propVals["VALUE"], true);
                                    // arshow($arProperties["VALUE"], true);
                                     if($arProperties["VALUE"] != $db_propVals["VALUE"] and empty($db_propVals["VALUE"]) and $arProperties['CODE'] != "address"){
-                                        $arProperties["VALUE"] = $db_propVals["VALUE"]; 
+                                        $arProperties["VALUE"] = $db_propVals["VALUE"];
                                     }
                                 }
-                                
+
                             }
-                            
-                            ?> 
-                            <?$pickup = "м. Рязанский проспект, 1-й Институтский проезд, д. 3, стр. 5."?>            
-							<div class="bx_block r3x1">   
+
+                            ?>
+                            <?$pickup = "м. Рязанский проспект, 1-й Институтский проезд, д. 3, стр. 5."?>
+							<div class="bx_block r3x1">
                             <?//arshow($_SESSION["ADRESS"],true);
                             if($arProperties['CODE'] == "address" and $_POST["DELIVERY_ID"] != 1 or $arDelivery["ID"] != 1){
                                    $_SESSION["adress"] = $arProperties["VALUE"];
-                            }?> 
-								<input 
-                                    type="<?if($arProperties['CODE'] == "structure" or 
+                            }?>
+                            <?//arshow($rsUsers)?>
+								<input
+                                    type="<?if($arProperties['CODE'] == "structure" or
                                                $arProperties['CODE'] == "apartment"){echo "number";}else{echo "text";}?>"
-                                    placeholder="<?=$arProperties["NAME"]?>" 
-                                    maxlength="250" size="<?=$arProperties["SIZE1"]?>" 
+                                    placeholder="<?=$arProperties["NAME"]?>"
+                                    maxlength="250" size="<?=$arProperties["SIZE1"]?>"
                                     value="<?
                                         if($arProperties['CODE'] == "PHONE" and empty($arProperties["VALUE"])){
                                             echo $rsUsers["PERSONAL_PHONE"];
                                         }
-                                        elseif($arProperties['CODE'] == "address" ){   
+                                        elseif($arProperties['CODE'] == "address" ){
                                             if($_POST["DELIVERY_ID"] == 1 or $arDelivery["ID"] == 1){    //проверка является ли текущая доставка "самовывоз"
-                                                echo $pickup; 
+                                                echo $pickup;
                                             }elseif($_SESSION["ADRESS"]["ID_DELIVERY"] != 1 and !empty($_SESSION["ADRESS"]["VALUE_ADRESS"]) and empty($arProperties["VALUE"]) or $arProperties["VALUE"] == $pickup){ // проверка на наличие адреса сохраненного в сессии
-                                                echo $_SESSION["ADRESS"]["VALUE_ADRESS"];  
+                                                echo $_SESSION["ADRESS"]["VALUE_ADRESS"];
                                             }else{
-                                               echo $arProperties["VALUE"]; 
+                                               echo $arProperties["VALUE"];
                                             }
                                        }
-                                        elseif($arProperties['CODE'] == "EMAIL"){  //проверка является ли текущая доставка "самовывоз"
+                                        elseif($arProperties['CODE'] == "EMAIL"){
                                             echo $rsUsers["EMAIL"];
                                         }
+                                        elseif($arProperties['CODE'] == "NAME" and empty($arProperties["VALUE"])){
+                                            echo $rsUsers["NAME"].' '.$rsUsers["LAST_NAME"];
+                                        }
                                         else{
-                                            echo $arProperties["VALUE"]; 
-                                        }?>" 
-                                    name="<?=$arProperties["FIELD_NAME"]?>" 
+                                            echo $arProperties["VALUE"];
+                                        }?>"
+                                    name="<?=$arProperties["FIELD_NAME"]?>"
                                     id="<?=$arProperties["FIELD_NAME"]?>" />
                                 <?//arshow($arProperties);?>
 								<?
@@ -289,8 +293,8 @@ if (!function_exists("PrintPropsForm"))
 								endif;
 								?>
 							</div>
-							
-						<? }    
+
+						<? }
 						}
 						elseif ($arProperties["TYPE"] == "SELECT")
 						{
@@ -304,8 +308,8 @@ if (!function_exists("PrintPropsForm"))
 							</div> -->
                             <?
                             if($arProperties['CODE'] == "DELIVERY_TIME" or $arProperties['CODE'] == "DELIVERY_TIME_PICKUP" or $arProperties['CODE'] == "TRANSPORT_COMPANY"){
-                            
-                            }else{    
+
+                            }else{
                             ?>
 							<div class="bx_block r3x1">
 								<select name="<?=$arProperties["FIELD_NAME"]?>" placeholder="<?=$arProperties["NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" size="<?=$arProperties["SIZE1"]?>">
@@ -396,7 +400,7 @@ if (!function_exists("PrintPropsForm"))
 							    <div style="clear: both;"></div>
 							<?}
 						}
-						
+
 						elseif ($arProperties["TYPE"] == "RADIO")
 						{
 							?>
@@ -525,7 +529,7 @@ if (!function_exists("PrintPropsForm_date"))
                         {
                             ?>
                             <?
-                                $time = time()+1*24*60*60; 
+                                $time = time()+1*24*60*60;
                                 $data = date('d.m.Y', $time);
                             ?>
                             <div class="date_delivery">
@@ -542,7 +546,7 @@ if (!function_exists("PrintPropsForm_date"))
                                 endif;
                                 ?>
                             </div>
-                            
+
                         <?}elseif ($arProperties["CODE"] == "DELIVERY_TIME" and $_POST["DELIVERY_ID"] != 1)
                         {
                             ?>
@@ -579,7 +583,7 @@ if (!function_exists("PrintPropsForm_date"))
                                             <option value="<?=$arVariants["VALUE"]?>"<?if ($arVariants["SELECTED"] == "Y") echo " selected";?>><?=$arVariants["NAME"]?></option>
                                         <?
                                         endforeach;
-                                        
+
                                     ?>
                                 </select>
 
@@ -594,8 +598,8 @@ if (!function_exists("PrintPropsForm_date"))
                                 ?>
                             </div>
                             <?
-                        }    
-                    
+                        }
+
                 }
         }
     }
@@ -636,8 +640,8 @@ if (!function_exists("PrintPropsForm_delivery_company"))
                                 endif;
                                 ?>
                             </div>
-                            <div style="clear: both;"></div><?   
-                    
+                            <div style="clear: both;"></div><?
+
                         }
                     }
         }

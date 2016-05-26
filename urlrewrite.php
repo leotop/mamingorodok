@@ -64,13 +64,13 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^/community/blog/#",
 		"RULE" => "",
 		"ID" => "bitrix:blog",
-		"PATH" => "/community/blog/index.php",
+		"PATH" => "/community/blog/group/index.php",
 	),
 	array(
 		"CONDITION" => "#^/community/blog/#",
 		"RULE" => "",
 		"ID" => "bitrix:blog",
-		"PATH" => "/community/blog/group/index.php",
+		"PATH" => "/community/blog/index.php",
 	),
 	array(
 		"CONDITION" => "#^/catalog/test/#",
@@ -85,16 +85,16 @@ $arUrlRewrite = array(
 		"PATH" => "/community/index.php",
 	),
 	array(
-		"CONDITION" => "#^/catalog/#",
-		"RULE" => "",
-		"ID" => "bitrix:catalog",
-		"PATH" => "/catalog/index.php",
-	),
-	array(
 		"CONDITION" => "#^/actions/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/actions/index.php",
+	),
+	array(
+		"CONDITION" => "#^/catalog/#",
+		"RULE" => "",
+		"ID" => "bitrix:catalog",
+		"PATH" => "/catalog/index.php",
 	),
 	array(
 		"CONDITION" => "#^/catalog/#",
