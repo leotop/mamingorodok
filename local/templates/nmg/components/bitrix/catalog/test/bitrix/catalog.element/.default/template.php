@@ -52,7 +52,7 @@
 
 
     function getColorHtml($strSize, $arResult)
-    {   //echo $strSize.'<br>';
+    {
         ob_start();
 
         $arColor = $arResult["CS"][$strSize];
@@ -76,7 +76,6 @@
 
             <div class="sk-product-color--head-list" for="color_yes">
                 <span class="s_like">Цвет:</span>
-                <?//arshow($arStartOffer, true);?>
                 <a class="sk-link-btt" id="colorList" data-last-value="<?=$arStartOffer["PROPERTY_TSVET_VALUE"]?>">
                     <span class="sk-dotted" data-shassi="<?=$arStartOffer["PROPERTY_SHASSI_ENUM_ID"]?>"><?=$arStartOffer["PROPERTY_TSVET_VALUE"]?></span>
                 </a>
@@ -104,8 +103,8 @@
 
                 foreach ($arResult["ALL_COLOR"] as $arColorKey => $arColorItem) {
 
-                    if ($arColorItem["CATALOG_QUANTITY"] >=3 /*and $arColorItem["PROPERTY_RAZMER_VALUE"] == $arSizeItemCheck*/) {
-                        //arshow($arColorItem,true);?>
+                    if ($arColorItem["CATALOG_QUANTITY"] >=3 ) {
+                    ?>
 
                     <div class="sk-product-color-item item_<?=$arColorItem["PROPERTY_RAZMER_VALUE"]?> shassi_<?if(empty($arColorItem["PROPERTY_SHASSI_ENUM_ID"])){ echo $arColorItem["PROPERTY_RAZMER_ENUM_ID"];}else{echo $arColorItem["PROPERTY_SHASSI_ENUM_ID"];}?>"
                         id="<?=$arColorItem["ID"]?>"
@@ -138,8 +137,6 @@
                             $arColorTemp = $arResult["ALL_COLOR"];
                         }
 
-                        //arshow($arResult["ALL_COLOR"], true);
-
                         foreach($arResult["ALL_COLOR"] as $arOffer){
 
                             $price=GetOfferMinPrice($arParams["IBLOCK_ID"],$arOffer["ID"]);
@@ -168,10 +165,6 @@
                                     }
                                     $fileName = str_replace('#','_',$arOffer["XML_ID"]);
                                     $BigImgSize = isMinifiedExist($fileName);
-
-
-
-                                    //  $bigImg = CFile::ResizeImageGet($imgName["MAXI"]["ID"], array("width"=>376, "height"=>343), BX_RESIZE_IMAGE_PROPORTIONAL, false, $watermark);
                                 }
                                 if($intCnt%$itemsPerLi == 0 && $intCnt>0)
                                     echo '</li><li class="sizeOffer sizeOffer_'.$arOffer["PROPERTY_RAZMER_VALUE"].'">';?>
@@ -181,7 +174,6 @@
 
 
                             <a id="smallOffer<?=$arOffer["ID"]?>"
-                                <?/*href="<?if(empty($bigImg["src"])){echo "/img/no_foto.jpg";}else{echo $bigImg["src"];}?>"*/?>
                                 alt="<?=$BigImgSize//CFile::GetPath($imgName["MAXI"]["ID"])?>"
                                 rel="useZoom:'zoom2'"
                                 <?//активность класса происходит при наличии 1 элемента $intCnt?>
@@ -245,34 +237,18 @@
     if(!$arStartOffer){
         $arStartOffer = $arResult;
     }
-    //arshow($arStartOffer,true);
-    /*
-    echo $arResult["START_SIZE"]."<br>";
-    echo $arResult["START_COLOR"];      */
-
-    //$strH1orName = $arResult["PROPERTIES"]["SEO_H1"]["VALUE"];
     $strH1orName=$arResult['NAME'].' '.$arOffer['PROPERTY_TSVET_VALUE'];
     $watermark = Array(array("name" => "watermark", "position" => "bottomleft",  "file"=>$_SERVER['DOCUMENT_ROOT']."/img/mmm.png"));
 
     $bigImg = CFile::ResizeImageGet($arResult["DETAIL_PICTURE"]["ID"], array("width"=>376, "height"=>342), BX_RESIZE_IMAGE_PROPORTIONAL, true, $watermark);
 
-    /* if (!empty($arResult["DETAIL_PICTURE"]["ID"]))
-    {
-    //   $bigImg = CFile::ResizeImageGet($arResult["DETAIL_PICTURE"]["ID"], array("width"=>376, "height"=>342), BX_RESIZE_IMAGE_PROPORTIONAL, true, $watermark);
-    $bigImg = getResizedIMGPath($arResult["XML_ID"]);
 
-    }
-    else */
     if(empty($bigImg)){
         $imgName=GetImgNameArray($arStartOffer["XML_ID"]);  //с.м. result_modifier
         $bigImg["src"] = "/img/no_foto.jpg";
         $bigImg["width"] = "376";
         $bigImg["height"] = "342";
-        /*  if (!empty($imgName))
-        {
-        $bigImg = CFile::ResizeImageGet($imgName["MAXI"], array("width"=>376, "height"=>342), BX_RESIZE_IMAGE_PROPORTIONAL, false, $watermark);
-        //$bigImg = $imgName['MAXI'];
-        }   */
+
     }
 
     $strSelectedSize = '';
@@ -331,7 +307,6 @@
                         });
                     });
                 </script>
-                <?//arshow($_SESSION["CATALOG_COMPARE_LIST"][CATALOG_IBLOCK_ID]["ITEMS"][$arResult["ID"]]);?>
                 <div class="product_compare">
                     <label><input type="checkbox" class="input2 add-to-compare-list-ajax" value="<?=$arResult["ID"]?>" /></label>
                     <i title="/catalog/compare/">Сравнить</i>
@@ -346,7 +321,7 @@
             </div>
 
             <?  //Определение количества товара в наличии
-                if (/*$arStartOffer["~CATALOG_QUANTITY"]<0 ||*/ $arResult["PROPERTIES"]["CATALOG_AVAILABLE"]["VALUE"] != "Y"){
+                if ($arResult["PROPERTIES"]["CATALOG_AVAILABLE"]["VALUE"] != "Y"){
                     $productQuantity = '<span class="low-quant">Нет в наличии </span>';
                     $img_name='low-battery';
                 } elseif ($arResult["PROPERTIES"]["CATALOG_AVAILABLE"]["VALUE"] == "Y" and $arStartOffer["~CATALOG_QUANTITY"]<=5) {            //$arStartOffer["~CATALOG_QUANTITY"]<=5 && $arStartOffer["~CATALOG_QUANTITY"]>=3
@@ -385,7 +360,6 @@
                 <table>
                     <tr>
                         <td>
-                            <?//arshow($bigImg);?>
                             <a href="<?=$bigImg["src"]?>"
                                 alt="<?=$bigImg["src"]?> "
                                 id='zoom2'
@@ -478,7 +452,6 @@
             <input type="hidden" id="productXML_ID" value="<?=$arStartOffer["XML_ID"]?>" />
 
             <input type="hidden" id="productXML_SECTION_ID" value="<?=$arResult["SECTION"]["XML_ID"]?>" />
-            <?//arshow($arResult,true);?>
             <div style="display:none" class="buy_sale">
                 <?if($arResult["SET"]["PRODUCT"]){?>
                     <?
@@ -493,41 +466,10 @@
 
             <div class="sk-product-price-bar">
 
-                <? // arshow($arResult,true);
+                <?
                     if ($arResult["PROPERTIES"]["CATALOG_AVAILABLE"]["VALUE"]) {
                     ?>
-                    <?
-                        /* $intCnt = 0;
-                        $dbBasketItems = CSaleBasket::GetList(    // Проверка наналичие торгового предложения в корзине
-                        array(
-                        "NAME" => "ASC",
-                        "ID" => "ASC"
-                        ),
-                        array(
-                        "FUSER_ID" => CSaleBasket::GetBasketUserID(),
-                        "LID" => SITE_ID,
-                        "ORDER_ID" => "NULL"
-                        ),
-                        false,
-                        false,
-                        array("ID", "NAME", "PRODUCT_ID")
-                        );
-                        while ($arItems = $dbBasketItems->Fetch())
-                        {
-                        if (strlen($arItems["CALLBACK_FUNC"]) > 0)
-                        {
-                        CSaleBasket::UpdatePrice($arItems["ID"]);
-                        $arItems = CSaleBasket::GetByID($arItems["ID"]);
-                        }
 
-                        foreach($arResult["ALL_COLOR"] as $arOffer){
-                        //  arshow($intCnt);
-                        if($arItems["PRODUCT_ID"] == $arOffer["ID"]){
-                        $offer_id_basket = true;
-                        }
-                        }
-                        }    */
-                    ?>
                     <?if (!$singleOffer):?>
 
                         <div class="sk-product-price-holder">
@@ -557,9 +499,6 @@
 
 
                                         ?>
-
-                                        <?//if($USER->IsAdmin()){arshow($arOffer["PROPERTY_OLD_PRICE_VALUE"]);}
-                                            //$price = GetOfferMinPrice($arParams["IBLOCK_ID"],$arResult["ID"]); ?>
                                         <?$arDiscounts = CCatalogDiscount::GetDiscountByProduct(
                                                 $arResult["ID"],
                                                 $USER->GetUserGroupArray(),
@@ -633,11 +572,7 @@
                                 <input type="text" name="<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>" value="1" id="<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>" readonly>
                                 <a class="count_arrow dec" href="javascript:void(0)" onclick="if (BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value &gt; 1) BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value--;">&#9660;</a>
                                 <a class="count_arrow inc" href="javascript:void(0)" onclick="BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value++;">&#9650;</a>
-                                <?/*<input type="submit" name="<?echo $arParams["ACTION_VARIABLE"]."ADD2BASKET"?>" value="шт. В корзину" class="add_b_item">*/?>
                             </div>
-                            <?//if($offer_id_basket == true){?>
-                            <!--                                    <div class="sk-product-price-buy"><a style="background:#C0BBC1; padding-left:38px" onclick="_gaq.push(['_trackEvent', 'Button', 'buy', 'card']);after_buy();post_func();" href="#" class="addToCartButton">В корзине</a></div>
-                            -->                                <?//}else{?>
 
                             <div class="sk-product-price-buy"><a onclick="_gaq.push(['_trackEvent', 'Button', 'buy', 'card']);after_buy(<?=$arStartOffer["ID"]?>);post_func();" href="#" class="addToCartButton">Купить</a></div>
                             <?//}?>
@@ -650,8 +585,6 @@
 
                                 }
                             ?>
-
-                            <?/*<div class="sk-product-price-credit"><a onclick="_gaq.push(['_trackEvent', 'Button', 'buy_credit', 'card']);" href="#" title="Купить в кредит" class="sk-dotted addToCartButton" >В кредит - <span id="creditprice"></span> р.</a></div>*/?>
 
                         </div>
 
@@ -697,21 +630,15 @@
                             <a class="count_arrow inc" href="javascript:void(0)" onclick="BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value++;">&#9650;</a>
                             <a class="count_arrow dec" href="javascript:void(0)" onclick="if (BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value &gt; 1) BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value--;">&#9660;</a>
 
-                            <?/*<input type="submit" name="<?echo $arParams["ACTION_VARIABLE"]."ADD2BASKET"?>" value="шт. В корзину" class="add_b_item">*/?>
-                        </div>
+                       </div>
                     </div>
 
                     <div class="right_col">
                         <?if($arResult["SET"]["PRODUCT"]){?>
-                            <!--                            <div class="sk-product-price-buy"><a style="background:#C0BBC1; padding-left:38px" onclick="_gaq.push(['_trackEvent', 'Button', 'buy', 'card']);after_buy();post_func();" href="#" class="addToCartButton">В корзине</a></div>
-                            --> <div class="sk-product-price-buy"><a onclick="_gaq.push(['_trackEvent', 'Button', 'buy', 'card']);after_buy(<?=$arStartOffer["ID"]?>);post_func();" href="#" class="addToCartSet">Купить</a></div>
+                            <div class="sk-product-price-buy"><a onclick="_gaq.push(['_trackEvent', 'Button', 'buy', 'card']);after_buy(<?=$arStartOffer["ID"]?>);post_func();" href="#" class="addToCartSet">Купить</a></div>
                             <?}else{?>
                             <div class="sk-product-price-buy"><a onclick="_gaq.push(['_trackEvent', 'Button', 'buy', 'card']);after_buy(<?=$arStartOffer["ID"]?>);post_func();" href="#" class="addToCartButton">Купить</a></div>
                             <?}?>
-                        <!--                        <div class="sk-product-price-buy"><a onclick="_gaq.push(['_trackEvent', 'Button', 'buy', 'card']);post_func();" href="#" class="addToCartButton">Купить</a></div>
-                        -->
-
-
 
                         <?if(strlen($arResult["PROPERTIES"]["CH_SNYATO"]["VALUE_ENUM_ID"])<=0)
                             {?>
@@ -721,8 +648,6 @@
                                 <a class="checkout" href="javascript:void(0)" title="Быстрый заказ">Купить <br> в 1 клик</a>
                             </div>
                             <?       // проверка производиться в файле quickOrder.php scripts.js   _gaq.push(['_trackEvent', 'Button', 'buy1click', 'card']); setTimeout(mask_one_click, 500);
-
-                                //  <div class="sk-product-price-order"><a onclick=" _gaq.push(['_trackEvent', 'Button', 'buy1click', 'card']); setTimeout(mask_one_click, 500);" class="design_links quickOrder" href="#qo_<?=$arResult["ID"]" title="Быстрый заказ">Купить в 1 клик</a></div><?   // проверка производиться в файле quickOrder.php scripts.js
                             }
                         ?>
                     </div>
@@ -731,7 +656,6 @@
                         if($arStartOffer["PROPERTY_TSVET_VALUE"]!="Стандарт" and !empty($arStartOffer["PROPERTY_TSVET_VALUE"])) {
                         ?>
                         <div class="single-price-color">Цвет: <span><?=$arStartOffer["PROPERTY_TSVET_VALUE"]?></span></div>
-                        <?/*<div class="sk-product-price-credit"><a onclick="_gaq.push(['_trackEvent', 'Button', 'buy_credit', 'card']);" href="#" title="Купить в кредит" class="sk-dotted addToCartButton" >В кредит - <span id="creditprice"></span> р.</a></div>*/?>
                         <? } ?>
 
                     <?endif;?>
@@ -826,7 +750,6 @@
                                         <? foreach ($arResult["CS"]["CHASSI"] as $strChassi => $arChassi){
 
                                                 $ar_id_arChassi[$arChassi["PROPERTY_SHASSI_ENUM_ID"]] = $arChassi["PROPERTY_SHASSI_ENUM_ID"];   // убираем похожие шасси
-                                                // $ar_id_arChassi_count = array_unique($ar_id_arChassi);     // убираем похожие шасси
                                                 $ar_id_arChassi_count = array_count_values($ar_id_arChassi);   // убираем похожие шасси
                                                 if ($arChassi["PRICE"] > 0 && intval($arChassi["CATALOG_QUANTITY"]) >= intval($quantityForDisplay) and $ar_id_arChassi_count[$arChassi["PROPERTY_SHASSI_ENUM_ID"]] <= 1){
                                                 ?>
@@ -834,7 +757,6 @@
                                                     <a class="chassiItem chassi<?=$arChassi["ID"]?>"
                                                         for="<?=$arChassi["PROPERTY_SHASSI_VALUE"]?>"
                                                         data-shassi="<?=$arChassi["PROPERTY_SHASSI_ENUM_ID"]?>"
-                                                        <?// if($arStartOffer["PROPERTY_TSVET_VALUE"]==$arChassi["PROPERTY_TSVET_VALUE"]){ echo 'style="display: none"'; }?>
                                                         id="<?=$arChassi["ID"]?>">
                                                         <?=$arChassi["PROPERTY_SHASSI_VALUE"]?>
                                                     </a>
@@ -845,14 +767,13 @@
                                                     $ar_id_arChassi[] = $arChassi["PROPERTY_SHASSI_ENUM_ID"];
                                                 }
                                             }
-                                            // arshow($arStartOffer, true) ;
                                         ?>
                                     </ul>
                                 </div>
                                 <?}
                             }
                     }?>
-                    <?      // arshow($arStartOffer, true) ;
+                    <?
                         $arDiscounts = CCatalogDiscount::GetDiscountByProduct(
                             $arResult["ID"],
                             $USER->GetUserGroupArray(),
@@ -874,7 +795,6 @@
                                         SITE_ID
                                     );
                                     $bonus_discount = round($arDiscounts_product[0]["VALUE"]);
-                                    // arshow($bonus_discount);
                                 }
                             }
                         }else{
@@ -901,7 +821,7 @@
                                     <div class="sk-sd-features--head">Характеристики</div>
                                 </li>
 
-                                <?/*                               <li<?=(empty($arStartOffer["PROPERTY_ELEMENT_XML_1C_VALUE"])?' class="hidden"':'')?> id="CODE_1C_CONT"><span class="s_like">Код товара:</span> <span id="CODE_1C"><?=$arStartOffer["PROPERTY_ELEMENT_XML_1C_VALUE"]?></span></li>*/?><?//   arshow($arResult["DISPLAY_PROPERTIES"]["PROIZVODITEL"]["DISPLAY_VALUE"] );
+                                    <?
                                     if(strlen($arResult["DISPLAY_PROPERTIES"]["PROIZVODITEL"]["DISPLAY_VALUE"])>0)
                                     {?>
                                     <li><span class="s_like">Производитель:</span> <?=$arResult["DISPLAY_PROPERTIES"]["PROIZVODITEL"]["DISPLAY_VALUE"]?></li><?
@@ -914,7 +834,6 @@
 
                                     if(strlen($arResult["DISPLAY_PROPERTIES"]["GARANTIYA_PROIZVODITELYA"]["DISPLAY_VALUE"])>0)
                                     {?>
-                                    <?/*<li><span class="s_like">Гарантия:</span> <?=$arResult["DISPLAY_PROPERTIES"]["GARANTIYA_PROIZVODITELYA"]["DISPLAY_VALUE"]?></li>*/?>
                                     <?
                                 }?>
                                 <li><a id="allParamLink" href="#characteristic_block" title="Все характеристики" class="sk-dotted">Все характеристики</a></li>
@@ -1026,11 +945,7 @@
 
                                             }
 
-                                            /*myMap.geoObjects.add(needed_route);
-                                            needed_route.options.set({ strokeWidth: 5, strokeColor: '0000ffff', opacity: 0.5 });
-
-                                            route_bef = needed_route;     */
-                                            //  document.getElementById('map_distance').innerHTML(distance);
+                                             //  document.getElementById('map_distance').innerHTML(distance);
 
                                         });// needed route*/
                                     }); // start route
@@ -1042,7 +957,6 @@
                                 <li>
                                     <div class="sk-sd-delvery--head">Доставка<?=($arResult["PROPERTIES"]["SBOR"]["VALUE"]>0 && in_array($intLocationID, array(1732, 2399))?' и сборка':'')?></div>
                                 </li><?
-                                    //arshow($_SESSION);
 
                                     $arBasketItems = array();
                                     $dbBasketItems = CSaleBasket::GetList(array("NAME" => "ASC", "ID" => "ASC"), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL", "CAN_BUY"=>"Y"), false,  false,  array());
@@ -1093,8 +1007,7 @@
                                         }
                                     }
 
-                                    //echo $intLocationID; arshow($arResult["PROPERTIES"]["SBOR"]);
-                                ?>
+                               ?>
                                 <?=$strDeliveryData.$strConstruct?>
                                 <li>
                                     <a id="deliveryShowLink"
@@ -1133,9 +1046,6 @@
                     $prises = $arPrices["CATALOG_PRICE_3"];
                 }
             }
-            //arshow($arResult["PROPERTIES"]);
-            //if(!$arResult["PROPERTIES"]["CATALOG_AVAILABLE"]["VALUE"] )
-            //if(!$arResult["CATALOG_AVAILABLE"])
 
             if(!$arResult["PROPERTIES"]["CATALOG_AVAILABLE"]["VALUE"] )
             {?>
@@ -1181,7 +1091,7 @@
                     <div class="sk-gallery-color" id="galleryListPreview"><div class="sk-gallery-color-scroll">
                             <?/* Color Items*/?>
                             <?
-                                $intGallryCnt = 0; //arshow($arResult["CS"]);
+                                $intGallryCnt = 0;
                                 foreach($arResult["CS"] as $strSize => $arColor)
                                 {
 
@@ -1190,7 +1100,7 @@
                                     else $strSizeHash = '';
 
                                     foreach($arColor as $arItem)
-                                    {    //  arshow($arItem["ID"]);
+                                    {    /
                                         if ($arItem["PRICE"] > 0 && intval($arItem["CATALOG_QUANTITY"]) >= intval($quantityForDisplay) && !in_array($arItem["ID"], $element_id)){
 
                                             $strH1orName = $arResult["SEO_H1_FROM_NAME"] == "Y" ? $arResult["NAME"].' '.$arItem["PROPERTY_TSVET_VALUE"] : $arResult["PROPERTIES"]["SEO_H1"]["VALUE"];
@@ -1202,8 +1112,6 @@
 
                                             $smallImg = getResizedIMGPath($arItem["XML_ID"], 52, 55);
                                             $galleryBigImg_new["src"] = getResizedIMGPath($arItem["XML_ID"], 565, 505);
-                                            //  $galleryBigImg["src"] = getResizedIMGPath($arItem["XML_ID"]);
-                                            // $galleryBigImg = CFile::ResizeImageGet($imgName["MAXI"]["ID"], array("width"=>1200, "height"=>"auto"), BX_RESIZE_IMAGE_PROPORTIONAL, false);
 
                                             $fileName = str_replace('#','_',$arItem["XML_ID"]);
                                             $BigImgSize = isMinifiedExist($fileName);
@@ -1220,7 +1128,7 @@
                                                 $smallImg["height"] = "55";
                                             }
 
-                                            // arshow($galleryBigImg["src"],true);?>
+                                            ?>
                                         <a<?=($intGallryCnt>13?' style="display:none;"':'')?>
                                             title="<?=$strGalleryItemName?>"
                                             class="sk-gallery-color-item cloud-zoom-gallery"
@@ -1255,7 +1163,7 @@
                     </div><?
                         if($intGallryCnt>14)
                         {?>
-                        <?/* <div class="sk-gallery--all-price"><a href="#" onclick="$('#galleryListPreview a:hidden').show(); $(this).parent().hide(); return false;" title="Показать все цвета">Показать все цвета</a></div> */?>
+                        <??>
 
                         <div class="sk-gallery--all-price"><a href="#" title="Показать все цвета">Показать все цвета</a></div><?
                     }?>
@@ -1326,7 +1234,7 @@
             $strOtherPropsHidden = '';
 
             foreach($arResult["DISPLAY_PROPERTIES"] as $key => $arProp)
-            {   // arshow($arProp["MULTIPLE"],true);
+            {
 
                 if($arProp["MULTIPLE"] != "Y")
                     $arTmp = CIBlockFormatProperties::GetDisplayValue($arResult, $arResult["PROPERTIES"][$key], "news_out");
@@ -1392,7 +1300,6 @@
                     }?>
                 </div>
                 <!-- END characteristic_info --><?
-                    //arshow($arResult["ACCESSORIES"],true);
 
                     if (!empty($arResult["ACCESSORIES"]))
                     {
@@ -1437,73 +1344,6 @@
                     </div>
 
                     <?
-
-                        /*$APPLICATION->IncludeComponent("bitrix:news.list", "accessories-items-newCard", array(
-                        "IBLOCK_TYPE" => "catalog",
-                        "IBLOCK_ID" => CATALOG_IBLOCK_ID,
-                        "NEWS_COUNT" => "99",
-                        "SORT_BY1" => "ACTIVE_FROM",
-                        "SORT_ORDER1" => "DESC",
-                        "SORT_BY2" => "SORT",
-                        "SORT_ORDER2" => "ASC",
-                        "FILTER_NAME" => "arrAccFilter",
-                        "FIELD_CODE" => array(
-                        0 => "",
-                        1 => "NAME",
-                        2 => "PREVIEW_PICTURE",
-                        3 => "",
-                        ),
-                        "PROPERTY_CODE" => array(
-                        0 => "RATING",
-                        1 => "OLD_PRICE",
-                        2 => "PRICE",
-                        3 => "",
-                        ),
-                        "CHECK_DATES" => "Y",
-                        "DETAIL_URL" => "",
-                        "AJAX_MODE" => "N",
-                        "AJAX_OPTION_SHADOW" => "Y",
-                        "AJAX_OPTION_JUMP" => "N",
-                        "AJAX_OPTION_STYLE" => "Y",
-                        "AJAX_OPTION_HISTORY" => "N",
-                        "CACHE_TYPE" => "Y",
-                        "CACHE_TIME" => "36000000",
-                        "CACHE_FILTER" => "Y",
-                        "CACHE_GROUPS" => "Y",
-                        "PREVIEW_TRUNCATE_LEN" => "",
-                        "ACTIVE_DATE_FORMAT" => "d.m.Y",
-                        "SET_TITLE" => "N",
-                        "SET_STATUS_404" => "N",
-                        "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
-                        "ADD_SECTIONS_CHAIN" => "N",
-                        "HIDE_LINK_WHEN_NO_DETAIL" => "N",
-                        "PARENT_SECTION" => "",
-                        "PARENT_SECTION_CODE" => "",
-                        "DISPLAY_TOP_PAGER" => "N",
-                        "DISPLAY_BOTTOM_PAGER" => "Y",
-                        "PAGER_TITLE" => "Новости",
-                        "PAGER_SHOW_ALWAYS" => "Y",
-                        "PAGER_TEMPLATE" => "",
-                        "PAGER_DESC_NUMBERING" => "N",
-                        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-                        "PAGER_SHOW_ALL" => "Y",
-                        "AJAX_OPTION_ADDITIONAL" => ""
-                        ),
-                        false
-                        );*/
-
-                        /*$APPLICATION->IncludeComponent(
-                        "bitrix:highloadblock.list",
-                        "accessories-items-newCard",
-                        array(
-                        "IBLOCK_ID" => "2",
-                        "DETAIL_URL" => "detail.php?BLOCK_ID=#BLOCK_ID#&ROW_ID=#ID#",
-                        "BLOCK_ID" => "2",
-                        "XML_ID" => $arResult["XML_ID"]
-                        ),
-                        false
-                        );*/
-
                 }?>
             </div>
             <!--END  features tab--><?
@@ -1730,9 +1570,6 @@
 ?>
 
 <div class="clear"></div>
-<?
-    //if( $USER->IsAdmin()) {
-?>
 <div style="position:absolute; top:-10000px; right:100000px;" id="colorsStorageHere"><?
         foreach($arTmpSizeHtml as $strSize => $strSizeHtml)
         {
@@ -1740,9 +1577,7 @@
                 echo ($strSizeHtml);
     } ?>
 </div>
-<?
-    // }
-?>
+
 <input type="hidden" id="cartPrice" value="<?=$arResult["CART_PRICE"]?>">
 
 <script type="text/javascript">
@@ -1756,9 +1591,6 @@
         <?
     }?>
 </script>
-
-
-
 <?
     $res = CCatalogSKU::getOffersList(
         array($arResult['ID']),
@@ -1774,7 +1606,6 @@
             array("ID","QUANTITY",'PRODUCT_ID')
         );
     }
-    //  while ($arItems = $dbBasketItems->Fetch()){
 
     CModule::IncludeModule('sale');
     $dbItems = CSaleBasket::GetList(
@@ -1807,7 +1638,6 @@
 } ?>
 
 <form method="post" id="OrderForm">
-    <?//arshow($arResult,true)?>
     <input type="hidden" name="frmQuickOrderSent" value="Y">
     <input type="hidden" name="id" id="id" value="<?=$arResult["ID"]?>">
     <div class="notify"></div>
