@@ -7,7 +7,7 @@
         $arResult["META"] = $rsSection;
         */
 
-        //проверяем наличие фильтрации по строке в урле. если функция вернет значение > 0 значит фильтр установлен
+        //РїСЂРѕРІРµСЂСЏРµРј РЅР°Р»РёС‡РёРµ С„РёР»СЊС‚СЂР°С†РёРё РїРѕ СЃС‚СЂРѕРєРµ РІ СѓСЂР»Рµ. РµСЃР»Рё С„СѓРЅРєС†РёСЏ РІРµСЂРЅРµС‚ Р·РЅР°С‡РµРЅРёРµ > 0 Р·РЅР°С‡РёС‚ С„РёР»СЊС‚СЂ СѓСЃС‚Р°РЅРѕРІР»РµРЅ
         $filter = substr_count($_SERVER["REQUEST_URI"],"/filter/");
 
         //arshow($_SERVER,true);
@@ -59,24 +59,24 @@
     ?>
 
     <?/*$APPLICATION->IncludeComponent("bitrix:catalog.smart.filter", "left_filter_visual", Array(
-        "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],    // Тип инфоблока
-        "IBLOCK_ID" => $arParams["IBLOCK_ID"],    // Инфоблок
-        "SECTION_ID" => $arCurSection["ID"],    // ID раздела инфоблока
-        "FILTER_NAME" => $arParams["FILTER_NAME"],    // Имя выходящего массива для фильтрации
-        "PRICE_CODE" => array(    // Тип цены
-        0 => "Розничная",
+        "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],    // РўРёРї РёРЅС„РѕР±Р»РѕРєР°
+        "IBLOCK_ID" => $arParams["IBLOCK_ID"],    // РРЅС„РѕР±Р»РѕРє
+        "SECTION_ID" => $arCurSection["ID"],    // ID СЂР°Р·РґРµР»Р° РёРЅС„РѕР±Р»РѕРєР°
+        "FILTER_NAME" => $arParams["FILTER_NAME"],    // РРјСЏ РІС‹С…РѕРґСЏС‰РµРіРѕ РјР°СЃСЃРёРІР° РґР»СЏ С„РёР»СЊС‚СЂР°С†РёРё
+        "PRICE_CODE" => array(    // РўРёРї С†РµРЅС‹
+        0 => "Р РѕР·РЅРёС‡РЅР°СЏ",
         ),
-        "CACHE_TYPE" => "A",    // Тип кеширования
-        "CACHE_TIME" => "36000000",    // Время кеширования (сек.)
+        "CACHE_TYPE" => "A",    // РўРёРї РєРµС€РёСЂРѕРІР°РЅРёСЏ
+        "CACHE_TIME" => "36000000",    // Р’СЂРµРјСЏ РєРµС€РёСЂРѕРІР°РЅРёСЏ (СЃРµРє.)
         "CACHE_NOTES" => "",
-        "CACHE_GROUPS" => "Y",    // Учитывать права доступа
-        "SAVE_IN_SESSION" => "N",    // Сохранять установки фильтра в сессии пользователя
-        "HIDE_NOT_AVAILABLE" => "N",    // Не отображать товары, которых нет на складах
-        "INSTANT_RELOAD" => "N",    // Мгновенная фильтрация при включенном AJAX
-        "XML_EXPORT" => "N",    // Включить поддержку Яндекс Островов
-        "SECTION_TITLE" => "-",    // Заголовок
-        "SECTION_DESCRIPTION" => "-",    // Описание
-        "TEMPLATE_THEME" => "blue",    // Цветовая тема
+        "CACHE_GROUPS" => "Y",    // РЈС‡РёС‚С‹РІР°С‚СЊ РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+        "SAVE_IN_SESSION" => "N",    // РЎРѕС…СЂР°РЅСЏС‚СЊ СѓСЃС‚Р°РЅРѕРІРєРё С„РёР»СЊС‚СЂР° РІ СЃРµСЃСЃРёРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+        "HIDE_NOT_AVAILABLE" => "N",    // РќРµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ С‚РѕРІР°СЂС‹, РєРѕС‚РѕСЂС‹С… РЅРµС‚ РЅР° СЃРєР»Р°РґР°С…
+        "INSTANT_RELOAD" => "N",    // РњРіРЅРѕРІРµРЅРЅР°СЏ С„РёР»СЊС‚СЂР°С†РёСЏ РїСЂРё РІРєР»СЋС‡РµРЅРЅРѕРј AJAX
+        "XML_EXPORT" => "N",    // Р’РєР»СЋС‡РёС‚СЊ РїРѕРґРґРµСЂР¶РєСѓ РЇРЅРґРµРєСЃ РћСЃС‚СЂРѕРІРѕРІ
+        "SECTION_TITLE" => "-",    // Р—Р°РіРѕР»РѕРІРѕРє
+        "SECTION_DESCRIPTION" => "-",    // РћРїРёСЃР°РЅРёРµ
+        "TEMPLATE_THEME" => "blue",    // Р¦РІРµС‚РѕРІР°СЏ С‚РµРјР°
         ),
         false
     );*/?>
@@ -86,7 +86,7 @@
     }     
 ?>   
 <?/*if($filter == 0){?>
-    <h1 class="secth">Новинки</h1>
+    <h1 class="secth">РќРѕРІРёРЅРєРё</h1>
 
     <?  
     // $arFilter_1498["!PROPERTY_1498"] = false;
@@ -105,10 +105,10 @@
     "SHOW_OLD_PRICE" => "N",
     "SHOW_CLOSE_POPUP" => "Y",
     "ROTATE_TIMER" => "30",
-    "MESS_BTN_BUY" => "Купить",
-    "MESS_BTN_ADD_TO_BASKET" => "В корзину",
-    "MESS_BTN_DETAIL" => "Подробнее",
-    "MESS_NOT_AVAILABLE" => "Нет в наличии",
+    "MESS_BTN_BUY" => "РљСѓРїРёС‚СЊ",
+    "MESS_BTN_ADD_TO_BASKET" => "Р’ РєРѕСЂР·РёРЅСѓ",
+    "MESS_BTN_DETAIL" => "РџРѕРґСЂРѕР±РЅРµРµ",
+    "MESS_NOT_AVAILABLE" => "РќРµС‚ РІ РЅР°Р»РёС‡РёРё",
     "IBLOCK_TYPE" => "catalog",
     "IBLOCK_ID" => "2",
     "ELEMENT_SORT_FIELD" => "PROPERTY_1498",
@@ -181,47 +181,47 @@
 <?if(!isset($_REQUEST["ajax"])) $this->SetViewTarget("right_area");?>  
 <? 
     $APPLICATION->IncludeComponent("kombox:filter", "catalog_filter", Array(
-        "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],    // Тип инфоблока
-        "IBLOCK_ID" => $arParams["IBLOCK_ID"],    // Инфоблок
-        "FILTER_NAME" => $arParams["FILTER_NAME"],    // Имя выходящего массива для фильтрации
-        "SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"],    // ID раздела инфоблока
-        "SECTION_CODE" => $arResult["VARIABLES"]["SECTION_CODE"],    // Символьный код раздела инфоблока
-        "HIDE_NOT_AVAILABLE" => "N",    // Не отображать товары, которых нет на складах
-        "CACHE_TYPE" => "A",    // Тип кеширования
-        "CACHE_TIME" => $arParams["CACHE_TIME"],    // Время кеширования (сек.)
-        "CACHE_GROUPS" => "N",    // Учитывать права доступа
-        "SAVE_IN_SESSION" => "Y",    // Сохранять установки фильтра в сессии пользователя
-        "INCLUDE_JQUERY" => "N",    // Подключить библиотеку jQuery
-        "MESSAGE_ALIGN" => "LEFT",    // Выводить сообщение с количеством найденных элементов
-        "MESSAGE_TIME" => "5",    // Через сколько секунд скрывать сообщение (0 - не скрывать)
-        "CLOSED_PROPERTY_CODE" => array(    // Свойства, которые будут свернуты
+        "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],    // РўРёРї РёРЅС„РѕР±Р»РѕРєР°
+        "IBLOCK_ID" => $arParams["IBLOCK_ID"],    // РРЅС„РѕР±Р»РѕРє
+        "FILTER_NAME" => $arParams["FILTER_NAME"],    // РРјСЏ РІС‹С…РѕРґСЏС‰РµРіРѕ РјР°СЃСЃРёРІР° РґР»СЏ С„РёР»СЊС‚СЂР°С†РёРё
+        "SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"],    // ID СЂР°Р·РґРµР»Р° РёРЅС„РѕР±Р»РѕРєР°
+        "SECTION_CODE" => $arResult["VARIABLES"]["SECTION_CODE"],    // РЎРёРјРІРѕР»СЊРЅС‹Р№ РєРѕРґ СЂР°Р·РґРµР»Р° РёРЅС„РѕР±Р»РѕРєР°
+        "HIDE_NOT_AVAILABLE" => "N",    // РќРµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ С‚РѕРІР°СЂС‹, РєРѕС‚РѕСЂС‹С… РЅРµС‚ РЅР° СЃРєР»Р°РґР°С…
+        "CACHE_TYPE" => "A",    // РўРёРї РєРµС€РёСЂРѕРІР°РЅРёСЏ
+        "CACHE_TIME" => $arParams["CACHE_TIME"],    // Р’СЂРµРјСЏ РєРµС€РёСЂРѕРІР°РЅРёСЏ (СЃРµРє.)
+        "CACHE_GROUPS" => "N",    // РЈС‡РёС‚С‹РІР°С‚СЊ РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+        "SAVE_IN_SESSION" => "Y",    // РЎРѕС…СЂР°РЅСЏС‚СЊ СѓСЃС‚Р°РЅРѕРІРєРё С„РёР»СЊС‚СЂР° РІ СЃРµСЃСЃРёРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+        "INCLUDE_JQUERY" => "N",    // РџРѕРґРєР»СЋС‡РёС‚СЊ Р±РёР±Р»РёРѕС‚РµРєСѓ jQuery
+        "MESSAGE_ALIGN" => "LEFT",    // Р’С‹РІРѕРґРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ СЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј РЅР°Р№РґРµРЅРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ
+        "MESSAGE_TIME" => "5",    // Р§РµСЂРµР· СЃРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ СЃРєСЂС‹РІР°С‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ (0 - РЅРµ СЃРєСЂС‹РІР°С‚СЊ)
+        "CLOSED_PROPERTY_CODE" => array(    // РЎРІРѕР№СЃС‚РІР°, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґСѓС‚ СЃРІРµСЂРЅСѓС‚С‹
             0 => "",
             1 => "PROIZVODITEL",
             2 => "",
         ),
-        "CLOSED_OFFERS_PROPERTY_CODE" => array(    // Свойства предложений, которые будут свернуты
+        "CLOSED_OFFERS_PROPERTY_CODE" => array(    // РЎРІРѕР№СЃС‚РІР° РїСЂРµРґР»РѕР¶РµРЅРёР№, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґСѓС‚ СЃРІРµСЂРЅСѓС‚С‹
             0 => "",
             1 => "PROIZVODITEL",
             2 => "",
         ),
-        "SORT" => "Y",    // Сортировать поля фильтра
-        "SORT_ORDER" => "ASC",    // Порядок сортировки полей
-        "FIELDS" => array(    // Показывать дополнительные поля в фильтре
+        "SORT" => "Y",    // РЎРѕСЂС‚РёСЂРѕРІР°С‚СЊ РїРѕР»СЏ С„РёР»СЊС‚СЂР°
+        "SORT_ORDER" => "ASC",    // РџРѕСЂСЏРґРѕРє СЃРѕСЂС‚РёСЂРѕРІРєРё РїРѕР»РµР№
+        "FIELDS" => array(    // РџРѕРєР°Р·С‹РІР°С‚СЊ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїРѕР»СЏ РІ С„РёР»СЊС‚СЂРµ
             0 => "SECTIONS",
         ),
-        "PRICE_CODE" => $arParams["PRICE_CODE"],    // Тип цены
-        "CONVERT_CURRENCY" => "N",    // Показывать цены в одной валюте
+        "PRICE_CODE" => $arParams["PRICE_CODE"],    // РўРёРї С†РµРЅС‹
+        "CONVERT_CURRENCY" => "N",    // РџРѕРєР°Р·С‹РІР°С‚СЊ С†РµРЅС‹ РІ РѕРґРЅРѕР№ РІР°Р»СЋС‚Рµ
         "CURRENCY_ID" => $arParams["CURRENCY_ID"],
-        "XML_EXPORT" => "Y",    // Включить поддержку Яндекс Островов
-        "SECTION_TITLE" => "NAME",    // Заголовок
-        "SECTION_DESCRIPTION" => "DESCRIPTION",    // Описание
-        "IS_SEF" => "N",    // Включить
-        "TOP_DEPTH_LEVEL" => "2",    // Максимальная отображаемая глубина разделов (0 - все разделы)
+        "XML_EXPORT" => "Y",    // Р’РєР»СЋС‡РёС‚СЊ РїРѕРґРґРµСЂР¶РєСѓ РЇРЅРґРµРєСЃ РћСЃС‚СЂРѕРІРѕРІ
+        "SECTION_TITLE" => "NAME",    // Р—Р°РіРѕР»РѕРІРѕРє
+        "SECTION_DESCRIPTION" => "DESCRIPTION",    // РћРїРёСЃР°РЅРёРµ
+        "IS_SEF" => "N",    // Р’РєР»СЋС‡РёС‚СЊ
+        "TOP_DEPTH_LEVEL" => "2",    // РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ РѕС‚РѕР±СЂР°Р¶Р°РµРјР°СЏ РіР»СѓР±РёРЅР° СЂР°Р·РґРµР»РѕРІ (0 - РІСЃРµ СЂР°Р·РґРµР»С‹)
         "COMPONENT_TEMPLATE" => "catalog_filter",
-        "STORES_ID" => "",    // Выводить товары со складов (по умолчанию - все склады)
+        "STORES_ID" => "",    // Р’С‹РІРѕРґРёС‚СЊ С‚РѕРІР°СЂС‹ СЃРѕ СЃРєР»Р°РґРѕРІ (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - РІСЃРµ СЃРєР»Р°РґС‹)
         "THEME" => "red",
-        "PAGE_URL" => "",    // Путь к разделу (если фильтр располагается на другой странице)
-        "SORT_SECTIONS" => "10",    // Индекс сортировки поля "Подразделы"
+        "PAGE_URL" => "",    // РџСѓС‚СЊ Рє СЂР°Р·РґРµР»Сѓ (РµСЃР»Рё С„РёР»СЊС‚СЂ СЂР°СЃРїРѕР»Р°РіР°РµС‚СЃСЏ РЅР° РґСЂСѓРіРѕР№ СЃС‚СЂР°РЅРёС†Рµ)
+        "SORT_SECTIONS" => "10",    // РРЅРґРµРєСЃ СЃРѕСЂС‚РёСЂРѕРІРєРё РїРѕР»СЏ "РџРѕРґСЂР°Р·РґРµР»С‹"
         ),
         false
     );?>
@@ -234,7 +234,7 @@
         if ($arS = $rsS -> GetNext()) {
             if ($arS["DEPTH_LEVEL"] == 1) {
                 if (isset($_REQUEST["propertyCode"])) { 
-                    ShowError("Раздел не найден");
+                    ShowError("Р Р°Р·РґРµР» РЅРµ РЅР°Р№РґРµРЅ");
                     @define("ERROR_404", "Y");
                     if ($arParams["SET_STATUS_404"]==="Y")
                         CHTTP::SetStatus("404 Not Found");
@@ -248,7 +248,7 @@
 
 
     if ($arResult["VARIABLES"]["SECTION_ID"] == -1 && !$filter) {
-        ShowError("Раздел не найден");
+        ShowError("Р Р°Р·РґРµР» РЅРµ РЅР°Р№РґРµРЅ");
         @define("ERROR_404", "Y");
         if($arParams["SET_STATUS_404"]==="Y")
             CHTTP::SetStatus("404 Not Found");
@@ -301,7 +301,7 @@
 
 
 <? if ($arS["DEPTH_LEVEL"] == 1 && $filter <=0 && $arS["ID"] != 432) {
-        // проверяем родительская ли секция
+        // РїСЂРѕРІРµСЂСЏРµРј СЂРѕРґРёС‚РµР»СЊСЃРєР°СЏ Р»Рё СЃРµРєС†РёСЏ
         $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "SECTION_ID"=>$arResult["VARIABLES"]["SECTION_ID"]), false, array("NAME","UF_DESCR_TITLE","UF_DESCR_TITLE"));
         if (count($rsSection)>0) $IS_PARENT_SECTION = true;
 
@@ -352,7 +352,7 @@
                         }
 
                         $arTd["TITLE"][] = '<td class="title'.($intCnt==3?' last':'').'"><a href="'.$arSec["SECTION_PAGE_URL"].'" title="'.$arSec["NAME"].'">'.smart_trim($arSec["NAME"], 35).'</a></td>';
-                        $arTd["PICTURE"][] = '<td class="picture'.($intCnt==3?' last':'').'">'.($arSec["PICTURE"]>0?'<a href="'.$arSec["SECTION_PAGE_URL"].'"><img src="'.CFile::GetPath($arSec["PICTURE"]).'" alt="'.$arSec["NAME"].'"></a>':' ').'</td>';
+                        $arTd["PICTURE"][] = '<td class="picture'.($intCnt==3?' last':'').'">'.($arSec["PICTURE"]>0?'<a href="'.$arSec["SECTION_PAGE_URL"].'"><img src="'.CFile::GetPath($arSec["PICTURE"]).'" alt="'.$arSec["NAME"].'"></a>':'В ').'</td>';
                         $strLinks = '';
                         if(count($arSec["UF_LINK_TEXT"])>0)
                         {
@@ -360,7 +360,7 @@
                             {
                                 $strTextCutted = smart_trim($strText, 25);
                                 if($arSec["UF_LINK_HREF"][$intTextCnt] != '')
-                                    $strLinks .= '<a href="'.$arSec["UF_LINK_HREF"][$intTextCnt].'" title="'.$strText.'">'.$strTextCutted.'</a> »<br>';
+                                    $strLinks .= '<a href="'.$arSec["UF_LINK_HREF"][$intTextCnt].'" title="'.$strText.'">'.$strTextCutted.'</a>В В»<br>';
                                 else $strLinks .= $strTextCutted.'<br>';
                             }
                         }
@@ -373,9 +373,9 @@
                     {
                         for($i=$intCnt;$i<4;$i++)
                         {
-                            $arTd["TITLE"][] = '<td class="noborder '.($i==3?'last':'').'"> </td>';
-                            $arTd["PICTURE"][] = '<td class="noborder '.($i==3?'last':'').'"> </td>';
-                            $arTd["LINKS"][] = '<td class="noborder '.($i==3?'last':'').'"> </td>';
+                            $arTd["TITLE"][] = '<td class="noborder '.($i==3?'last':'').'">В </td>';
+                            $arTd["PICTURE"][] = '<td class="noborder '.($i==3?'last':'').'">В </td>';
+                            $arTd["LINKS"][] = '<td class="noborder '.($i==3?'last':'').'">В </td>';
                         }
 
                         echo '<tr>'.implode(" ", $arTd["TITLE"]).'</tr><tr>'.implode(" ", $arTd["PICTURE"]).'</tr><tr>'.implode(" ", $arTd["LINKS"]).'</tr>';
@@ -413,7 +413,7 @@
                                 <div style="clear:both"></div>
                                 <?endif?>
 
-                            <a class="detail_action" href="<?echo $arSec["SECTION_PAGE_URL"]?>">Подробнее</a>
+                            <a class="detail_action" href="<?echo $arSec["SECTION_PAGE_URL"]?>">РџРѕРґСЂРѕР±РЅРµРµ</a>
                         </div>
 
                     </div>
@@ -512,7 +512,7 @@
         */   
 
     } else {
-        // проверяем родительская ли секция
+        // РїСЂРѕРІРµСЂСЏРµРј СЂРѕРґРёС‚РµР»СЊСЃРєР°СЏ Р»Рё СЃРµРєС†РёСЏ
 
         $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "SECTION_ID"=>$arResult["VARIABLES"]["SECTION_ID"]), false, array("NAME","UF_DESCR_TITLE","UF_DESCR_TITLE"));
         if(count($rsSection)>0) $IS_PARENT_SECTION = true;
@@ -700,7 +700,7 @@
                 "PARENT_SECTION_CODE" => "",
                 "DISPLAY_TOP_PAGER" => "N",
                 "DISPLAY_BOTTOM_PAGER" => "Y",
-                "PAGER_TITLE" => "Новости",
+                "PAGER_TITLE" => "РќРѕРІРѕСЃС‚Рё",
                 "PAGER_SHOW_ALWAYS" => "Y",
                 "PAGER_TEMPLATE" => "",
                 "PAGER_DESC_NUMBERING" => "N",
@@ -738,7 +738,7 @@
             $APPLICATION->SetPageProperty("description",$arResult["META"]["UF_DESCRIPTION"]);
             */    
 
-        } else {  // если последний уровень
+        } else {  // РµСЃР»Рё РїРѕСЃР»РµРґРЅРёР№ СѓСЂРѕРІРµРЅСЊ
 
             /*    if(!empty($_REQUEST["orderby"]))
             $orderby = $_REQUEST["orderby"];
@@ -752,7 +752,7 @@
         <?//arshow($arParams)?>   
 
         <?
-            //если находимся в корне и установлен фильтр
+            //РµСЃР»Рё РЅР°С…РѕРґРёРјСЃСЏ РІ РєРѕСЂРЅРµ Рё СѓСЃС‚Р°РЅРѕРІР»РµРЅ С„РёР»СЊС‚СЂ
             if ($arResult["VARIABLES"]["SECTION_ID"] == -1 && $filter > 0) {             
                 $filter = $GLOBALS[$arParams["FILTER_NAME"]];
                 $sectionsToDisplay = array();
@@ -919,11 +919,11 @@
                 );?>
 
             <?}
-            //если фильтруем по бренду в корне каталога
+            //РµСЃР»Рё С„РёР»СЊС‚СЂСѓРµРј РїРѕ Р±СЂРµРЅРґСѓ РІ РєРѕСЂРЅРµ РєР°С‚Р°Р»РѕРіР°
             elseif (is_array($sectionsToDisplay) && count($sectionsToDisplay) > 0) {
 
                 $filter = substr_count($_SERVER["REQUEST_URI"],"/filter/");
-                //Вывод информации о бренде 
+                //Р’С‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ Р±СЂРµРЅРґРµ 
                 if ($filter>=1){
                     $url_str=$_SERVER["REQUEST_URI"]; 
 
@@ -954,7 +954,7 @@
                 // arshow($GLOBALS["arrFilter"]);
                 global $arrFilter;
 
-                // $arrFilter["!PROPERTY_CATALOG_AVAILABLE"] = false;   // фильтрация на наличие товара по брендам
+                // $arrFilter["!PROPERTY_CATALOG_AVAILABLE"] = false;   // С„РёР»СЊС‚СЂР°С†РёСЏ РЅР° РЅР°Р»РёС‡РёРµ С‚РѕРІР°СЂР° РїРѕ Р±СЂРµРЅРґР°Рј
 
                 foreach($sectionsToDisplay as $sID) {  
                     // $arFilter = Array("ID"=>$sID);
@@ -1060,7 +1060,7 @@
             echo $content;
         }
 
-        // проставляем галки для товаров, которые в списке сравнения
+        // РїСЂРѕСЃС‚Р°РІР»СЏРµРј РіР°Р»РєРё РґР»СЏ С‚РѕРІР°СЂРѕРІ, РєРѕС‚РѕСЂС‹Рµ РІ СЃРїРёСЃРєРµ СЃСЂР°РІРЅРµРЅРёСЏ
         foreach($_SESSION["CATALOG_COMPARE_LIST"][2]["ITEMS"] as $compare_list_item)
             $arCompareList[] = $compare_list_item["ID"];
         if (!empty($arCompareList))
@@ -1072,7 +1072,7 @@
 
             $('.itemMain').each(function(){
 
-                // проверяем есть ли элемент в списке сравнения
+                // РїСЂРѕРІРµСЂСЏРµРј РµСЃС‚СЊ Р»Рё СЌР»РµРјРµРЅС‚ РІ СЃРїРёСЃРєРµ СЃСЂР°РІРЅРµРЅРёСЏ
                 for(i=0; i<arCompareList.length; i++)  // in_array 
                 {
                     var checkbox = $(this).find('.add-to-compare-list-ajax');
@@ -1090,16 +1090,16 @@
 
 ?>
 <?/*
-    <p class="about_error">Сообщить об ошибке: выделить текст и нажать Ctrl+Enter</p>
+    <p class="about_error">РЎРѕРѕР±С‰РёС‚СЊ РѕР± РѕС€РёР±РєРµ: РІС‹РґРµР»РёС‚СЊ С‚РµРєСЃС‚ Рё РЅР°Р¶Р°С‚СЊ Ctrl+Enter</p>
 */?>
 
 <?//arshow($_SESSION["additionalNavChain"],true);
-    //вывод дополнительных хлебных крошек
-    if (intval($_REQUEST["PAGEN_1"]) > 0) {  //если одна из страниц пагинации в разделе
+    //РІС‹РІРѕРґ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… С…Р»РµР±РЅС‹С… РєСЂРѕС€РµРє
+    if (intval($_REQUEST["PAGEN_1"]) > 0) {  //РµСЃР»Рё РѕРґРЅР° РёР· СЃС‚СЂР°РЅРёС† РїР°РіРёРЅР°С†РёРё РІ СЂР°Р·РґРµР»Рµ
         $count = count($_SESSION["additionalNavChain"]);
         $newEl = $_SESSION["additionalNavChain"][$count-1];
         $_SESSION["additionalNavChain"][] = array(
-            "NAME"=> $newEl["NAME"]." - станица ".intval($_REQUEST["PAGEN_1"]),
+            "NAME"=> $newEl["NAME"]." - СЃС‚Р°РЅРёС†Р° ".intval($_REQUEST["PAGEN_1"]),
             "URL" => $newEl["URL"]
         );
     }
