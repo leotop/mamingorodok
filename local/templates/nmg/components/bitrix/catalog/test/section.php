@@ -6,7 +6,7 @@
         $rsSection = CIBlockSection::GetList(array(), array("IBLOCK_ID"=>2,"CODE"=>$arResult["VARIABLES"]["SECTION_CODE"]),false, array("UF_TITLE","UF_DESCRIPTION","UF_KEYWORDS"))->Fetch();
         $arResult["META"] = $rsSection;
         */
-        
+
         //проверяем наличие фильтрации по строке в урле. если функция вернет значение > 0 значит фильтр установлен
         $filter = substr_count($_SERVER["REQUEST_URI"],"/filter/");
 
@@ -229,7 +229,44 @@
 <?if(!isset($_REQUEST["ajax"])) $this->EndViewTarget("right_area");?>
 
 <?
+    if (strlen($arResult["VARIABLES"]["SECTION_CODE"])>0) {
+        $rsS = CIBlockSection::GetList(array(), array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "CODE"=>$arResult["VARIABLES"]["SECTION_CODE"], "ACTIVE"=>"Y"), false);
+        if ($arS = $rsS -> GetNext()) {
+            if ($arS["DEPTH_LEVEL"] == 1) {
+                if (isset($_REQUEST["propertyCode"])) { 
+                    ShowError("Раздел не найден");
+                    @define("ERROR_404", "Y");
+                    if ($arParams["SET_STATUS_404"]==="Y")
+                        CHTTP::SetStatus("404 Not Found");
+                    return;
+                }
+            }
+            $arResult["VARIABLES"]["SECTION_ID"] = $arS["ID"];
+        } else $arResult["VARIABLES"]["SECTION_ID"] = -1;
+    } else $arResult["VARIABLES"]["SECTION_ID"] = -1;
 
+
+
+    if ($arResult["VARIABLES"]["SECTION_ID"] == -1 && !$filter) {
+        ShowError("Раздел не найден");
+        @define("ERROR_404", "Y");
+        if($arParams["SET_STATUS_404"]==="Y")
+            CHTTP::SetStatus("404 Not Found");
+        return;
+    }
+?>
+
+<?
+    //  arshow($arResult);
+    //    arshow($arS);
+    if ($arS["DEPTH_LEVEL"] == 1) {  
+        $isDetailSection = false; 
+        $isEnableNav = true;
+    } else {
+        $isDetailSection = true;
+        $isEnableNav = false;
+    }
+    
     $APPLICATION->IncludeComponent("energosoft:energosoft.nivoslider", "index_slider", array(
         "ES_INCLUDE_JQUERY" => "N",
         "ES_TYPE" => "advertising",
@@ -248,58 +285,28 @@
         "ES_PAUSETIME" => "5000",
         "ES_DIRECTIONNAV" => "N",
         "ES_DIRECTIONNAVHIDE" => "N",
-        "ES_CONTROLNAV" => "Y",
+        "ES_CONTROLNAV" => $isEnableNav,
         "ES_CONTROLNAVALIGN" => "center",
         "ES_PAUSEONHOVER" => "Y",
         "ES_SHOWCAPTION" => "Y",
         "ES_CAPTIONOPACITY" => "0.8",
         "CACHE_TYPE" => "A",
         "CACHE_TIME" => "36000000",
-        "ES_ID" => "_4facd227e1681"
+        "ES_ID" => "_4facd227e1681",
+        "IS_DETAIL" => $isDetailSection
         ),
         false
-    );?>
-<?
-
-    //arshow($arResult);
-    //arshow($_REQUEST);
-    if(strlen($arResult["VARIABLES"]["SECTION_CODE"])>0)
-    {
-        $rsS = CIBlockSection::GetList(Array(), array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "CODE"=>$arResult["VARIABLES"]["SECTION_CODE"], "ACTIVE"=>"Y"), false);
-        if($arS = $rsS -> GetNext()) {
-            if($arS["DEPTH_LEVEL"] == 1) {
-                if(isset($_REQUEST["propertyCode"])) { 
-                    ShowError("Раздел не найден");
-                    @define("ERROR_404", "Y");
-                    if($arParams["SET_STATUS_404"]==="Y")
-                        CHTTP::SetStatus("404 Not Found");
-                    return;
-                }
-            }
-
-            $arResult["VARIABLES"]["SECTION_ID"] = $arS["ID"];
-        } else $arResult["VARIABLES"]["SECTION_ID"] = -1;
-    } else $arResult["VARIABLES"]["SECTION_ID"] = -1;
+    );
+?>
 
 
-
-    if($arResult["VARIABLES"]["SECTION_ID"] == -1 && !$filter) {
-        ShowError("Раздел не найден");
-        @define("ERROR_404", "Y");
-        if($arParams["SET_STATUS_404"]==="Y")
-            CHTTP::SetStatus("404 Not Found");
-        return;
-    }
-
-    if($arS["DEPTH_LEVEL"] == 1 && $filter <=0 && $arS["ID"] != 432)
-    {
+<? if ($arS["DEPTH_LEVEL"] == 1 && $filter <=0 && $arS["ID"] != 432) {
         // проверяем родительская ли секция
         $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "SECTION_ID"=>$arResult["VARIABLES"]["SECTION_ID"]), false, array("NAME","UF_DESCR_TITLE","UF_DESCR_TITLE"));
-        if(count($rsSection)>0) $IS_PARENT_SECTION = true;
+        if (count($rsSection)>0) $IS_PARENT_SECTION = true;
 
         $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID"=>$arResult["VARIABLES"]["SECTION_ID"]), false, array("NAME","UF_DESCR_TITLE","UF_DESCR_TITLE"));
-        if(count($rsSection)>0)
-        {
+        if (count($rsSection)>0) {
             $arSect = $rsSection[0];
             $CURRENT_SECTION_NAME = $arSect["NAME"];
             $CURRENT_SECTION_DESCRIPTION = $arSect["DESCRIPTION"];
@@ -333,12 +340,6 @@
             $intCnt = 0;
             $arTd = array();
         ?>
-        <div style="display: none;"> 
-            <?
-                arshow($arResult);    
-            ?>
-        </div>
-
         <? if($arResult["VARIABLES"]["SECTION_ID"]!=688) {?>
             <table class="catalogLevel1"><?
                     foreach($arResultTMP as $arSec)
@@ -422,7 +423,7 @@
             </div>
             <? }?>
 
-        
+
         <?$APPLICATION->IncludeComponent(
                 "bitrix:catalog.section",
                 "",
@@ -498,18 +499,18 @@
         /*
         if(isset($arResult["META"]["UF_TITLE"]) && !empty($arResult["META"]["UF_TITLE"]))
         {
-            $APPLICATION->SetPageProperty("headertitle",$arResult["META"]["UF_TITLE"]);
-            $APPLICATION->SetPageProperty("title",$arResult["META"]["UF_TITLE"]);
-            $APPLICATION->SetTitle($arResult["META"]["UF_TITLE"]);
+        $APPLICATION->SetPageProperty("headertitle",$arResult["META"]["UF_TITLE"]);
+        $APPLICATION->SetPageProperty("title",$arResult["META"]["UF_TITLE"]);
+        $APPLICATION->SetTitle($arResult["META"]["UF_TITLE"]);
         } else  $APPLICATION->SetPageProperty("headertitle",$CURRENT_SECTION_NAME);
 
         if(isset($arResult["META"]["UF_KEYWORDS"]) && !empty($arResult["META"]["UF_KEYWORDS"]))
-            $APPLICATION->SetPageProperty("keywords",$arResult["META"]["UF_KEYWORDS"]);
+        $APPLICATION->SetPageProperty("keywords",$arResult["META"]["UF_KEYWORDS"]);
 
         if(isset($arResult["META"]["UF_DESCRIPTION"]) && !empty($arResult["META"]["UF_DESCRIPTION"]))
-            $APPLICATION->SetPageProperty("description",$arResult["META"]["UF_DESCRIPTION"]);
-         */   
-            
+        $APPLICATION->SetPageProperty("description",$arResult["META"]["UF_DESCRIPTION"]);
+        */   
+
     } else {
         // проверяем родительская ли секция
 
@@ -531,7 +532,7 @@
             $APPLICATION->AddChainItem($CURRENT_SECTION_NAME);
             $GLOBALS["arrFilterNew"]["PROPERTY_NOVINKA_VALUE"] = "Y";
         ?>
-         
+
         <?$APPLICATION->IncludeComponent("bitrix:catalog.section", "main-block-new", array(
                 "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
                 "IBLOCK_ID" => $arParams["IBLOCK_ID"],
@@ -722,21 +723,21 @@
             $arFilter = Array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID' =>$arResult["VARIABLES"]["SECTION_ID"]);   
 
             //$rsSection = CIBlockSectionCache::GetList(array(), $arFilter, false, array("UF_TITLE","UF_DESCRIPTION","UF_KEYWORDS"));
-            
+
             /*
             if(count($rsSection)==1)
-                $arResult["META"] = $rsSection[0];
+            $arResult["META"] = $rsSection[0];
 
             if(isset($arResult["META"]["UF_TITLE"]) && !empty($arResult["META"]["UF_TITLE"]))
-                $APPLICATION->SetPageProperty("headertitle",$arResult["META"]["UF_TITLE"]);
+            $APPLICATION->SetPageProperty("headertitle",$arResult["META"]["UF_TITLE"]);
 
             if(isset($arResult["META"]["UF_KEYWORDS"]) && !empty($arResult["META"]["UF_KEYWORDS"]))
-                $APPLICATION->SetPageProperty("keywords",$arResult["META"]["UF_KEYWORDS"]);
+            $APPLICATION->SetPageProperty("keywords",$arResult["META"]["UF_KEYWORDS"]);
 
             if(isset($arResult["META"]["UF_DESCRIPTION"]) && !empty($arResult["META"]["UF_DESCRIPTION"]))
-                $APPLICATION->SetPageProperty("description",$arResult["META"]["UF_DESCRIPTION"]);
+            $APPLICATION->SetPageProperty("description",$arResult["META"]["UF_DESCRIPTION"]);
             */    
-                
+
         } else {  // если последний уровень
 
             /*    if(!empty($_REQUEST["orderby"]))
@@ -762,7 +763,7 @@
 
                 $sectionsToDisplay = array_unique($sectionsToDisplay);
             }    
-        ?>
+        ?>     
         <?
             $res = CIBlockSection::GetByID($arResult["VARIABLES"]["SECTION_ID"]);
             if($ar_res = $res->GetNext())
@@ -841,20 +842,20 @@
 
         <?              
             if (($arResult["VARIABLES"]["SECTION_ID"] > 0) && ($ar_res['IBLOCK_SECTION_ID'] != '688')) { ?>
-                              
+
             <?
-            if ($_GET["orderby"] && $_GET["sort"])
-            {
-                $orderby = $_GET["orderby"];
-                $sort = $_GET["sort"];
-            }
-            else
-            {
-                $orderby = $arParams["ELEMENT_SORT_FIELD"];
-                $sort = $arParams["ELEMENT_SORT_ORDER"];
-            }
-                
-            $APPLICATION->IncludeComponent(
+                if ($_GET["orderby"] && $_GET["sort"])
+                {
+                    $orderby = $_GET["orderby"];
+                    $sort = $_GET["sort"];
+                }
+                else
+                {
+                    $orderby = $arParams["ELEMENT_SORT_FIELD"];
+                    $sort = $arParams["ELEMENT_SORT_ORDER"];
+                }
+
+                $APPLICATION->IncludeComponent(
                     "bitrix:catalog.section",
                     "",
                     Array(
@@ -952,8 +953,8 @@
                 }
                 // arshow($GLOBALS["arrFilter"]);
                 global $arrFilter;
-                
-               // $arrFilter["!PROPERTY_CATALOG_AVAILABLE"] = false;   // фильтрация на наличие товара по брендам
+
+                // $arrFilter["!PROPERTY_CATALOG_AVAILABLE"] = false;   // фильтрация на наличие товара по брендам
 
                 foreach($sectionsToDisplay as $sID) {  
                     // $arFilter = Array("ID"=>$sID);
