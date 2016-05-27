@@ -9,8 +9,8 @@ var URL_open = 0;
 
 var bbtags = new Array();
 
-var clientPC = navigator.userAgent.toLowerCase(); 
-var clientVer = parseInt(navigator.appVersion); 
+var clientPC = navigator.userAgent.toLowerCase();
+var clientVer = parseInt(navigator.appVersion);
 
 var is_ie = ((clientPC.indexOf("msie") != -1) && (clientPC.indexOf("opera") == -1));
 var is_nav = ((clientPC.indexOf('mozilla')!=-1) && (clientPC.indexOf('spoofer')==-1)
@@ -122,7 +122,7 @@ function tag_url()
 			bTitleYes = true;
 		}
 	}
-	else 
+	else
 	{
 		if(textarea.selectionEnd > textarea.selectionStart)
 			bTitleYes = true;
@@ -153,11 +153,11 @@ function tag_url()
 		{
 			var enterTITLE = prompt(text_enter_url_name, "");
 			if (!enterTITLE)
-				enterTITLE=enterURL;	
+				enterTITLE=enterURL;
 			doInsert("[URL="+enterURL+"]"+enterTITLE+"[/URL]", "", false);
 		}
 	}
-	
+
 	textarea.scrollTop = currentScroll;
 	textarea.focus();
 }
@@ -185,10 +185,10 @@ function tag_list()
 	var listvalue = "init";
 	var thelist = "[LIST]\n";
 
-	while ( (listvalue != "") && (listvalue != null) && (listvalue != " ")) 
+	while ( (listvalue != "") && (listvalue != null) && (listvalue != " "))
 	{
 		listvalue = prompt(list_prompt, "");
-		if ( (listvalue != "") && (listvalue != null) && (listvalue != " ")) 
+		if ( (listvalue != "") && (listvalue != null) && (listvalue != " "))
 		{
 			thelist = thelist+"[*]"+listvalue+"\n";
 		}
@@ -202,9 +202,9 @@ function tag_list()
 // Close all tags
 function closeall()
 {
-	if (bbtags[0]) 
+	if (bbtags[0])
 	{
-		while (bbtags[0]) 
+		while (bbtags[0])
 		{
 			tagRemove = popstack(bbtags);
 			document.form_comment.comment.value += "[/" + tagRemove + "]";
@@ -239,7 +239,7 @@ function stacksize(thearray)
 {
 	for (i = 0 ; i < thearray.length; i++ )
 	{
-		if ( (thearray[i] == "") || (thearray[i] == null) || (thearray == 'undefined') ) 
+		if ( (thearray[i] == "") || (thearray[i] == null) || (thearray == 'undefined') )
 		{
 			return i;
 		}
@@ -284,7 +284,7 @@ function addEvent(el, evname, func)
 	else
 		el["on" + evname] = func;
 }
-	
+
 function GetStyleValue(el, styleProp)
 {
 	if(el.currentStyle)
@@ -293,7 +293,7 @@ function GetStyleValue(el, styleProp)
 		var res = document.defaultView.getComputedStyle(el, null).getPropertyValue(styleProp);
 	return res;
 }
-	
+
 function GetRealPos(el)
 {
 	if(!el || !el.offsetParent)
@@ -317,7 +317,7 @@ function GetRealPos(el)
 	return res;
 }
 
-function hidePicker() 
+function hidePicker()
 {
 	document.getElementById('ColorPick').style.visibility = "hidden";
 }
@@ -329,7 +329,7 @@ function ColorPicker()
 		var obj = document.getElementById("FontColor");
 
 		res=GetRealPos(obj);
-	
+
 		document.getElementById('ColorPick').style.left=res["left"] + "px";
 		document.getElementById('ColorPick').style.top=res["top"] + 20 + "px";
 		document.getElementById('ColorPick').style.visibility = "visible";
@@ -341,7 +341,7 @@ function mozillaWr(textarea, open, close)
 	var selLength = textarea.textLength;
 	var selStart = textarea.selectionStart;
 	var selEnd = textarea.selectionEnd;
-	
+
 	if (selEnd == 1 || selEnd == 2)
 	selEnd = selLength;
 
@@ -359,7 +359,7 @@ function doInsert(ibTag, ibClsTag, isSingle)
 {
 	var isClose = false;
 	var textarea = document.form_comment.comment;
-	
+
 	if (isSingle)
 		isClose = true;
 
@@ -381,7 +381,7 @@ function doInsert(ibTag, ibClsTag, isSingle)
 			rng.text = ibTag;
 		}
 	}
-	else 
+	else
 	{
 		if (is_nav && document.getElementById)
 		{
@@ -390,7 +390,7 @@ function doInsert(ibTag, ibClsTag, isSingle)
 				mozillaWr(textarea, ibTag, ibClsTag);
 				isClose = false;
 			}
-			else 
+			else
 				mozillaWr(textarea, ibTag, '');
 		}
 		else
@@ -405,12 +405,12 @@ function doInsert(ibTag, ibClsTag, isSingle)
 function quoteMessage()
 {
 	var selection;
-	
-    if (window.getSelection && !window.opera)     
+
+    if (window.getSelection && !window.opera)
 		selection = window.getSelection(); // ff
-    else if (document.getSelection)             
+    else if (document.getSelection)
 		selection = document.getSelection(); // opera
-    else if (document.selection)                 
+    else if (document.selection)
 		selection = document.selection.createRange().text; // ie
 
 	if (selection=="")
@@ -418,23 +418,23 @@ function quoteMessage()
 		simpletag("QUOTE");
 	}
 	else
-	{	
+	{
 		if (is_ie)
 		{
 			var sel = document.selection;
 			var rng = sel.createRange();
 			rng.colapse;
-			
+
 			postText = "[QUOTE]" + selection + "[/QUOTE]";
 
 			var sel = document.selection.createRange();
 			var selection_copy = sel.duplicate();
-			postText = postText.replace(/\r?\n/g, '\r\n'); 
+			postText = postText.replace(/\r?\n/g, '\r\n');
 			if(sel.parentElement().name && sel.parentElement().name == "comment")
 			{
 				sel.text = postText;
-				sel.setEndPoint('StartToStart', selection_copy); 
-				sel.setEndPoint('EndToEnd', selection_copy); 
+				sel.setEndPoint('StartToStart', selection_copy);
+				sel.setEndPoint('EndToEnd', selection_copy);
 				sel.collapse(true);
 				postText = postText.replace(/\r\n/g, '1');
 				sel.moveEnd('character', postText.length);
@@ -445,20 +445,20 @@ function quoteMessage()
 				document.form_comment.comment.value += postText;
 			}
 		}
-		else 
+		else
 		{
 			if (is_nav && document.getElementById)
 			{
 				textarea = document.form_comment.comment;
 				if (textarea.selectionEnd > textarea.selectionStart)
 					mozillaWr(textarea, "[QUOTE]", "[/QUOTE]");
-				else 
+				else
 					mozillaWr(textarea, "[QUOTE]"+selection, '[/QUOTE]');
 			}
 		}
 
 	}
-		
+
 	document.form_comment.comment.focus();
 }
 
@@ -491,25 +491,25 @@ function change_ic(obj)
     if ($(obj).hasClass("str_right"))
     {
         $(obj).removeClass("str_right");
-        $(obj).addClass("str_bottom"); 
-		if ($(".comments").hasClass("hide")) 
+        $(obj).addClass("str_bottom");
+		if ($(".comments").hasClass("hide"))
 		{
-			$(".comments").removeClass("hide");		
+			$(".comments").removeClass("hide");
 			$(".cntr_comment").removeClass("str_right");
 			$(".cntr_comment").addClass("str_bottom");
-		}		
+		}
 		r = true;
 	}
-    
+
     simple_comment=true;
     return r;
-}   
+}
 
 function ShowOsnForm(gt)
 {
 	var elb, elc;
 	elb = document.getElementById('ToComment');
-	
+
 	if(elb && typeof(elb) == 'object')
 	{
 		r = change_ic(elb);
