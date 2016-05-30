@@ -492,12 +492,12 @@ function change_ic(obj)
     {
         $(obj).removeClass("str_right");
         $(obj).addClass("str_bottom");
-		if ($(".comments").hasClass("hide"))
-		{
-			$(".comments").removeClass("hide");
-			$(".cntr_comment").removeClass("str_right");
-			$(".cntr_comment").addClass("str_bottom");
-		}
+	    if ($(".comments").hasClass("hide"))
+	    {
+		    $(".comments").removeClass("hide");
+		    $(".cntr_comment").removeClass("str_right");
+		    $(".cntr_comment").addClass("str_bottom");
+	    }
 		r = true;
 	}
 
