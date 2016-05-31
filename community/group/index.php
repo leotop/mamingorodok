@@ -75,10 +75,10 @@ $APPLICATION->IncludeComponent(
 		"SHARE_HIDE" => "N",
 		"SHARE_TEMPLATE" => "",
 		"SHARE_HANDLERS" => array(
-			0 => "twitter",
-			1 => "vk",
+			0 => "vk",
+			1 => "lj",
 			2 => "facebook",
-			3 => "lj",
+			3 => "twitter",
 		),
 		"SHARE_SHORTEN_URL_LOGIN" => "",
 		"SHARE_SHORTEN_URL_KEY" => "",

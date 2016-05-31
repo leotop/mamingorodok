@@ -1,29 +1,39 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");?>
 <?
-    
+
     $name = $_POST["name"];
     $phone = $_POST["phone"];
     $email = $_POST["email"];
     $id = $_POST["id"];
     $comments = $_POST["comments"];
-    
+
 ?>
 <?
 if(CModule::IncludeModule("sale") && CModule::IncludeModule("catalog"))    // подключение модулей каталога и корзины
 {
     global $USER;
 
-        if (!$USER->IsAuthorized()){ //если пользователь не авторизирован         
+        if (!$USER->IsAuthorized()){ //если пользователь не авторизирован
+
+            $filter = Array( "EMAIL" => $email );
+            $rsUsers = CUser::GetList($by = 'ID', $order = 'ASC', $filter)->Fetch(); // выбираем пользователей
+
             $login = randString(10, array(
               "0123456789",
             ));
-            arshow($login);
-            $user_new = $USER->SimpleRegister($login.'_'.$email); // регистрируем нового пользоателя
+
+            if($rsUsers){           // существует ли email в базе
+                $emailRand = $login.'_'.$email;
+            }else{
+                $emailRand = $email;
+            }
+
+            $user_new = $USER->SimpleRegister($emailRand); // регистрируем нового пользоателя
                 $fields = Array(
                   "NAME"  => utf8win1251($name),
                   );
                 $USER->Update($USER->GetID(), $fields);
-        }   
+        }
         // Выберем записи корзины текущего пользователя
             $BasketItems = CSaleBasket::GetList(
              array(
@@ -57,34 +67,33 @@ if(CModule::IncludeModule("sale") && CModule::IncludeModule("catalog"))    // по
                        $arItemsNew["ORDER_CALLBACK_FUNC"] =  $arItems["ORDER_CALLBACK_FUNC"];
                        $arItemsNew["DETAIL_PAGE_URL"] =  $arItems["DETAIL_PAGE_URL"];
                        $arItemsNew["PRODUCT_XML_ID"] =  $arItems["PRODUCT_XML_ID"];
-                       
+
                        $arItemsNew_1[] = $arItemsNew;
-                  } 
-                
+                  }
+
             CSaleBasket::DeleteAll(CSaleBasket::GetBasketUserID());
-        
+
         $price = CPrice::GetList( array(),array("PRODUCT_ID"=>$id))->Fetch();
-        
         $basket_array = array(
             "PRICE" => $price["PRICE"],
             "QUANTITY" => 1,
             "CURRENCY" => "RUB",
             "PRODUCT_ID" => $id,
-            "PRODUCT_PROVIDER_CLASS"=>"CCatalogProductProvider",     
+            "PRODUCT_PROVIDER_CLASS"=>"CCatalogProductProvider",
             "MODULE"=> "catalog",
             "NAME" => utf8win1251($_POST['name_item']),
             "LID" => LANG,
             "DELAY" => "N",
-            "CAN_BUY" => "Y", 
+            "CAN_BUY" => "Y",
             "PRODUCT_XML_ID" => $_POST['data_code'],
-            "CATALOG_XML_ID" => $_POST['data_code_section'] 
-            
+            "CATALOG_XML_ID" => $_POST['data_code_section']
+
         );
-        
+
         $basket = CSaleBasket::Add($basket_array);
-        
-            
-        
+
+
+
         $arProps = array();
 
           $arProps[] = array(
@@ -93,7 +102,7 @@ if(CModule::IncludeModule("sale") && CModule::IncludeModule("catalog"))    // по
           );
 
         $arFields["PROPS"] = $arProps;
-                  
+
         $arFields = array(
            "LID" => SITE_ID,
            "PERSON_TYPE_ID" => 1,
@@ -104,19 +113,18 @@ if(CModule::IncludeModule("sale") && CModule::IncludeModule("catalog"))    // по
            "CURRENCY" => "RUB",
            "NOTES" => "",
            "MODULE" => "catalog",
-           "USER_ID" => $USER->GetID(), 
-        );      
-         
-     
+           "USER_ID" => $USER->GetID(),
+        );
+
+
 
       //  $aar_items = CSaleBasket::OrderBasket($ORDER_ID, $_SESSION["SALE_USER_ID"], SITE_ID);
 
-      
-            $arResult["ORDER_ID"] = (int)CSaleOrder::DoSaveOrder($arFields_props, $arFields, 0, $arResult["ERROR"]);
-         
-            $arOrder = CSaleOrder::GetByID($arResult["ORDER_ID"]);
-            
-           
+
+        $arResult["ORDER_ID"] = (int)CSaleOrder::DoSaveOrder($arFields_props, $arFields, 0, $arResult["ERROR"]);
+
+        $arOrder = CSaleOrder::GetByID($arResult["ORDER_ID"]);
+
         $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 2, "NAME" => "Имя", "CODE" => "ORDER_USER", "VALUE" => utf8win1251($name));
         CSaleOrderPropsValue::Add($arFields_props);
 
@@ -130,21 +138,21 @@ if(CModule::IncludeModule("sale") && CModule::IncludeModule("catalog"))    // по
         CSaleOrderPropsValue::Add($arFields_props);
 
         $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 7, "NAME" => "Комментарий", "CODE" => "COMMENT", "VALUE" => utf8win1251($comments));
-        CSaleOrderPropsValue::Add($arFields_props);  
+        CSaleOrderPropsValue::Add($arFields_props);
 
         /*$arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 34, "NAME" => "Быстрый заказ", "CODE" => "quick_order", "VALUE" =>"Y");
         CSaleOrderPropsValue::Add($arFields_props);  */
             $aar_items = CSaleBasket::OrderBasket( $arOrder, $_SESSION["SALE_USER_ID"], SITE_ID);
-            
+
             CSaleOrder::Update($arResult["ORDER_ID"], $arFields);
-                      
+
         if($user_new){
             $USER->Logout();
         }
 
         $arSend = array("LINK"=>'http://'.$_SERVER["HTTP_HOST"].$_POST["url"], "NAME" => utf8win1251($name), "CODE"=>$phone, "ACTIVE_FROM" => date("d.m.Y H:i:s"), "XML_ID"=>$email, "PREVIEW_TEXT" => utf8win1251($comments));
-        CEvent::Send("QUICK_ORDER", SITE_ID, $arSend); 
-        
+        CEvent::Send("QUICK_ORDER", SITE_ID, $arSend);
+
         foreach($arItemsNew_1 as $ItemNew){
              CSaleBasket::Add($ItemNew);
         }

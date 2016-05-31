@@ -1,6 +1,5 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
-<?//print_R()?>
 <div class="comments_head" id="lookcomments">
 <?$GLOBALS["NUM_COMMENTS"] = $arResult["Post"]["NUM_COMMENTS"]?>
 <?if (intval($arResult["Post"]["NUM_COMMENTS"])>0):?>
@@ -65,7 +64,7 @@ else
 		<div class="title">Добавить свой комментарий</div>
 		<div class="clear"></div>
 		<div class="top15"></div>
-		
+
 		<?if(empty($arResult["User"]) && $USER->IsAuthorized()):?>
 		<?
 			$name = "";
@@ -84,7 +83,7 @@ else
 		<input type="hidden" name="act" id="act" value="add">
 		<input type="hidden" name="post" value="Y">
 		<?=bitrix_sessid_post()?>
-		
+
 		<div class="blog-comment-fields">
 			<?
 			if(empty($arResult["User"]))
@@ -109,7 +108,7 @@ else
 						<input maxlength="255" style="width:300px;" tabindex="4" type="text" name="user_email" id="user_email" value="<?=htmlspecialcharsEx($_SESSION["blog_user_email"])?>">
 					</td></tr>
 				</table>
-               
+
 					<div class="top15"></div>
 					<div class="clear"></div>
 				<?
@@ -141,7 +140,7 @@ else
 					<input type="hidden" name="post" value="Добавить комментарий">
             </div>
             <div class="clear"></div>
-			
+
 		</div>
 		</form>
 		</div>
@@ -186,10 +185,10 @@ else
 				$paddingSize = 2.5 * 5 + 1.5 * 5 + ($tabCount-10) * 1;
             elseif($tabCount > 22)
                 $paddingSize = 2.5 * 5 + 1.5 * 5 + 12;
-                
+
             $padding_top=($tabCount==0)?1.5:0;
 			?>
-			
+
             <?if($comment["PUBLISH_STATUS"] == BLOG_PUBLISH_STATUS_PUBLISH || $comment["SHOW_SCREENNED"] == "Y" || $comment["ID"] == "preview")
             {
                 $aditStyle = "";
@@ -206,8 +205,8 @@ else
                 /*if($comment["ID"] == "preview")
                     $aditStyle .= " blog-comment-preview";*/
             ?>
-            
-            
+
+
 			<a name="<?=$comment["ID"]?>"></a>
 			<div class="blog-comment comment top15<?=$aditStyle?>" style="padding-left:<?=$paddingSize?>em;padding-top:<?=$padding_top?>em;">
 				<div class="head">
@@ -219,7 +218,7 @@ else
 					<?$name = "";?>
 					<?if(!empty($comment["AuthorName"])) $name = $comment["AuthorName"];?>
 					<?if(empty($name)) $name = $comment["arUser"]["LOGIN"];?>
-					
+
 					<a href="/community/user/<?=$comment["arUser"]["ID"]?>/" class="boldLink"><?=$name?></a>
 					<span class="date">
 						<?
@@ -259,7 +258,7 @@ else
 					</div>
 					<div class="text"><?=$comment["TextFormated"]?>
 					<div class="clear"></div>
-					
+
 					<?
 					if($bCanUserComment===true)
 					{
@@ -309,7 +308,7 @@ else
                             <?=GetMessage("BPC_MES_HIDE")?></a></span>
                         <?
                     }
-                    
+
 					if(strlen($comment["urlToDelete"])>0)
 					{
 						?>
@@ -317,16 +316,16 @@ else
 						<?
 					}
 					?>
-					
-				
+
+
 					</div>
-			
+
 
 				<?
 				if(strlen($errorComment) <= 0 && strlen($_POST["preview"]) > 0 && (IntVal($_POST["parentId"]) > 0 || IntVal($_POST["id"]) > 0)
-					&& ( (IntVal($_POST["parentId"])==$comment["ID"] && IntVal($_POST["id"]) <= 0) 
+					&& ( (IntVal($_POST["parentId"])==$comment["ID"] && IntVal($_POST["id"]) <= 0)
 						|| (IntVal($_POST["id"]) > 0 && IntVal($_POST["id"]) == $comment["ID"] && $comment["CAN_EDIT"] == "Y")))
-				{							
+				{
 					?><div style="border:1px solid red"><?
 						$commentPreview = Array(
 								"ID" => "preview",
@@ -338,10 +337,10 @@ else
 						ShowComment($commentPreview, (IntVal($_POST["id"]) == $comment["ID"] && $comment["CAN_EDIT"] == "Y") ? $level : ($level+1), 2.5, false, Array(), false, false, false, $arParams);
 					?></div><?
 				}
-				
+
 				if(strlen($errorComment)>0 && $bCanUserComment===true
 					&& (IntVal($_POST["parentId"])==$comment["ID"] || IntVal($_POST["id"]) == $comment["ID"]))
-				{							
+				{
 					?>
 					<div class="blog-errors blog-note-box blog-note-error">
 						<div class="blog-error-text">
@@ -353,13 +352,13 @@ else
 				?>
 				</div>
 				<div id="form_comment_<?=$comment['ID']?>"></div>
-				
+
 				<?
-				if((strlen($errorComment) > 0 || strlen($_POST["preview"]) > 0) 
-					&& (IntVal($_POST["parentId"])==$comment["ID"] || IntVal($_POST["id"]) == $comment["ID"]) 
+				if((strlen($errorComment) > 0 || strlen($_POST["preview"]) > 0)
+					&& (IntVal($_POST["parentId"])==$comment["ID"] || IntVal($_POST["id"]) == $comment["ID"])
 					&& $bCanUserComment===true)
 				{
-					$form1 = CUtil::JSEscape($_POST["comment"]);					
+					$form1 = CUtil::JSEscape($_POST["comment"]);
 					$subj = CUtil::JSEscape($_POST["subject"]);
 					$user_name = CUtil::JSEscape($_POST["user_name"]);
 					$user_email = CUtil::JSEscape($_POST["user_email"]);
@@ -390,9 +389,9 @@ else
 			elseif($comment["SHOW_AS_HIDDEN"] == "Y")
 				echo "<b>".GetMessage("BPC_HIDDEN_COMMENT")."</b>";
 			?>
-			
+
 			<?
-		
+
 	}
 
 	function RecursiveComments($sArray, $key, $level=0, $first=false, $canModerate=false, $User, $use_captcha, $bCanUserComment, $errorComment, $arSumComments, $arParams)
@@ -438,14 +437,14 @@ else
 		$postTitle = "";
 		if($arParams["NOT_USE_COMMENT_TITLE"] != "Y")
 			$postTitle = "RE: ".CUtil::JSEscape($arResult["Post"]["TITLE"]);
-		
+
 		/*?>
 		<div class="blog-add-comment"><a name="comments"></a><a href="javascript:void(0)" onclick="return showComment('0', '<?=$postTitle?>')"><b><?=GetMessage("B_B_MS_ADD_COMMENT")?></b></a><br /></div>
 		<a name="0"></a>
 		<? */
-		if(strlen($arResult["COMMENT_ERROR"]) <= 0 && strlen($_POST["parentId"]) < 2 
+		if(strlen($arResult["COMMENT_ERROR"]) <= 0 && strlen($_POST["parentId"]) < 2
 			&& IntVal($_POST["parentId"])==0 && strlen($_POST["preview"]) > 0 && IntVal($_POST["id"]) <= 0)
-		{		
+		{
 			?><div style="border:1px solid red"><?
 				$commentPreview = Array(
 						"ID" => "preview",
@@ -470,11 +469,11 @@ else
 		?>
 		<div id=form_comment_0_></div>
 		<?
-		if((strlen($arResult["COMMENT_ERROR"])>0 || strlen($_POST["preview"]) > 0) 
+		if((strlen($arResult["COMMENT_ERROR"])>0 || strlen($_POST["preview"]) > 0)
 			&& IntVal($_POST["parentId"]) == 0 && strlen($_POST["parentId"]) < 2 && IntVal($_POST["id"]) <= 0)
 		{
 			$form1 = CUtil::JSEscape($_POST["comment"]);
-			
+
 			$subj = CUtil::JSEscape($_POST["subject"]);
 			$user_name = CUtil::JSEscape($_POST["user_name"]);
 			$user_email = CUtil::JSEscape($_POST["user_email"]);
@@ -488,7 +487,7 @@ else
 			</script>
 			<?
 		}
-		
+
 		if($arResult["NEED_NAV"] == "Y")
 		{
 			?>
@@ -498,8 +497,8 @@ else
 				{
 					echo $v;
 				}
-				
-				
+
+
 			?>
 			</div>
 			<?
@@ -518,13 +517,13 @@ else
 			{
 				echo $v;
 			}
-			
-			
+
+
 		?>
 		</div>
 		<?
 	}
-     
+
 	if($arResult["CanUserComment"] && count($arResult["Comments"])>2)
 	{
 		// КОММЕНТАРИИ???
@@ -532,7 +531,7 @@ else
 		<div class="blog-add-comment"><a href="#comments" onclick="return showComment('00', '<?=$postTitle?>')"><b><?=GetMessage("B_B_MS_ADD_COMMENT")?></b></a><br /></div><a name="00"></a>
 		<?    */
 		if(strlen($arResult["COMMENT_ERROR"]) <= 0 && $_POST["parentId"] == "00" && strlen($_POST["parentId"]) > 1 && strlen($_POST["preview"]) > 0)
-		{							
+		{
 			?><div style="border:1px solid red"><?
 				$commentPreview = Array(
 						"ID" => "preview",
@@ -544,7 +543,7 @@ else
 				ShowComment($commentPreview, 0, 2.5, false, $arResult["User"], $arResult["use_captcha"], $arResult["CanUserComment"], $arResult["COMMENT_ERROR"], $arParams);
 			?></div><?
 		}
-		
+
 		if(strlen($arResult["COMMENT_ERROR"])>0 && $_POST["parentId"] == "00" && strlen($_POST["parentId"]) > 1)
 		{
 			?>
@@ -558,9 +557,9 @@ else
 		?>
 
 		<div id=form_comment_00></div><br />
-		
+
 		<?
-		if((strlen($arResult["COMMENT_ERROR"])>0 || strlen($_POST["preview"]) > 0) 
+		if((strlen($arResult["COMMENT_ERROR"])>0 || strlen($_POST["preview"]) > 0)
 			&& $_POST["parentId"] == "00" && strlen($_POST["parentId"]) > 1)
 		{
 			$form1 = CUtil::JSEscape($_POST["comment"]);
@@ -600,14 +599,14 @@ else
 			if(empty($name))
 				$name = $USER->GetLogin();
 			?>
-		
+
 		<?if(!empty($arResult["User"]) && $USER->IsAuthorized()):?>
 		<div class="info">Вы вошли как <a href="/personal/profile/"><?=$name?></a>. <a href="?logout=yes" class="grey">Выйти?</a> </div>
 		<div class="clear"></div>
 		<?endif;?>
         <div>
         <div class="blog-comment-form">
-        
+
         <form method="POST" class="jqtransform" name="form_comment2" id="form_comment2" action="<?=POST_FORM_ACTION_URI?>">
         <input type="hidden" name="parentId" id="parentId" value="">
         <input type="hidden" name="edit_id" id="edit_id" value="">
@@ -629,7 +628,7 @@ else
 				<table>
 					<tr><td width="120px">
 					 <label for="user_name" class="dfgfdsdf"><?=GetMessage("B_B_MS_NAME")?> <span class="blog-required-field">*</span></label>
-					 
+
 					</td><td>
 						<input maxlength="255" style="width:300px;" tabindex="3" type="text" name="user_name" id="user_name" value="<?=htmlspecialcharsEx($_SESSION["blog_user_name"])?>">
 					</td></tr>
@@ -642,7 +641,7 @@ else
 						<input maxlength="255" style="width:300px;" tabindex="4" type="text" name="user_email" id="user_email" value="<?=htmlspecialcharsEx($_SESSION["blog_user_email"])?>">
 					</td></tr>*/?>
 				</table>
-               
+
 					<div class="top15"></div>
 					<div class="clear"></div>
                 <?
@@ -664,7 +663,7 @@ else
                         <label for="" class="sdfsdfsdf"><?=GetMessage("B_B_MS_CAPTCHA_SYM")?> <span class="blog-required-field">*</span></label><br>
                         <input type="hidden" name="captcha_code" id="captcha_code" value="<?=$arResult["CaptchaCode"]?>">
 						<div class="clear"></div>
-                        
+
                     <div class="blog-comment-field-captcha-image dfgfdsdf">
 					<table>
 						<tr>
