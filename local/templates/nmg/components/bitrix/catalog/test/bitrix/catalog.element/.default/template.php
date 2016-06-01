@@ -1098,9 +1098,7 @@
                                     if(count($arResult["CS"])>0)
                                         $strSizeHash = 'data-sizehash="'.md5($strSize).'"';
                                     else $strSizeHash = '';
-
-                                    foreach($arColor as $arItem)
-                                    {
+                                    foreach($arColor as $arItem) {
                                         if ($arItem["PRICE"] > 0 && intval($arItem["CATALOG_QUANTITY"]) >= intval($quantityForDisplay) && !in_array($arItem["ID"], $element_id)){
 
                                             $strH1orName = $arResult["SEO_H1_FROM_NAME"] == "Y" ? $arResult["NAME"].' '.$arItem["PROPERTY_TSVET_VALUE"] : $arResult["PROPERTIES"]["SEO_H1"]["VALUE"];

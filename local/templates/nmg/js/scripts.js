@@ -279,14 +279,18 @@ jQuery(document).ready(function($) {
 
                 // xml code here
                 showCode1C(strCode1C);
+                if (typeof(itemOldPrice) != "undefined") {
 
-                if(typeof(itemOldPrice) != "undefined"){
+                    strPrice = '<div class="sk-product-price-old">' + itemOldPrice + ' <span class="rub">&#101;</span></div> \
+                    <div class="sk-product-price-new' + (strAddon.length? ' sk-product-price-new-preorder':'')+'">' + itemPrice + '<span class="rub">&#101;</span></div>';
+                } else {
+                    if (itemPrice == itemDiscountPrice.slice(0, -5)){
+                        strPrice = '<div class="sk-product-price-one">' + itemPrice + '  <span class="rouble">a</span></div>';
+                    } else {
+                        strPrice = '<div class="sk-product-price-one prise_cena">' + itemPrice + '  <span class="rouble">a</span></div> \
+                        <div class="sk-product-price-one prise_discount">' + itemDiscountPrice.slice(0, -5) + '  <span class="rouble">a</span></div>';
 
-                    strPrice = '<div class="sk-product-price-old">'+itemOldPrice+' <span class="rub">&#101;</span></div> \
-                    <div class="sk-product-price-new'+(strAddon.length?' sk-product-price-new-preorder':'')+'">'+itemPrice+'<span class="rub">&#101;</span></div>';
-                }else{
-                    strPrice = '<div class="sk-product-price-one prise_cena">'+itemPrice+'  <span class="rouble">a</span></div> \
-                    <div class="sk-product-price-one prise_discount">'+itemDiscountPrice.slice(0, -4)+'  <span class="rouble">a</span></div>';
+                    }
                 }
 
 
