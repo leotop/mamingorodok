@@ -33,10 +33,10 @@
                     ?>
                 </span>
                 <p>
-                    с 9:00 до 18:00 по московскому времени
+                    СЃ 9:00 РґРѕ 18:00 РїРѕ РјРѕСЃРєРѕРІСЃРєРѕРјСѓ РІСЂРµРјРµРЅРё
                 </p>
                 <p>
-                    суббота и воскресенье ВЫХОДНОЙ
+                    СЃСѓР±Р±РѕС‚Р° Рё РІРѕСЃРєСЂРµСЃРµРЅСЊРµ Р’Р«РҐРћР”РќРћР™
                 </p>
             </div>
             <div class="footer_copy">
@@ -74,7 +74,7 @@
                 <!--noindex-->
                 <a href="http://clck.yandex.ru/redir/dtype=stred/pid=47/cid=1248/*http://market.yandex.ru/grade-shop.xml?shop_id=79781">
                     <img src="http://clck.yandex.ru/redir/dtype=stred/pid=47/cid=1248/*http://img.yandex.ru/market/informer12.png" border="0" 
-                        alt="Оцените качество магазина на Яндекс.Маркете." />
+                        alt="РћС†РµРЅРёС‚Рµ РєР°С‡РµСЃС‚РІРѕ РјР°РіР°Р·РёРЅР° РЅР° РЇРЅРґРµРєСЃ.РњР°СЂРєРµС‚Рµ." />
                 </a>
                 <!--/noindex-->
                 <!--noindex-->
@@ -241,10 +241,10 @@
     //Added by Optimism.ru
     if (isset($_GET['PAGEN_1']) && is_numeric($_GET['PAGEN_1'])) {
         $curr_title = $APPLICATION->GetTitle();
-        $APPLICATION->SetTitle($curr_title.' - страница '.$_GET['PAGEN_1']);
+        $APPLICATION->SetTitle($curr_title.' - СЃС‚СЂР°РЅРёС†Р° '.$_GET['PAGEN_1']);
     }
 
     if ($_SERVER['REQUEST_URI'] == '/catalog/postelnye-prinadlezhnosti/proizvoditel_/') {
-        $APPLICATION->SetPageProperty("description", "Постельные принадлежности - производитель в интернет-магазине «Мамин городок»");
+        $APPLICATION->SetPageProperty("description", "РџРѕСЃС‚РµР»СЊРЅС‹Рµ РїСЂРёРЅР°РґР»РµР¶РЅРѕСЃС‚Рё - РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊ РІ РёРЅС‚РµСЂРЅРµС‚-РјР°РіР°Р·РёРЅРµ В«РњР°РјРёРЅ РіРѕСЂРѕРґРѕРєВ»");
     }
 ?>
