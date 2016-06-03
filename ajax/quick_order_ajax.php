@@ -11,6 +11,7 @@
 <?
     global $USER;
 
+    $filter = Array( "EMAIL" => $email );
     $rsUsers = CUser::GetList($by = 'ID', $order = 'ASC', $filter)->Fetch(); // выбираем пользователей
 
     $login = randString(10, array(
@@ -19,15 +20,15 @@
 
     if($rsUsers){           // существует ли email в базе
         $emailRand = $login.'_'.$email;
+        $USER->Authorize($rsUsers["ID"], false, true);
     }else{
         $emailRand = $email;
+        $user_new = $USER->SimpleRegister($emailRand); // регистрируем нового пользоател€
+        $fields = Array(
+            "NAME"  => utf8win1251($name),
+        );
+        $USER->Update($USER->GetID(), $fields);
     }
-
-    $user_new = $USER->SimpleRegister($emailRand); // регистрируем нового пользоател€
-    $fields = Array(
-        "NAME"  => utf8win1251($name),
-    );
-    $USER->Update($USER->GetID(), $fields);
     /*$user_new = $USER->Register('user'.$login, utf8win1251($name), "", $password, $password, $email); // регистрируем нового пользоател€
     */
     // ¬ыберем записи корзины текущего пользовател€

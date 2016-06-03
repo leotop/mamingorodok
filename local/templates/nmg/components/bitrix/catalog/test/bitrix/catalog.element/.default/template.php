@@ -1726,6 +1726,7 @@
                 name_item:name_item
                 },
                 function(data){
+                    console.log(data);
                     $("#OrderForm ul").html("");
                     $(".form_alert").html("<span>Ваш заказ принят -  ожидайте звонка менеджера!</span>");
                     $(".form_alert_error").css("display","none");
