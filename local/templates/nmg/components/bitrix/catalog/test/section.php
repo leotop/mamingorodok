@@ -279,7 +279,7 @@
                             <?if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arItem["PREVIEW_PICTURE"])):?>
                                 <div style="clear:both"></div>
                                 <?endif?>
-                            <a class="detail_action" href="<?echo $arSec["SECTION_PAGE_URL"]?>">РџРѕРґСЂРѕР±РЅРµРµ</a>
+                            <a class="detail_action" href="<?echo $arSec["SECTION_PAGE_URL"]?>">Подробнее</a>
                         </div>
 
                     </div>

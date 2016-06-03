@@ -2,8 +2,8 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Поиск");
 ?><?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.search",
-	"searchNew",
+	"bitrix:catalog.search", 
+	"searchNew", 
 	array(
 		"COMPONENT_TEMPLATE" => "searchNew",
 		"IBLOCK_TYPE" => "catalog",
@@ -71,7 +71,9 @@ $APPLICATION->SetTitle("Поиск");
 		"PAGER_SHOW_ALWAYS" => "N",
 		"PAGER_DESC_NUMBERING" => "N",
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-		"PAGER_SHOW_ALL" => "N"
+		"PAGER_SHOW_ALL" => "N",
+		"PRODUCT_PROPERTIES" => array(
+		)
 	),
 	false
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

@@ -35,7 +35,7 @@
             "SHOW_WHERE" => "N",
             "arrWHERE" => array(),
             "SHOW_WHEN" => "N",
-            "PAGE_RESULT_COUNT" => 50,
+            "PAGE_RESULT_COUNT" => 500,
             "DISPLAY_TOP_PAGER" => "N",
             "DISPLAY_BOTTOM_PAGER" => "N",
             "PAGER_TITLE" => "",
