@@ -467,7 +467,7 @@
         <div class="sk-phone sk-phone_newHed">
             <a class="showpUp getCallForm" href="#call_popup" title="Заказать обратный звонок">Заказать обратный звонок</a><br>
             <p><span>8 (495)</span> 661-03-21</p>
-            <span class="after_phone">Call-центр работает: пн-вс с 9:00 до 18:00</span>
+            <span class="after_phone">Call-центр работает: пн-пт с 9:00 до 18:00<br>суббота и воскресенье ВЫХОДНОЙ</span>
         </div>
     </div>
     <div class="popup_block" id="callback-form"  data-popup-head="Обратная связь" style="display: none;">
