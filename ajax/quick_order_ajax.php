@@ -19,7 +19,6 @@
     ));
 
     if($rsUsers){           // существует ли email в базе
-        $emailRand = $login.'_'.$email;
         $USER->Authorize($rsUsers["ID"], false, true);
     }else{
         $emailRand = $email;
