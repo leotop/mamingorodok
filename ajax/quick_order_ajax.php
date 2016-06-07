@@ -18,15 +18,15 @@
         "0123456789",
     ));
 
-    if($rsUsers){           // существует ли email в базе
-        $USER->Authorize($rsUsers["ID"], false, true);
-    }else{
+    if(!$rsUsers){           // существует ли email в базе
         $emailRand = $email;
         $user_new = $USER->SimpleRegister($emailRand); // регистрируем нового пользоателя
         $fields = Array(
             "NAME"  => utf8win1251($name),
         );
         $USER->Update($USER->GetID(), $fields);
+
+        $rsUsers["ID"] = $USER->GetID();
     }
     /*$user_new = $USER->Register('user'.$login, utf8win1251($name), "", $password, $password, $email); // регистрируем нового пользоателя
     */
@@ -42,7 +42,7 @@
         "PRICE" => $price,
         "CURRENCY" => "RUB",
         "MODULE" => "catalog",
-        "USER_ID" => $USER->GetID(),
+        "USER_ID" => $rsUsers["ID"],
     );
 
     $arResult["ORDER_ID"] = (int)CSaleOrder::DoSaveOrder($arFields_props, $arFields, 0, $arResult["ERROR"]);//сохраняем все параметры корзины

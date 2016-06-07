@@ -23,7 +23,7 @@ if(CModule::IncludeModule("sale") && CModule::IncludeModule("catalog"))    // по
             ));
 
             if($rsUsers){           // существует ли email в базе
-                $USER->Authorize($rsUsers["ID"], false, true);
+
             }else{
                 $emailRand = $email;
                 $user_new = $USER->SimpleRegister($emailRand); // регистрируем нового пользоателя
