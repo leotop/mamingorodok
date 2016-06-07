@@ -22,15 +22,14 @@ if(CModule::IncludeModule("sale") && CModule::IncludeModule("catalog"))    // по
               "0123456789",
             ));
 
-            if($rsUsers){           // существует ли email в базе
-
-            }else{
+            if(!$rsUsers){           // существует ли email в базе
                 $emailRand = $email;
                 $user_new = $USER->SimpleRegister($emailRand); // регистрируем нового пользоател€
                     $fields = Array(
                       "NAME"  => utf8win1251($name),
                       );
                     $USER->Update($USER->GetID(), $fields);
+                    $rsUsers["ID"] = $USER->GetID();
             }
         }
         // ¬ыберем записи корзины текущего пользовател€
@@ -112,7 +111,7 @@ if(CModule::IncludeModule("sale") && CModule::IncludeModule("catalog"))    // по
            "CURRENCY" => "RUB",
            "NOTES" => "",
            "MODULE" => "catalog",
-           "USER_ID" => $USER->GetID(),
+           "USER_ID" => $rsUsers["ID"],
         );
 
 
