@@ -11,23 +11,23 @@
 <?
     global $USER;
 
+    $filter = Array( "EMAIL" => $email );
     $rsUsers = CUser::GetList($by = 'ID', $order = 'ASC', $filter)->Fetch(); // выбираем пользователей
 
     $login = randString(10, array(
         "0123456789",
     ));
 
-    if($rsUsers){           // существует ли email в базе
-        $emailRand = $login.'_'.$email;
-    }else{
+    if(!$rsUsers){           // существует ли email в базе
         $emailRand = $email;
-    }
+        $user_new = $USER->SimpleRegister($emailRand); // регистрируем нового пользоател€
+        $fields = Array(
+            "NAME"  => utf8win1251($name),
+        );
+        $USER->Update($USER->GetID(), $fields);
 
-    $user_new = $USER->SimpleRegister($emailRand); // регистрируем нового пользоател€
-    $fields = Array(
-        "NAME"  => utf8win1251($name),
-    );
-    $USER->Update($USER->GetID(), $fields);
+        $rsUsers["ID"] = $USER->GetID();
+    }
     /*$user_new = $USER->Register('user'.$login, utf8win1251($name), "", $password, $password, $email); // регистрируем нового пользоател€
     */
     // ¬ыберем записи корзины текущего пользовател€
@@ -42,7 +42,7 @@
         "PRICE" => $price,
         "CURRENCY" => "RUB",
         "MODULE" => "catalog",
-        "USER_ID" => $USER->GetID(),
+        "USER_ID" => $rsUsers["ID"],
     );
 
     $arResult["ORDER_ID"] = (int)CSaleOrder::DoSaveOrder($arFields_props, $arFields, 0, $arResult["ERROR"]);//сохран€ем все параметры корзины
