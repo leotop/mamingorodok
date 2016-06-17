@@ -147,7 +147,7 @@
 
 <div class="feedback" id="feedbackFormNoPopup"> 
     <h1>Обратная связь</h1>
-    <form action="/bitrix/templates/nmg/ajax/feedbackSend.php" method="post" id="fbForm_noPopup"> <input type="hidden" name="frmFBSent" value="Y" /> 
+    <form action="/local/templates/nmg/ajax/feedbackSend.php" method="post" id="fbForm_noPopup"> <input type="hidden" name="frmFBSent" value="Y" /> 
         <div class="notify"></div>
         <input type="text" name="fbNameLast" value="" class="i capfield" /> 
         <ul> 

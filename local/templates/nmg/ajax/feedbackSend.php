@@ -1,7 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
-if(isset($_REQUEST["frmFBSent"]) && strpos($_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST']) !== false && strlen($_REQUEST["fbNameLast"])<=0)
+if(isset($_REQUEST["frmFBSent"])  && strlen($_REQUEST["fbNameLast"])<=0)
 {
 	$_REQUEST["fbName"] = iconv('UTF-8', 'Windows-1251', htmlspecialchars(trim($_REQUEST["fbName"])));
 	$_REQUEST["fbEmail"] = iconv('UTF-8', 'Windows-1251', htmlspecialchars(trim($_REQUEST["fbEmail"])));
