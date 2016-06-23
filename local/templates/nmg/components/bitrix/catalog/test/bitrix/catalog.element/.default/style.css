@@ -286,4 +286,13 @@ bx_item_list_you_looked_horizontal .bx_catalog_item {
     background: url('/bitrix/templates/nmg/images/preloader.gif') no-repeat 50% 50%;
     height: 20px;
 }
+.CatPopUp{
+    z-index: 1100!important;
+    position:relative;
+    background-color: #fff;
+    border-radius: 5px;
+}
+.CatPopUp .white_plash {
+    padding: 30px 0 30px;
+}
 

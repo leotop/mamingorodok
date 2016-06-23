@@ -1683,7 +1683,16 @@
             $('#fancybox-tmp').show();
         });
 
-    })
+    });
+     $(function(){
+        $('#userNoAuth').click(function(){
+            $('#fancybox-tmp').show();
+        });
+        $("body").on( 'click','.exitpUp', function(){
+            $('#fancybox-tmp').hide();
+        });
+
+    });
     function sendData(){
         $("#qoSend").css('display','none');
         $("#page-preloader").css('display','block');
