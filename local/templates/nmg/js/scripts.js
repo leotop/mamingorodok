@@ -973,7 +973,7 @@ jQuery(document).ready(function($) {
         {
             $.ajax({
                 type: "POST",
-                url: "/bitrix/templates/nmg/ajax_tmpl/feedbackForm.php"
+                url: "/local/templates/nmg/ajax_tmpl/feedbackForm.php"
             }).done(function( strResult ) {
                 $(strResult).insertAfter('#ajaxContainer');
                 $("#feedbackForm").find("ul").show();

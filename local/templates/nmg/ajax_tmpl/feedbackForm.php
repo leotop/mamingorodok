@@ -4,7 +4,7 @@ header("Content-type: text/html; charset=windows-1251");
 ?>
 <div class="enter_popap hidden popupContainer" id="feedbackFormDiv">
 	<h1>Обратная связь</h1>
-	<form action="/bitrix/templates/nmg/ajax/feedbackSend.php" method="post" id="fbForm">
+	<form action="/local/templates/nmg/ajax/feedbackSend.php" method="post" id="fbForm">
 		<input type="hidden" name="frmFBSent" value="Y" />
 		<div class="notify"></div>
 		<input type="text" name="fbNameLast" value="" class="i capfield">
