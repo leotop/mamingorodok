@@ -1362,14 +1362,14 @@
                 <!--END descr tab --> <?
             }?>
             <!--comment -->
-            <?//arshow($_GET)?>
+            <?arshow($_GET)?>
             <?if($_GET["comment"] == "Y"){?>
                 <div id="" class="sk-tab--item" name="comment" <?if($_GET["comment"]=="Y"){?> style="display: block;" <?}?>>
                     <!-- characteristic_info -->
                     <div class="characteristic_info" style="height:auto;">
                         <a name="review"></a>
                         <div class="oh2"><?=$strH1orName?> - отзывы</div>
-                        <?$APPLICATION->IncludeComponent("individ:forum.topic.reviews2", "all-comments-newCard", array(
+                        <?$APPLICATION->IncludeComponent("bitrix:forum.topic.reviews", "", array(
                                 "FORUM_ID" => "1",
                                 "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
                                 "IBLOCK_ID" => $arParams["IBLOCK_ID"],
@@ -1393,7 +1393,7 @@
                                 "FILES_COUNT" => "2"
                                 ),
                                 false
-                            );?><?$APPLICATION->IncludeComponent("individ:forum.topic.reviews", "add-comment", array(
+                            );?><?/*$APPLICATION->IncludeComponent("bitrix:forum.reviews", "add-comment", array(
                                 "FORUM_ID" => "1",
                                 "IBLOCK_TYPE" => $arResult["IBLOCK_TYPE"],
                                 "IBLOCK_ID" => $arResult["IBLOCK_ID"],
@@ -1417,7 +1417,7 @@
                                 "FILES_COUNT" => "2"
                                 ),
                                 false
-                            );?>
+                            );*/?>
                     </div>
                 </div>
                 <?}?>
