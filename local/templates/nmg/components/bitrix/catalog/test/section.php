@@ -221,7 +221,6 @@
                             $arTd = array();
                             $intCnt = 0;
                         }
-                       // arshow($arSec);
                         $arTd["TITLE"][] = '<td class="title'.($intCnt==3?' last':'').'"><a href="'.$arSec["SECTION_PAGE_URL"].'" title="'.$arSec["NAME"].'">'
                         .smart_trim($arSec["NAME"], 35).'</a></td>';
                         $arTd["PICTURE"][] = '<td class="picture'.($intCnt==3?' last':'').'">'.($arSec["PICTURE"]>0?'<a href="'.$arSec["SECTION_PAGE_URL"].'"><img src="'
