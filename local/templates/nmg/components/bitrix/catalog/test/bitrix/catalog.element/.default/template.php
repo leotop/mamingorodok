@@ -1362,62 +1362,49 @@
                 <!--END descr tab --> <?
             }?>
             <!--comment -->
-            <?arshow($_GET)?>
+
             <?if($_GET["comment"] == "Y"){?>
                 <div id="" class="sk-tab--item" name="comment" <?if($_GET["comment"]=="Y"){?> style="display: block;" <?}?>>
                     <!-- characteristic_info -->
                     <div class="characteristic_info" style="height:auto;">
                         <a name="review"></a>
                         <div class="oh2"><?=$strH1orName?> - отзывы</div>
-                        <?$APPLICATION->IncludeComponent("bitrix:forum.topic.reviews", "", array(
-                                "FORUM_ID" => "1",
-                                "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-                                "IBLOCK_ID" => $arParams["IBLOCK_ID"],
-                                "ELEMENT_ID" => $arResult["ID"],
-                                "POST_FIRST_MESSAGE" => "N",
-                                "POST_FIRST_MESSAGE_TEMPLATE" => "#IMAGE#
-                                [url=#LINK#]#TITLE#[/url]
-                                #BODY#",
-                                "URL_TEMPLATES_READ" => "",
-                                "URL_TEMPLATES_DETAIL" => "",
-                                "URL_TEMPLATES_PROFILE_VIEW" => "",
-                                "CACHE_TYPE" => "A",
-                                "CACHE_TIME" => "36000000",
-                                "MESSAGES_PER_PAGE" => "10",
-                                "PAGE_NAVIGATION_TEMPLATE" => "",
-                                "DATE_TIME_FORMAT" => "d.m.Y",
-                                "PATH_TO_SMILE" => "/bitrix/images/forum/smile/",
-                                "USE_CAPTCHA" => "Y",
-                                "PREORDER" => "N",
-                                "SHOW_LINK_TO_FORUM" => "N",
-                                "FILES_COUNT" => "2"
-                                ),
-                                false
-                            );?><?/*$APPLICATION->IncludeComponent("bitrix:forum.reviews", "add-comment", array(
-                                "FORUM_ID" => "1",
-                                "IBLOCK_TYPE" => $arResult["IBLOCK_TYPE"],
-                                "IBLOCK_ID" => $arResult["IBLOCK_ID"],
-                                "ELEMENT_ID" => $arResult["ID"],
-                                "POST_FIRST_MESSAGE" => "N",
-                                "POST_FIRST_MESSAGE_TEMPLATE" => "#IMAGE#
-                                [url=#LINK#]#TITLE#[/url]
-                                #BODY#",
-                                "URL_TEMPLATES_READ" => "",
-                                "URL_TEMPLATES_DETAIL" => "",
-                                "URL_TEMPLATES_PROFILE_VIEW" => "",
-                                "CACHE_TYPE" => "A",
-                                "CACHE_TIME" => "36000000",
-                                "MESSAGES_PER_PAGE" => "0",
-                                "PAGE_NAVIGATION_TEMPLATE" => "",
-                                "DATE_TIME_FORMAT" => "d.m.Y H:i:s",
-                                "PATH_TO_SMILE" => "/bitrix/images/forum/smile/",
-                                "USE_CAPTCHA" => "N",
-                                "PREORDER" => "Y",
-                                "SHOW_LINK_TO_FORUM" => "N",
-                                "FILES_COUNT" => "2"
-                                ),
-                                false
-                            );*/?>
+                        <?$APPLICATION->IncludeComponent(
+	                        "bitrix:forum.topic.reviews",
+	                        ".default",
+	                        array(
+		                        "FORUM_ID" => "1",
+		                        "IBLOCK_TYPE" => "1c_catalog",
+		                        "IBLOCK_ID" => "",
+		                        "ELEMENT_ID" => $arResult["ID"],
+		                        "POST_FIRST_MESSAGE" => "N",
+		                        "POST_FIRST_MESSAGE_TEMPLATE" => "#IMAGE#
+                                                        [url=#LINK#]#TITLE#[/url]
+                                                        #BODY#",
+		                        "URL_TEMPLATES_READ" => "",
+		                        "URL_TEMPLATES_DETAIL" => "",
+		                        "URL_TEMPLATES_PROFILE_VIEW" => "",
+		                        "CACHE_TYPE" => "A",
+		                        "CACHE_TIME" => "36000000",
+		                        "MESSAGES_PER_PAGE" => "10",
+		                        "PAGE_NAVIGATION_TEMPLATE" => "",
+		                        "DATE_TIME_FORMAT" => "d.m.Y",
+		                        "PATH_TO_SMILE" => "/bitrix/images/forum/smile/",
+		                        "USE_CAPTCHA" => "Y",
+		                        "PREORDER" => "N",
+		                        "SHOW_LINK_TO_FORUM" => "N",
+		                        "FILES_COUNT" => "2",
+		                        "COMPONENT_TEMPLATE" => ".default",
+		                        "NAME_TEMPLATE" => "",
+		                        "EDITOR_CODE_DEFAULT" => "N",
+		                        "SHOW_AVATAR" => "Y",
+		                        "SHOW_RATING" => "",
+		                        "RATING_TYPE" => "like_graphic",
+		                        "SHOW_MINIMIZED" => "N",
+		                        "AJAX_POST" => "Y"
+	                        ),
+	                        false
+                        );?>
                     </div>
                 </div>
                 <?}?>

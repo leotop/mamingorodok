@@ -563,9 +563,8 @@
 			1 => "",
 		),
 		"LIST_OFFERS_PROPERTY_CODE" => array(
-			0 => "",
-			1 => "OLD_PRICE",
-			2 => "",
+			0 => "OLD_PRICE",
+			1 => "",
 		),
 		"LIST_OFFERS_LIMIT" => "5",
 		"DETAIL_CHECK_SECTION_ID_VARIABLE" => "N",
