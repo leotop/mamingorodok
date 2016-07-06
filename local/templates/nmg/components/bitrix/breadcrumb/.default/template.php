@@ -29,7 +29,11 @@ for($index = 0, $itemSize = count($arResult); $index < $itemSize; $index++)
             </a>
         </span>';
     } else {
-        $strReturn .= utf8win1251($title);
+        if(mb_detect_encoding($title, "UTF-8, WINDOWS-1251") == "UTF-8"){
+            $title = utf8win1251($title);
+        }
+        $strReturn .= $title;
+
     }
 }
 $strReturn .= '</div>';
