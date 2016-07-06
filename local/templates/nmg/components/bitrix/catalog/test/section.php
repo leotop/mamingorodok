@@ -1,4 +1,4 @@
-<?       
+<?
     if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
     if (CModule::IncludeModule("iblock")) {
@@ -37,46 +37,46 @@
             }
 
             $obCache->EndDataCache($arCurSection);
-        }      
-    }     
-?>      
-<?$url = explode('/', $APPLICATION->GetCurPage());?>     
+        }
+    }
+?>
+<?$url = explode('/', $APPLICATION->GetCurPage());?>
 <?
     if (!isset($_REQUEST["ajax"])) {
         $this->SetViewTarget("right_area");
     }
-?>  
-<? 
+?>
+<?
     $APPLICATION->IncludeComponent("kombox:filter", "catalog_filter", Array(
-        "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],    
-        "IBLOCK_ID" => $arParams["IBLOCK_ID"],    
-        "FILTER_NAME" => $arParams["FILTER_NAME"],    
-        "SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"],   
-        "SECTION_CODE" => $arResult["VARIABLES"]["SECTION_CODE"],    
-        "HIDE_NOT_AVAILABLE" => "N",   
-        "CACHE_TYPE" => "A",    
-        "CACHE_TIME" => $arParams["CACHE_TIME"],    
-        "CACHE_GROUPS" => "N",    
-        "SAVE_IN_SESSION" => "Y",   
-        "INCLUDE_JQUERY" => "N",   
-        "MESSAGE_ALIGN" => "LEFT",   
-        "MESSAGE_TIME" => "5",    
-        "CLOSED_PROPERTY_CODE" => array(    
+        "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
+        "IBLOCK_ID" => $arParams["IBLOCK_ID"],
+        "FILTER_NAME" => $arParams["FILTER_NAME"],
+        "SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"],
+        "SECTION_CODE" => $arResult["VARIABLES"]["SECTION_CODE"],
+        "HIDE_NOT_AVAILABLE" => "N",
+        "CACHE_TYPE" => "A",
+        "CACHE_TIME" => $arParams["CACHE_TIME"],
+        "CACHE_GROUPS" => "N",
+        "SAVE_IN_SESSION" => "Y",
+        "INCLUDE_JQUERY" => "N",
+        "MESSAGE_ALIGN" => "LEFT",
+        "MESSAGE_TIME" => "5",
+        "CLOSED_PROPERTY_CODE" => array(
             0 => "",
             1 => "PROIZVODITEL",
             2 => "",
         ),
-        "CLOSED_OFFERS_PROPERTY_CODE" => array(    
+        "CLOSED_OFFERS_PROPERTY_CODE" => array(
             0 => "",
             1 => "PROIZVODITEL",
             2 => "",
         ),
-        "SORT" => "Y",    
-        "SORT_ORDER" => "ASC",    
-        "FIELDS" => array(   
+        "SORT" => "Y",
+        "SORT_ORDER" => "ASC",
+        "FIELDS" => array(
             0 => "SECTIONS",
         ),
-        "PRICE_CODE" => $arParams["PRICE_CODE"],    
+        "PRICE_CODE" => $arParams["PRICE_CODE"],
         "CONVERT_CURRENCY" => "N",
         "CURRENCY_ID" => $arParams["CURRENCY_ID"],
         "XML_EXPORT" => "Y",
@@ -95,14 +95,14 @@
 
 <?
     if(!isset($_REQUEST["ajax"])) {
-        $this->EndViewTarget("right_area");  
+        $this->EndViewTarget("right_area");
     }
 
     if (strlen($arResult["VARIABLES"]["SECTION_CODE"]) > 0) {
         $rsS = CIBlockSection::GetList(array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "CODE" => $arResult["VARIABLES"]["SECTION_CODE"], "ACTIVE" => "Y"), false);
         if ($arS = $rsS->GetNext()) {
             if ($arS["DEPTH_LEVEL"] == 1) {
-                if (isset($_REQUEST["propertyCode"])) { 
+                if (isset($_REQUEST["propertyCode"])) {
                     ShowError("Раздел не найден");
                     @define("ERROR_404", "Y");
                     if ($arParams["SET_STATUS_404"]==="Y")
@@ -112,7 +112,7 @@
             }
             $arResult["VARIABLES"]["SECTION_ID"] = $arS["ID"];
         } else {
-            $arResult["VARIABLES"]["SECTION_ID"] = -1; 
+            $arResult["VARIABLES"]["SECTION_ID"] = -1;
         }
     } else {
         $arResult["VARIABLES"]["SECTION_ID"] = -1;
@@ -126,8 +126,8 @@
         return;
     }
 
-    if ($arS["DEPTH_LEVEL"] == 1) {  
-        $isDetailSection = false; 
+    if ($arS["DEPTH_LEVEL"] == 1) {
+        $isDetailSection = false;
         $isEnableNav = true;
     } else {
         $isDetailSection = true;
@@ -167,15 +167,15 @@
 ?>
 
 
-<? 
+<?
     if ($arS["DEPTH_LEVEL"] == 1 && $filter <=0 && $arS["ID"] != 432) {
-        $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"]), false, 
+        $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"]), false,
             array("NAME", "UF_DESCR_TITLE", "UF_DESCR_TITLE"));
         if (count($rsSection) > 0) {
-            $IS_PARENT_SECTION = true; 
+            $IS_PARENT_SECTION = true;
         }
 
-        $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $arResult["VARIABLES"]["SECTION_ID"]), false, 
+        $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $arResult["VARIABLES"]["SECTION_ID"]), false,
             array("NAME", "UF_DESCR_TITLE", "UF_DESCR_TITLE"));
         if (count($rsSection) > 0) {
             $arSect = $rsSection[0];
@@ -201,7 +201,7 @@
 
     <?
         $arResultTMP = array();
-        $rsSec = CIBlockSection::GetList(Array("SORT" => "ASC", "NAME" => "ASC"), array("IBLOCK_ID" => $arS["IBLOCK_ID"], "ACTIVE" => "Y", "SECTION_ID" => $arS["ID"], "DEPTH_LEVEL" => 2), 
+        $rsSec = CIBlockSection::GetList(Array("SORT" => "ASC", "NAME" => "ASC"), array("IBLOCK_ID" => $arS["IBLOCK_ID"], "ACTIVE" => "Y", "SECTION_ID" => $arS["ID"], "DEPTH_LEVEL" => 2),
             false, array("UF_*"));
         while ($arSec = $rsSec->GetNext()) {
             $arResultTMP[] = $arSec;
@@ -266,7 +266,7 @@
                             <div class="date_contain">
                                 <span class="news-date-time"><?echo $arItem["DISPLAY_ACTIVE_FROM"]?>-</span>
                                 <span class="news-date-time"><?echo $arItem["DATE_ACTIVE_TO"]?></span>
-                            </div> 
+                            </div>
                             <?}?>
                         <div class="text_contain">
                             <div class="action_head">
@@ -307,14 +307,14 @@
                     "BASKET_URL" => $arParams["BASKET_URL"],
                     "ACTION_VARIABLE" => $arParams["ACTION_VARIABLE"],
                     "PRODUCT_ID_VARIABLE" => $arParams["PRODUCT_ID_VARIABLE"],
-                    "SECTION_ID_VARIABLE" => $arParams["SECTION_ID_VARIABLE"],  
+                    "SECTION_ID_VARIABLE" => $arParams["SECTION_ID_VARIABLE"],
                     "FILTER_NAME" => $arParams["FILTER_NAME"],
                     "DISPLAY_PANEL" => $arParams["DISPLAY_PANEL"],
                     "CACHE_TYPE" => $arParams["CACHE_TYPE"],
-                    "CACHE_TIME" => $arParams["CACHE_TIME"], 
+                    "CACHE_TIME" => $arParams["CACHE_TIME"],
                     "CACHE_FILTER" => $arParams["CACHE_FILTER"],
                     "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
-                    "SET_TITLE" => $arParams["SET_TITLE"],    
+                    "SET_TITLE" => $arParams["SET_TITLE"],
                     "SET_STATUS_404" => $arParams["SET_STATUS_404"],
                     "DISPLAY_COMPARE" => $arParams["USE_COMPARE"],
                     "PAGE_ELEMENT_COUNT" => $arParams["PAGE_ELEMENT_COUNT"],
@@ -348,19 +348,19 @@
 
         <? }
 
-        $arFilter = Array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID' => $arResult["VARIABLES"]["SECTION_ID"]);           
+        $arFilter = Array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID' => $arResult["VARIABLES"]["SECTION_ID"]);
 
         if (count($rsSection) == 1) {
             $arResult["META"] = $rsSection[0];
-        } 
+        }
 
     } else {
 
-        $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"]), false, 
+        $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"]), false,
             array("NAME", "UF_DESCR_TITLE", "UF_DESCR_TITLE"));
         if(count($rsSection)>0) $IS_PARENT_SECTION = true;
 
-        $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $arResult["VARIABLES"]["SECTION_ID"]), false, 
+        $rsSection = CIBlockSectionCache::GetList(array(),  array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $arResult["VARIABLES"]["SECTION_ID"]), false,
             array("NAME", "UF_DESCR_TITLE", "UF_DESCR_TITLE"));
         if (count($rsSection) > 0) {
             $arSect = $rsSection[0];
@@ -369,7 +369,7 @@
             $CURRENT_SECTION_DESCRIPTION_TITLE = $arSect["UF_DESCR_TITLE"];
         }
 
-        if ($IS_PARENT_SECTION && $filter <= 0) {   
+        if ($IS_PARENT_SECTION && $filter <= 0) {
             echo '<br>';
             $APPLICATION->AddChainItem($CURRENT_SECTION_NAME);
             $GLOBALS["arrFilterNew"]["PROPERTY_NOVINKA_VALUE"] = "Y";
@@ -558,22 +558,22 @@
             </div><?
             }
 
-            $arFilter = Array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID' => $arResult["VARIABLES"]["SECTION_ID"]);   
+            $arFilter = Array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID' => $arResult["VARIABLES"]["SECTION_ID"]);
 
         } else {
 
-            ob_start(); 
+            ob_start();
 
-            if ($arResult["VARIABLES"]["SECTION_ID"] == -1 && $filter > 0) {             
+            if ($arResult["VARIABLES"]["SECTION_ID"] == -1 && $filter > 0) {
                 $filter = $GLOBALS[$arParams["FILTER_NAME"]];
                 $sectionsToDisplay = array();
-                $elsByBrand = CIBlockElement::GetList(array("ID" => "ASC"), $filter, false, false, array("IBLOCK_SECTION_ID")); 
+                $elsByBrand = CIBlockElement::GetList(array("ID" => "ASC"), $filter, false, false, array("IBLOCK_SECTION_ID"));
                 while ($arElByBrand = $elsByBrand->Fetch()) {
                     $sectionsToDisplay[] = $arElByBrand["IBLOCK_SECTION_ID"];
-                } 
+                }
                 $sectionsToDisplay = array_unique($sectionsToDisplay);
-            }    
-        ?>     
+            }
+        ?>
         <?
             $res = CIBlockSection::GetByID($arResult["VARIABLES"]["SECTION_ID"]);
             if ($ar_res = $res->GetNext()) {
@@ -596,14 +596,14 @@
                             "BASKET_URL" => $arParams["BASKET_URL"],
                             "ACTION_VARIABLE" => $arParams["ACTION_VARIABLE"],
                             "PRODUCT_ID_VARIABLE" => $arParams["PRODUCT_ID_VARIABLE"],
-                            "SECTION_ID_VARIABLE" => $arParams["SECTION_ID_VARIABLE"],  
+                            "SECTION_ID_VARIABLE" => $arParams["SECTION_ID_VARIABLE"],
                             "FILTER_NAME" => $arParams["FILTER_NAME"],
                             "DISPLAY_PANEL" => $arParams["DISPLAY_PANEL"],
                             "CACHE_TYPE" => $arParams["CACHE_TYPE"],
-                            "CACHE_TIME" => $arParams["CACHE_TIME"], 
+                            "CACHE_TIME" => $arParams["CACHE_TIME"],
                             "CACHE_FILTER" => $arParams["CACHE_FILTER"],
                             "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
-                            "SET_TITLE" => $arParams["SET_TITLE"],    
+                            "SET_TITLE" => $arParams["SET_TITLE"],
                             "SET_STATUS_404" => $arParams["SET_STATUS_404"],
                             "DISPLAY_COMPARE" => $arParams["USE_COMPARE"],
                             "PAGE_ELEMENT_COUNT" => $arParams["PAGE_ELEMENT_COUNT"],
@@ -634,11 +634,11 @@
                         ),
                         $component
                     );?>
-                <?    
+                <?
                 }
-            }   
+            }
 
-            if (($arResult["VARIABLES"]["SECTION_ID"] > 0) && ($ar_res['IBLOCK_SECTION_ID'] != '688')) { 
+            if (($arResult["VARIABLES"]["SECTION_ID"] > 0) && ($ar_res['IBLOCK_SECTION_ID'] != '688')) {
                 if ($_GET["orderby"] && $_GET["sort"]) {
                     $orderby = $_GET["orderby"];
                     $sort = $_GET["sort"];
@@ -665,14 +665,14 @@
                         "BASKET_URL" => $arParams["BASKET_URL"],
                         "ACTION_VARIABLE" => $arParams["ACTION_VARIABLE"],
                         "PRODUCT_ID_VARIABLE" => $arParams["PRODUCT_ID_VARIABLE"],
-                        "SECTION_ID_VARIABLE" => $arParams["SECTION_ID_VARIABLE"],  
+                        "SECTION_ID_VARIABLE" => $arParams["SECTION_ID_VARIABLE"],
                         "FILTER_NAME" => $arParams["FILTER_NAME"],
                         "DISPLAY_PANEL" => $arParams["DISPLAY_PANEL"],
                         "CACHE_TYPE" => $arParams["CACHE_TYPE"],
-                        "CACHE_TIME" => $arParams["CACHE_TIME"], 
+                        "CACHE_TIME" => $arParams["CACHE_TIME"],
                         "CACHE_FILTER" => $arParams["CACHE_FILTER"],
                         "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
-                        "SET_TITLE" => $arParams["SET_TITLE"],    
+                        "SET_TITLE" => $arParams["SET_TITLE"],
                         "SET_STATUS_404" => $arParams["SET_STATUS_404"],
                         "DISPLAY_COMPARE" => $arParams["USE_COMPARE"],
                         "PAGE_ELEMENT_COUNT" => $arParams["PAGE_ELEMENT_COUNT"],
@@ -709,36 +709,36 @@
 
                 $filter = substr_count($_SERVER["REQUEST_URI"],"/filter/");
                 if ($filter >= 1){
-                    $url_str = $_SERVER["REQUEST_URI"]; 
+                    $url_str = $_SERVER["REQUEST_URI"];
 
                     foreach ($GLOBALS["arURL"] as $url) {
                         if (substr_count($url,"proizvoditel-")) {
                             $proizvoditel = str_replace("proizvoditel-","",$url);
                         }
-                    }  
+                    }
 
                     if (!empty($proizvoditel)){
                         $arFilter = Array("CODE" => $proizvoditel, "ACTIVE_DATE" => "Y", "ACTIVE" => "Y");
                         $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>50));
-                        while($ob = $res->Fetch()) {                   
-                        ?>   
+                        while($ob = $res->Fetch()) {
+                        ?>
                         <div class="brand-info">
                             <div class="brand-title">
-                                <? if (!empty($ob["NAME"])) { 
-                                    echo $ob["NAME"]; 
+                                <? if (!empty($ob["NAME"])) {
+                                    echo $ob["NAME"];
                                 }?>
-                            </div>   
+                            </div>
                             <div class="brand-photo">
-                                <? if (!empty($ob["DETAIL_PICTURE"])) { 
+                                <? if (!empty($ob["DETAIL_PICTURE"])) {
                                     echo CFile::ShowImage($ob["DETAIL_PICTURE"], 200, 200, "border=0", "", true);
                                 }?>
                             </div>
                             <br>
                             <div class="brand-description">
-                                <? if (!empty($ob["DETAIL_TEXT"])) {  
-                                    $ob["DETAIL_TEXT"]; 
+                                <? if (!empty($ob["DETAIL_TEXT"])) {
+                                    $ob["DETAIL_TEXT"];
                                 }?>
-                            </div>  
+                            </div>
                         </div>
                         <?
                         }
@@ -746,7 +746,7 @@
                 }
                 global $arrFilter;
 
-                foreach($sectionsToDisplay as $sID) { ?>         
+                foreach($sectionsToDisplay as $sID) { ?>
                 <?$APPLICATION->IncludeComponent(
                         "bitrix:catalog.section",
                         "brends_file",
@@ -757,7 +757,7 @@
                             // "ELEMENT_SORT_FIELD" => $orderby,
                             // "ELEMENT_SORT_ORDER" => $sort,
                             "ELEMENT_SORT_FIELD" => $arParams["ELEMENT_SORT_FIELD"],
-                            "ELEMENT_SORT_ORDER" => $arParams["ELEMENT_SORT_ORDER"],                          
+                            "ELEMENT_SORT_ORDER" => $arParams["ELEMENT_SORT_ORDER"],
                             "ELEMENT_SORT_FIELD2" => $arParams["ELEMENT_SORT_FIELD2"],
                             "ELEMENT_SORT_ORDER2" => $arParams["ELEMENT_SORT_ORDER2"],
                             "PROPERTY_CODE" => $arParams["LIST_PROPERTY_CODE"],
@@ -768,14 +768,14 @@
                             "BASKET_URL" => $arParams["BASKET_URL"],
                             "ACTION_VARIABLE" => $arParams["ACTION_VARIABLE"],
                             "PRODUCT_ID_VARIABLE" => $arParams["PRODUCT_ID_VARIABLE"],
-                            "SECTION_ID_VARIABLE" => $arParams["SECTION_ID_VARIABLE"],  
+                            "SECTION_ID_VARIABLE" => $arParams["SECTION_ID_VARIABLE"],
                             "FILTER_NAME" => $arParams["FILTER_NAME"],
                             "DISPLAY_PANEL" => $arParams["DISPLAY_PANEL"],
                             "CACHE_TYPE" => $arParams["CACHE_TYPE"],
-                            "CACHE_TIME" => $arParams["CACHE_TIME"], 
+                            "CACHE_TIME" => $arParams["CACHE_TIME"],
                             "CACHE_FILTER" => $arParams["CACHE_FILTER"],
                             "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
-                            "SET_TITLE" => "N",    
+                            "SET_TITLE" => "N",
                             "SET_STATUS_404" => $arParams["SET_STATUS_404"],
                             "DISPLAY_COMPARE" => $arParams["USE_COMPARE"],
                             "PAGE_ELEMENT_COUNT" => $arParams["PAGE_ELEMENT_COUNT"],
@@ -797,16 +797,16 @@
                             "OFFERS_PROPERTY_CODE" => $arParams["LIST_OFFERS_PROPERTY_CODE"],
                             "OFFERS_SORT_FIELD" => $arParams["OFFERS_SORT_FIELD"],
                             "OFFERS_SORT_ORDER" => $arParams["OFFERS_SORT_ORDER"],
-                            "OFFERS_LIMIT" => $arParams["LIST_OFFERS_LIMIT"],  
+                            "OFFERS_LIMIT" => $arParams["LIST_OFFERS_LIMIT"],
                             "SECTION_CODE" => $arResult["VARIABLES"]["SECTION_CODE"],
                             "SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
                             "DETAIL_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["element"],
-                            "ADD_SECTIONS_CHAIN" => "N",                              
+                            "ADD_SECTIONS_CHAIN" => "N",
                         ),
                         $component
                     );?>
 
-                <?}                
+                <?}
             }
 
             $content = ob_get_contents();
@@ -822,7 +822,7 @@
                         } else {
                             $textR = '<i title="'.$result["DETAIL_PAGE_URL"].'#comment" class="comment grey">'.RevirewsLang($count,true).'</i>';
                         }
-                        $content = str_replace('#REPORT_COUNT_'.$v.'#', $textR, $content); 
+                        $content = str_replace('#REPORT_COUNT_'.$v.'#', $textR, $content);
                     }
                 }
             }
@@ -835,29 +835,29 @@
         }
         if (!empty($arCompareList)) {?>
         <script>
-            var arCompareList = <?=json_encode($arCompareList);?>;  
+            var arCompareList = <?=json_encode($arCompareList);?>;
             $('.itemMain').each(function() {
                 for (i=0; i<arCompareList.length; i++) {
                     var checkbox = $(this).find('.add-to-compare-list-ajax');
                     if (checkbox.val() == arCompareList[i]) {
                         checkbox.attr('checked', 'checked');
                     }
-                }    
+                }
             })
         </script><?
-        } 
+        }
     }
     if (intval($_REQUEST["PAGEN_1"]) > 0) {
         $count = count($_SESSION["additionalNavChain"]);
         $newEl = $_SESSION["additionalNavChain"][$count-1];
         $_SESSION["additionalNavChain"][] = array(
-            "NAME"=> $newEl["NAME"]." - станица ".intval($_REQUEST["PAGEN_1"]),
+            "NAME"=> $newEl["NAME"]." - �������� ".intval($_REQUEST["PAGEN_1"]),
             "URL" => $newEl["URL"]
         );
     }
     if (count($_SESSION["additionalNavChain"]) > 0) {
-        foreach ($_SESSION["additionalNavChain"] as $n=>$chainItem) {           
-            $APPLICATION->AddChainItem($chainItem["NAME"], $chainItem["URL"]);  
+        foreach ($_SESSION["additionalNavChain"] as $n=>$chainItem) {
+            $APPLICATION->AddChainItem($chainItem["NAME"], $chainItem["URL"]);
         }
     }
 ?>
