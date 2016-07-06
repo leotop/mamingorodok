@@ -850,7 +850,7 @@
         $count = count($_SESSION["additionalNavChain"]);
         $newEl = $_SESSION["additionalNavChain"][$count-1];
         $_SESSION["additionalNavChain"][] = array(
-            "NAME"=> $newEl["NAME"]." - СЃС‚Р°РЅРёС†Р° ".intval($_REQUEST["PAGEN_1"]),
+            "NAME"=> $newEl["NAME"]." - страница ".intval($_REQUEST["PAGEN_1"]),
             "URL" => $newEl["URL"]
         );
     }
