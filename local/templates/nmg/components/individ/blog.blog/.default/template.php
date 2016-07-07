@@ -63,7 +63,7 @@ if(!empty($arResult["ERROR_MESSAGE"]))
 	global $MyBlog;
 	if($MyBlog!="BLOG"){
 
-        // список статусов пользователей 
+        // список статусов пользователей
         $arStatusList = GetStatusList();
 
 		?>
@@ -95,6 +95,19 @@ if(count($arResult["POST"])>0)
 	foreach($arResult["POST"] as $ind => $CurPost)
 	{
 	?>
+    <div class="headers">
+            <div class="blogLinkAdmin">
+
+            <?if(strLen($CurPost["urlToDelete"])>0):?>
+            <a href="<?=$CurPost["urlToDelete"]?>" class="delete">Удалить</a>
+            <?endif;?>
+            <?if(strLen($CurPost["urlToEdit"])>0):?>
+            <a href="<?=$CurPost["urlToEdit"]?>" class="edit">Редактировать</a>
+            <?endif;?>
+            </div>
+            <a href="<?=$CurPost["urlToPost"]?>"><?=$CurPost["TITLE"]?></a>
+    </div>
+    <div class="clear"></div>
 	<div class="items">
 	<?
 	if($CurPost["TYPE"]==BLOG_TYPE):
@@ -102,7 +115,7 @@ if(count($arResult["POST"])>0)
 		<?//print_R($CurPost)?>
 		<div class="headers">
 			<div class="blogLinkAdmin">
-			
+
 			<?if(strLen($CurPost["urlToDelete"])>0):?>
 			<a href="<?=$CurPost["urlToDelete"]?>" class="delete">Удалить</a>
 			<?endif;?>
@@ -119,7 +132,7 @@ if(count($arResult["POST"])>0)
 		<?endif;?>
 		<?if(!empty($CurPost["CATEGORY"]))
 			{?>
-			<div class="mark">Метка: 
+			<div class="mark">Метка:
 				<noindex>
 					<?
 						$i=0;
@@ -136,8 +149,8 @@ if(count($arResult["POST"])>0)
 			<?}	?><?
 	elseif($CurPost["TYPE"]==WISHLIST_TYPE):
 	?>
-	
-	
+
+
 	<div class="clear"></div>
 	<div class="st">Я <?if($CurPost["GENDER"]=="M"):?>добавил<?elseif($CurPost["GENDER"]=="F"):?>добавила<?else:?>добавил(а)<?endif?>
 		<a href="<?=$CurPost["PRODUCT"]["DETAIL_PAGE_URL"]?>"><?=$CurPost["PRODUCT"]["NAME"]?></a>
@@ -149,7 +162,7 @@ if(count($arResult["POST"])>0)
 	<?
 	elseif($CurPost["TYPE"]==FRIEND_TYPE):
 		?><div class="clear"></div>
-		<div class="st">Я дружу с 
+		<div class="st">Я дружу с
 		<?if(!empty($CurPost["FRIEND_BLOG"])):?>
 		<a href="/community/blog/<?=$CurPost["FRIEND_BLOG"]?>/">
 		<?=$CurPost["FRIEND_NAME"]?></a>
@@ -184,25 +197,25 @@ if(count($arResult["POST"])>0)
 			<a href="<?=$CurPost["PRODUCT"]["DETAIL_PAGE_URL"]?>"><?=$CurPost["PRODUCT"]["NAME"]?></a>
 		</div>
 		<div class="clear"></div>
-		
+
 		<?
 	elseif($CurPost["TYPE"]==CERTIFICATE_TYPE):
 		?>
 		<?
 		//print_R($CurPost["USER_TO"]);
 		$name = "";
-		
+
 		if(!empty($CurPost["USER_TO"]["NAME"])){
 			$name = $CurPost["USER_TO"]["NAME"];
 		}
-		
+
 		if(!empty($CurPost["USER_TO"]["LAST_NAME"])){
 			if(!empty($name))
 				$name .= " ".$CurPost["USER_TO"]["LAST_NAME"];
 			else
 				$name = $CurPost["USER_TO"]["LAST_NAME"];
 		}
-		
+
 		if(empty($name)){
 			$name = $CurPost["USER_TO"]["LOGIN"];
 		}
@@ -246,10 +259,10 @@ if(count($arResult["POST"])>0)
 						null,
 						array("HIDE_ICONS" => "Y")
 					);?>
-				</div> 
+				</div>
 				<div class="date">
 				<?
-				
+
 				if(!empty($CurPost["DATE_PUBLISH"])):
 				if($CurPost["DATE_PUBLISH"]!="00.00.0000 00:00:00")
 					$mas = explode(" ",$CurPost["DATE_PUBLISH"]);
@@ -284,7 +297,7 @@ if(count($arResult["POST"])>0)
 							);
 							?>
 				</div>
-				
+
 				<a href="<?=$CurPost["urlToPost"]?>#addcomments" class='addcomment'>Оставить комментарий</a>
 				<a href="<?=$CurPost["urlToPost"]?>#lookcomments" class="comment grey"><?if($CurPost["NUM_COMMENTS"]>0):?><?=$CurPost["NUM_COMMENTS"]?> <?endif;?><?=CommentLang($CurPost["NUM_COMMENTS"])?></a>
 			</div>
@@ -293,12 +306,12 @@ if(count($arResult["POST"])>0)
 	</div><?
 	}
 		?>
-			
+
 				<?
 	if(strlen($arResult["NAV_STRING"])>0)
 		echo $arResult["NAV_STRING"];
 }
 elseif(!empty($arResult["BLOG"]))
 	echo GetMessage("BLOG_BLOG_BLOG_NO_AVAIBLE_MES");
-?>	
+?>
 </div>
