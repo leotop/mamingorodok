@@ -118,41 +118,43 @@ if(CModule::IncludeModule("sale") && CModule::IncludeModule("catalog"))    // по
 
       //  $aar_items = CSaleBasket::OrderBasket($ORDER_ID, $_SESSION["SALE_USER_ID"], SITE_ID);
 
+        if($price["PRICE"] > 0) {
+            $arResult["ORDER_ID"] = (int)CSaleOrder::DoSaveOrder($arFields_props, $arFields, 0, $arResult["ERROR"]);
 
-        $arResult["ORDER_ID"] = (int)CSaleOrder::DoSaveOrder($arFields_props, $arFields, 0, $arResult["ERROR"]);
+            $arOrder = CSaleOrder::GetByID($arResult["ORDER_ID"]);
 
-        $arOrder = CSaleOrder::GetByID($arResult["ORDER_ID"]);
+            $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 2, "NAME" => "Имя", "CODE" => "ORDER_USER", "VALUE" => utf8win1251($name));
+            CSaleOrderPropsValue::Add($arFields_props);
 
-        $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 2, "NAME" => "Имя", "CODE" => "ORDER_USER", "VALUE" => utf8win1251($name));
-        CSaleOrderPropsValue::Add($arFields_props);
+            $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 3, "NAME" => "Телефон", "CODE" => "PHONE", "VALUE" => $phone);
+            CSaleOrderPropsValue::Add($arFields_props);
 
-        $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 3, "NAME" => "Телефон", "CODE" => "PHONE", "VALUE" => $phone);
-        CSaleOrderPropsValue::Add($arFields_props);
+            $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 5, "NAME" => "E-mail", "CODE" => "EMAIL", "VALUE" => $email);
+            CSaleOrderPropsValue::Add($arFields_props);
 
-        $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 5, "NAME" => "E-mail", "CODE" => "EMAIL", "VALUE" => $email);
-        CSaleOrderPropsValue::Add($arFields_props);
+            $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 6, "NAME" => "Адрес", "CODE" => "ADDRESS", "VALUE" => "БЫСТРЫЙ ЗАКАЗ");
+            CSaleOrderPropsValue::Add($arFields_props);
 
-        $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 6, "NAME" => "Адрес", "CODE" => "ADDRESS", "VALUE" => "БЫСТРЫЙ ЗАКАЗ");
-        CSaleOrderPropsValue::Add($arFields_props);
+            $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 7, "NAME" => "Комментарий", "CODE" => "COMMENT", "VALUE" => utf8win1251($comments));
+            CSaleOrderPropsValue::Add($arFields_props);
 
-        $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 7, "NAME" => "Комментарий", "CODE" => "COMMENT", "VALUE" => utf8win1251($comments));
-        CSaleOrderPropsValue::Add($arFields_props);
+            /*$arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 34, "NAME" => "Быстрый заказ", "CODE" => "quick_order", "VALUE" =>"Y");
+            CSaleOrderPropsValue::Add($arFields_props);  */
+                $aar_items = CSaleBasket::OrderBasket( $arOrder, $_SESSION["SALE_USER_ID"], SITE_ID);
 
-        /*$arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 34, "NAME" => "Быстрый заказ", "CODE" => "quick_order", "VALUE" =>"Y");
-        CSaleOrderPropsValue::Add($arFields_props);  */
-            $aar_items = CSaleBasket::OrderBasket( $arOrder, $_SESSION["SALE_USER_ID"], SITE_ID);
-
-            CSaleOrder::Update($arResult["ORDER_ID"], $arFields);
-
+                CSaleOrder::Update($arResult["ORDER_ID"], $arFields);
+        }
         if($user_new){
             $USER->Logout();
         }
 
-        $arSend = array("LINK"=>'http://'.$_SERVER["HTTP_HOST"].$_POST["url"], "NAME" => utf8win1251($name), "CODE"=>$phone, "ACTIVE_FROM" => date("d.m.Y H:i:s"), "XML_ID"=>$email, "PREVIEW_TEXT" => utf8win1251($comments));
-        CEvent::Send("QUICK_ORDER", SITE_ID, $arSend);
+        if($price["PRICE"] > 0) {
+            $arSend = array("LINK"=>'http://'.$_SERVER["HTTP_HOST"].$_POST["url"], "NAME" => utf8win1251($name), "CODE"=>$phone, "ACTIVE_FROM" => date("d.m.Y H:i:s"), "XML_ID"=>$email, "PREVIEW_TEXT" => utf8win1251($comments));
+            CEvent::Send("QUICK_ORDER", SITE_ID, $arSend);
 
-        foreach($arItemsNew_1 as $ItemNew){
-             CSaleBasket::Add($ItemNew);
+            foreach($arItemsNew_1 as $ItemNew){
+                 CSaleBasket::Add($ItemNew);
+            }
         }
 }
 
