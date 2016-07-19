@@ -1,7 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
     if (!CModule::IncludeModule("forum"))
         return;
-    // arshow($arResult["ITEMS"],true);
+
     //-------------------------------------------------------------------------------------------------------
     if($arParams["SECTION_ID"]>0)
     {
@@ -26,8 +26,9 @@
     }
 
 
+
     if(strlen($arResult["SECTION"]["UF_H1"])<=0)
-        $arResult["META"]["H1"] = decapitalizeString($arResult["SECTION"]["NAME"]);
+        $arResult["META"]["H1"] = "Детские ".decapitalizeString($arResult["SECTION"]["NAME"]);
 
     if($GLOBALS["SET_SEO"]["type"] == 'producer')
     {
@@ -43,12 +44,12 @@
 
     $strDecapitalizedTitle = decapitalizeString($arResult["SECTION"]["NAME"]);
     $strDecapitalizedTitlePad = decapitalizeString($arResult["META"]["UF_NAME_PAD"]);
-    
+
     if(strlen($arResult["META"]["UF_TITLE"])<=0)
-        $arResult["META"]["UF_TITLE"] = $strDecapitalizedTitle." по выгодной цене - купить ".$strDecapitalizedTitle." для детей с доставкой по Москве - интернет-магазин ".$strDecapitalizedTitlePad." «Мамин городок»";
+        $arResult["META"]["UF_TITLE"] = "Детские ".$strDecapitalizedTitle." по выгодной цене - купить ".$strDecapitalizedTitle." для детей с доставкой по Москве - интернет-магазин ".$strDecapitalizedTitlePad." «Мамин городок»";
 
     if(strlen($arResult["META"]["UF_DESCRIPTION"])<=0)
-        $arResult["META"]["UF_DESCRIPTION"] = $strDecapitalizedTitle." отличного качества! Бесплатная доставка при заказе от 3 000 рублей по Москве! Большой выбор в интернет-магазине ".$strDecapitalizedTitlePad." «Мамин городок».";
+        $arResult["META"]["UF_DESCRIPTION"] = "Детские ".$strDecapitalizedTitle." отличного качества! Бесплатная доставка при заказе от 3 000 рублей по Москве! Большой выбор в интернет-магазине ".$strDecapitalizedTitlePad." «Мамин городок».";
 
     //Получаем бренды  
     /*
@@ -255,38 +256,12 @@
 
         $strLink = '';
 
-
-
         // brend
         $arBrend = array();
-        $arFilter = array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ACTIVE" => "Y", "SECTION_ID" => $arResult["SECTION"]["ID"], "INCLUDE_SUBSECTIONS"=>"Y");
-        //проверем фильтр
-        $filter = substr_count($_SERVER["REQUEST_URI"],"/filter/");
-        if ($filter > 0) {
-
-            //получаем параметр, по которому фильтр
-            //если в фильтре выбрано одно свойство, то добавляем в перелинковку это свойство к бренду
-            $param = explode("-",$GLOBALS["arURL"][4]);
-            $curProp = $arResult["ROWS"][0][0]["PROPERTIES"][strtoupper($param[0])];
-            $valueId = $curProp["VALUE_ENUM_ID"];
-            $propId = $curProp["ID"];
-            $arFilter["PROPERTY_".$propId] = $valueId; 
-
-        }
-        $rsP = CIBlockElement::GetList(Array("PROPERTY_PROIZVODITEL_VALUE" => "ASC"), $arFilter, array("PROPERTY_PROIZVODITEL"), false, array("IBLOCK_ID", "ID"));
-        while($arP = $rsP -> GetNext()) {  
-            $section = $arResult["SECTION"]["SECTION_PAGE_URL"]."filter/"; 
-            $brand = 'proizvoditel-'.CUtil::Translit($arP["PROPERTY_PROIZVODITEL_VALUE"],"ru",array("replace_space"=>"_","replace_other"=>""))."/";
-            $url = $section.$brand;      
-            $linkText = $arP["PROPERTY_PROIZVODITEL_VALUE"];
-
-            if ($filter > 0) {
-                $url = $section.$param[0]."-".$param[1]."/".$brand; 
-                $linkText = $arResult["SEO"]["H2"]." ".$arP["PROPERTY_PROIZVODITEL_VALUE"];
-            }
-
-            $link = '<a href="'.$url.'">'.$linkText.'</a>';
-            $arBrend[] = $link;
+        $rsP = CIBlockElement::GetList(Array("PROPERTY_PROIZVODITEL_VALUE" => "ASC"), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ACTIVE" => "Y", "!PROPERTY_CH_SNYATO" => 2100916, "SECTION_ID" => $arResult["SECTION"]["ID"], "INCLUDE_SUBSECTIONS"=>"Y"), array("PROPERTY_PROIZVODITEL"), false, array("IBLOCK_ID", "ID"));
+        while($arP = $rsP -> GetNext()) {             
+            $arBrend[] = '<a href="'.$arResult["SECTION"]["SECTION_PAGE_URL"].'filter/proizvoditel-'.CUtil::Translit($arP["PROPERTY_PROIZVODITEL_VALUE"],"ru",array("replace_space"=>"_","replace_other"=>"")).'/">'.$arP["PROPERTY_PROIZVODITEL_VALUE"].'</a>';
+            //arshow($arP);
         }
         if(count($arBrend)>0) $strLink .= '<div class="linkBrend">Бренды: '.implode(" | ", $arBrend).'</div>';
         unset($arBrend);  
@@ -312,35 +287,101 @@
         //$this->__component->arResult["META"] = $arResult["META"];
         $this->__component->SetResultCacheKeys(array("ALLELEMENT"));
     }
-?>
+    /*
+    if($GLOBALS["SET_SEO"]["type"] == 'producer')
+    {
+    $strCategoryName = $arResult["PATH"][count($arResult["PATH"])-1]["NAME"];
+    $strProducer = $GLOBALS["SET_SEO"]["DATA"]["NAME"];
+    $strProducerRus = $GLOBALS["SET_SEO"]["DATA"]["PROPERTY_NAME_RUS_VALUE"];
+
+    //if(empty($arResult["SEO"]["TITLE"]))
+    //$arResult["SEO"]["TITLE"] = $strProducer.", ".$strCategoryName.' '.$strProducer.", купить ".$strCategoryName.' '.$strProducer." - отзывы, цены, фото на детские ".$strCategoryName." ".$strProducer." для новорожденных – интернет-магазин «Мамин городок».";
+    if(empty($arResult["SEO"]["TITLE"]))
+    $arResult["SEO"]["TITLE"] = $strCategoryName.' '.$strProducer.(strlen($strProducerRus)>0? " (".$strProducerRus.")":'').' - выгодные цены - Мамин городок';
+    //$arResult["SEO"]["TITLE"] = "Детские ".ToLower($strCategoryName)." ".$strProducer.(strlen($strProducerRus)>0? " (".$strProducerRus.")":'')." купить по выгодной цене - интернет-магазин «Мамин городок»";
 
 
-<?     
+    //if(empty($arResult["SEO"]["DESCRIPTION"]))
+    //$arResult["SEO"]["DESCRIPTION"] =  'Интернет магазин «Мамин городок» предлагает вам в ассортименте : '.$strCategoryName.' '.$strProducer.', большой выбор, низкие цены.';
+    if(empty($arResult["SEO"]["DESCRIPTION"]))
+    $arResult["SEO"]["DESCRIPTION"] =  $strCategoryName." ".$strProducer.(strlen($strProducerRus)>0? " (".$strProducerRus.")":'')." с бесплатной доставкой по Москве! Большой выбор и отличное качество в интернет-магазине «Мамин городок».";
 
- 
-    if(isset($arResult["META"]["UF_KEYWORDS"]) && !empty($arResult["META"]["UF_KEYWORDS"])) {
-        $APPLICATION->SetPageProperty("keywords",$arResult["META"]["UF_KEYWORDS"]);
+    if(empty($arResult["SEO"]["KEYWORDS"]))
+    $arResult["SEO"]["KEYWORDS"] = $strCategoryName.' '.$strProducer.', детские '.$strCategoryName.' '.$strProducer.', '.$strCategoryName.' '.$strProducer.' для детей, '.$strCategoryName.' '.$strProducer.' цены, '.$strCategoryName.' '.$strProducer.' купить';
+
+    $arResult["NAME"] = $strCategoryName.' '.$strProducer;
+
+    $strTitleAlt = $strCategoryName.' '.$strProducer;
+    if(empty($arResult["META"]["UF_TITLE"]))
+    $arResult["META"]["UF_TITLE"] = $strTitleAlt;
+
+    if(!empty($strTitleAlt))
+    $arResult["PATH"][] = array("NAME" => $strTitleAlt);
+    else $arResult["PATH"][] = array("NAME" => $strCategoryName.' '.$strProducer);
+    } elseif($GLOBALS["SET_SEO"]["type"] == 'property') {
+    //echo '<pre>'.print_r($GLOBALS["SET_SEO"], true).'</pre>';
+    $strCategoryName = $arResult["PATH"][count($arResult["PATH"])-1]["NAME"];
+
+    if(strlen($GLOBALS["SET_SEO"]["DATA"]["ENUM"]["VALUE"])>0)
+    $strProperty = $GLOBALS["SET_SEO"]["DATA"]["ENUM"]["VALUE"];
+    else $strProperty = $GLOBALS["SET_SEO"]["DATA"]["NAME"];
+
+    $strProdType = $strTitleAlt = $strCategoryName." ".ToLower($strProperty);
+
+    //if(empty($arResult["SEO"]["TITLE"]))
+    //$arResult["SEO"]["TITLE"] = $strCategoryName." ".$strProperty.', купить '.$strCategoryName." ".$strProperty.' - отзывы, цены, фото на детские '.$strCategoryName." ".$strProperty.' – интернет-магазин «Мамин городок».';
+    if(empty($arResult["SEO"]["TITLE"]))
+    $arResult["SEO"]["TITLE"] = $strCategoryName." ".ToLower($strProperty)." по выгодной цене - купить ".ToLower($strCategoryName)." для детей в интернет-магазине «Мамин городок»";
+
+
+
+    if(empty($arResult["SEO"]["KEYWORDS"]))
+    $arResult["SEO"]["KEYWORDS"] = $strProdType.', детские '.$strProdType.', '.$strProdType.' для детей';
+
+    //if(empty($arResult["SEO"]["DESCRIPTION"]))
+    //$arResult["SEO"]["DESCRIPTION"] = 'Интернет магазин «Мамин городок» предлагает вам в ассортименте : '.$strProdType.', большой выбор, низкие цены.';
+
+    if(empty($arResult["SEO"]["DESCRIPTION"]))
+    $arResult["SEO"]["DESCRIPTION"] = $strCategoryName.' '.$strProperty.' в наличии! Огромный выбор, быстрая доставка, выгодные цены!.';
+
+    if(empty($arResult["META"]["UF_TITLE"]))
+    $arResult["META"]["UF_TITLE"] = $strProdType;
+
+    $strCustomBCTitle = $GLOBALS["SET_SEO"]["DATA"]["PROPERTY_BREADCRUMB_TITLE_VALUE"];
+
+    if(!empty($strTitleAlt))
+    $arResult["PATH"][] = array("NAME" => $strTitleAlt);
+    else $arResult["PATH"][] = array("NAME" => (!empty($strCustomBCTitle)?$strCustomBCTitle:$strProperty." ".ToLower(substr($strCategoryName, 0, 1).substr($strCategoryName, 1))));
+    } else {
+    $strTitleAlt = 'Детские '.ToLower($arResult["NAME"]);
     }
 
-    if(isset($arResult["META"]["UF_DESCRIPTION"]) && !empty($arResult["META"]["UF_DESCRIPTION"])) {
-        $APPLICATION->SetPageProperty("description",$arResult["META"]["UF_DESCRIPTION"]);
+
+    foreach($arResult["ITEMS"] as $arItem)
+    {
+    if($arResult["SECTION"]["DEPTH_LEVEL"] == 2) $arResult["ITEM_PATH"][$arItem["ID"]] = $arResult["SECTION"]["ID"];
+
+    if($arParams["brendID"]>0)
+    $arResult["ITEMS"][$arItem["IBLOCK_SECTION_ID"]][] = $arItem;
     }
 
-    if(isset($arResult["META"]["UF_TITLE"]) && !empty($arResult["META"]["UF_TITLE"])) {
-        $APPLICATION->SetTitle($arResult["META"]["UF_TITLE"]);   
-    }
-    //если есть SEO
+    //arshow($arResult["ITEMS"]);
 
-    if(isset($arResult["SEO"]["KEYWORDS"]) && !empty($arResult["SEO"]["KEYWORDS"]) && empty($arResult["META"]["UF_KEYWORDS"])) {
-        $APPLICATION->SetPageProperty("keywords",$arResult["SEO"]["KEYWORDS"]);
-    }
 
-    if(isset($arResult["SEO"]["DESCRIPTION"]) && !empty($arResult["SEO"]["DESCRIPTION"]) && empty($arResult["META"]["UF_DESCRIPTION"])) {
-        $APPLICATION->SetPageProperty("description",$arResult["SEO"]["DESCRIPTION"]);
-    }
 
-    /*if(isset($arResult["SEO"]["TITLE"]) && !empty($arResult["SEO"]["TITLE"]) && empty($arResult["META"]["UF_TITLE"])) {
-        $APPLICATION->SetTitle($arResult["SEO"]["TITLE"]);
+    if(!is_array($_SESSION[""])) $_SESSION["ITEM_PATH"] = array();
+    if(!is_array($arResult["ITEM_PATH"])) $arResult["ITEM_PATH"] = array();
+    if(is_array($arResult["ITEM_PATH"]) && count($arResult["ITEM_PATH"])>0)
+    $_SESSION["ITEM_PATH"] =  $arResult["ITEM_PATH"] + $_SESSION["ITEM_PATH"];
+    //echo '<pre>'.print_r($arResult["ITEM_PATH"], true).'</pre>';
+    //echo '<pre>'.print_r($_SESSION["ITEM_PATH"], true).'</pre>';
+
+    if($_REQUEST["set_filter"] != "Y")
+    {
+    if(strlen($arResult["SEO"]["TITLE"])<=0) $arResult["SEO"]["TITLE"] = $arResult["META"]["UF_TITLE"];
+    if(strlen($arResult["SEO"]["KEYWORDS"])<=0) $arResult["SEO"]["KEYWORDS"] = $arResult["META"]["UF_KEYWORDS"];
+    if(strlen($arResult["SEO"]["DESCRIPTION"])<=0) $arResult["SEO"]["DESCRIPTION"] = $arResult["META"]["UF_DESCRIPTION"];
     }*/
 
-    $GLOBALS["ALLELEMENT"] = $arResult["ALLELEMENT"];?>
+
+?>
