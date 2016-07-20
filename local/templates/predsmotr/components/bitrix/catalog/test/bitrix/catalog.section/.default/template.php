@@ -108,7 +108,6 @@
     }
     if($filter == 1 || (!($filter == 1) && $parent_catalog<1)){
     ?>
-    <?//arshow($_GET);?>
     <div class="sorting_block"><?
             if(!$isSearch){?>
             <?$APPLICATION->IncludeFile(SITE_TEMPLATE_PATH.'/includes/catalog/choose_nmg.php',array("arChoose"=>array(

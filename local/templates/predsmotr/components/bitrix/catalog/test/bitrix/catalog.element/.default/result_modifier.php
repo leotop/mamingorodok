@@ -2,18 +2,18 @@
 
 
 
-    CModule::IncludeModule("highloadblock"); 
-    use Bitrix\Highloadblock as HL; 
+    CModule::IncludeModule("highloadblock");
+    use Bitrix\Highloadblock as HL;
     use Bitrix\Main\Entity;
 
-    //возвращает массив строк из HL инфоблока с ID = $id, если в выборке оказалось несколько 
-    //строк или возвращает одну строку, как одномерный массив 
+    //возвращает массив строк из HL инфоблока с ID = $id, если в выборке оказалось несколько
+    //строк или возвращает одну строку, как одномерный массив
     function GetFromHighload($id,$select,$filter)
     {
-        $hlbl = $id; //"ID  Highload инфоблока" 
-        $hlblock = HL\HighloadBlockTable::getById($hlbl)->fetch();  
-        // get entity 
-        $entity = HL\HighloadBlockTable::compileEntity($hlblock); 
+        $hlbl = $id; //"ID  Highload инфоблока"
+        $hlblock = HL\HighloadBlockTable::getById($hlbl)->fetch();
+        // get entity
+        $entity = HL\HighloadBlockTable::compileEntity($hlblock);
 
         $main_query = new Entity\Query($entity);
         $main_query->setSelect($select);
@@ -91,13 +91,13 @@
         {
             if ( trim(strip_tags($val))!="" )
             {
-                $arOtherProp[$key]=array("key" => GetHeaderString($key),"value" => $val);     
+                $arOtherProp[$key]=array("key" => GetHeaderString($key),"value" => $val);
             }
         }
         else
         {
-            $arResult[$key]=$val;    
-        }        
+            $arResult[$key]=$val;
+        }
     }
 
     $arResult["OTHER_PROPERTIES"]=$arOtherProp;
@@ -127,9 +127,9 @@
         {
             $arResult["ACCESSORIES"][]= $ob;
         }
-    }     
+    }
 
-    if (!CModule::IncludeModule("forum")) return false;       
+    if (!CModule::IncludeModule("forum")) return false;
 
 
     if($arResult["PROPERTIES"]["CH_PRODUCER"]["VALUE"]>0)
@@ -169,18 +169,18 @@
             $arResult["SEO_H1_FROM_NAME"] = 'Y';
             $arResult["PROPERTIES"]["SEO_H1"]["VALUE"] = $arResult["NAME"];
         }
-    }          
+    }
 
     $arSelect = array(
-        "ID", 
-        "IBLOCK_ID", 
+        "ID",
+        "IBLOCK_ID",
         "NAME",
-        "XML_ID", 
-        "DETAIL_PICTURE", 
-        "PROPERTY_OLD_PRICE", 
-        "PROPERTY_IMG_BIG", 
-        "PROPERTY_SIZE", 
-        "PROPERTY_COLOR_CODE", 
+        "XML_ID",
+        "DETAIL_PICTURE",
+        "PROPERTY_OLD_PRICE",
+        "PROPERTY_IMG_BIG",
+        "PROPERTY_SIZE",
+        "PROPERTY_COLOR_CODE",
         "PROPERTY_COLOR_IMAGE",
         "PROPERTY_COLOR",
         "PROPERTY_CML2_ARTICLE",
@@ -191,12 +191,12 @@
         "CATALOG_GROUP_1",
         "PROPERTY_TSVET",
         "PROPERTY_RAZMER",
-        "PROPERTY_SHASSI" 
+        "PROPERTY_SHASSI"
 
     );
 
     //Get quantity from paramets
-    $quantityForDisplay = COption::GetOptionString("grain.customsettings","QUANTITY_FOR_DISPLAY_PUBLIC"); 
+    $quantityForDisplay = COption::GetOptionString("grain.customsettings","QUANTITY_FOR_DISPLAY_PUBLIC");
 
     $strStartColor = '';
     $strStartSize = '';
@@ -205,7 +205,6 @@
     $arResult["START_OFFERS_BY_SIZE"] = array();
     $tmpPrice = 0;
     $floatMinPrice = 100000000;
-    // $floatMinPrice=GetOfferMinPrice($arParams["IBLOCK_ID"],$arOffer["ID"]);
     $arOffers = array();
     $arResult["CS"] = array();
     $arResult["SIZE_AVAIL"] = array();
@@ -222,46 +221,39 @@
     // если товар €вл€етс€ набором
     switch($arResult["CATALOG_TYPE"])
     {
-        case CCatalogProduct::TYPE_SET: 
-            /* лучше будем сравнивать с константами, заданными в модуле
-            TYPE_PRODUCT - простой товар
-            TYPE_SET - комплект
-            TYPE_SKU - товарные предложени€
-            */
+        case CCatalogProduct::TYPE_SET:
+
             $arSets = CCatalogProductSet::getAllSetsByProduct($arResult["ID"], CCatalogProductSet::TYPE_SET); // передаем »ƒ текущего товара и тип комплекта (может быть еще "набором")
-            /*
-            в ответе возвращаетс€ массив комплектов дл€ данного товара вида Array("ID_комплекта"=>Array("ID","ITEM_ID","ITEMS",..))
-            */
+
             $arSetItems = array();
             foreach($arSets as $arSet)
             {
                 foreach($arSet["ITEMS"] as $arSetItem)
                 {
-                    $arSetItems[] = $arSetItem["ITEM_ID"];                   
+                    $arSetItems[] = $arSetItem["ITEM_ID"];
                 }
             }
             $spIterator = CCatalogProduct::GetList(Array(),Array("ID"=>$arSetItems),false,false,Array("ID","ELEMENT_NAME", "QUANTITY", "*")); // выберем интересующую нас информацию по товару
             $arSetProducts = array();
             while($arSP = $spIterator->Fetch())
             {
-                
+
                 $min_quantity[] = $arSP["QUANTITY"];
                 $arSetProducts[] = $arSP;
                 $rsPrices = CPrice::GetList(array(), array('PRODUCT_ID' => $arSP["ID"]))->Fetch();  // получаем цену товара
                 $price_summ += $rsPrices["PRICE"];  // суммируем все товары в комплекте
                 if(in_array( 0, $min_quantity)){
-                    //  $arSetProducts = array();  
                 }else{
 
                 }
-            } 
+            }
 
             $arResult["CATALOG_QUANTITY"] = min($min_quantity);
             if($arResult["CATALOG_QUANTITY"] <= 3){
                  $arResult["PROPERTIES"]["CATALOG_AVAILABLE"]["VALUE"] = 'N';
             }
-            
-            $arResult["CATALOG_PRICE_3"] = $price_summ; 
+
+            $arResult["CATALOG_PRICE_3"] = $price_summ;
             $arResult['SET']["PRODUCT"] = $arSetProducts;
             $arResult['SET']["PRICE"] = $arSetProducts;
             // вывод скидки текущего товара
@@ -269,15 +261,15 @@
                 $arResult["ID"],
                 $USER->GetUserGroupArray(),
                 "N",
-                $arResult["CATALOG_GROUP_ID_3"],  
+                $arResult["CATALOG_GROUP_ID_3"],
                 SITE_ID
-            );    
-            // суммирование скидок  
-                      
+            );
+            // суммирование скидок
+
             foreach($arDiscounts as $discount_id){
-                
+
                 if($discount_id["VALUE_TYPE"] == "P"){
-                    $arDiscount_P +=$discount_id["VALUE"]; 
+                    $arDiscount_P +=$discount_id["VALUE"];
                 }else{
                     $arDiscount_F +=$discount_id["VALUE"];
                 }
@@ -287,7 +279,7 @@
                 if($arDiscount_P){
                     $discount_summ = round(($arResult["CATALOG_PRICE_3"] * round($arDiscount_P)) / 100);
                     $arResult["DISCOUNT_CATALOG_PRICE"] = $arResult["CATALOG_PRICE_3"] - $discount_summ;
-                    
+
                 }else{
                     $arResult["DISCOUNT_CATALOG_PRICE"] = $arResult["CATALOG_PRICE_3"] - $arDiscount_F;
                 }
@@ -299,12 +291,7 @@
 
     while($arOffer = $rsOffers -> GetNext())
     {
-        //arshow($arOffer,true);
-        // if(!empty($arOffer["PROPERTY_SHASSI_VALUE"])){
-        //                 $offerSize= $arOffer["PROPERTY_SHASSI_VALUE"];
-        //        } else {
-        //            
-        //        }
+
         $offerSize= $arOffer["PROPERTY_RAZMER_VALUE"];
         $offerColor= $arOffer["PROPERTY_TSVET_VALUE"];
         $offerChassis = $arOffer["PROPERTY_SHASSI_VALUE"];
@@ -335,27 +322,14 @@
             $offerColor="÷вет не задан";
         }
 
-        //$arOffer["CATALOG_QUANTITY"] = 2; // всегда в наличии   
 
         $obPrice=CPrice::GetList(array(),array("PRODUCT_ID" => $arOffer["ID"], "CATALOG_GROUP_ID" => $priceType["ID"]),false,false,array("PRICE"))->Fetch();
 
-        //$arOffer["PRICE"] = CCatalogProduct::GetOptimalPrice($arOffer["ID"], 1, $USER->GetUserGroupArray());
 
 
-        // if(!$arResult["TYPE_SET"]){
-        $arOffer["PRICE"] = $obPrice["PRICE"]; 
-        //  
-        //}
+        $arOffer["PRICE"] = $obPrice["PRICE"];
+        //
 
-
-        if(!isset($arResult["CS"][$offerSize]["AVAIL"]))
-        { 
-            //   $arResult["CS"][$offerSize]["AVAIL"] = array();
-        }
-        if(!isset($arResult["CS"][$offerSize]["NAVAIL"]))
-        { 
-            //   $arResult["CS"][$offerSize]["NAVAIL"] = array();
-        }
 
         if($arOffer["PRICE"] <= 0)
             $arOffer["~CATALOG_QUANTITY"] = 0;
@@ -365,13 +339,12 @@
             elseif($tmpPrice != $arOffer["PRICE"])
                 $arResult["COLORS_HAS_SAME_PRICE"] = false;
         }
-        //    if($arOffer["PRICE"] and $arOffer["CATALOG_QUANTITY"] > 0){
         $arResult["CS"][$offerSize]/*[($arOffer["CATALOG_QUANTITY"] > 0 ? "AVAIL":"NAVAIL")]*/[$offerColor] = $arOffer;   //непон€тно дл€ чего нужны подмассивы avail и navail если они дальше не используютс€, а просто сливаютс€ в один
         //  }
 
         $arResult["ALL_COLOR"][$arOffer["ID"]]= $arOffer;
 
-        if (!empty($arOffer["PROPERTY_SHASSI_VALUE"])) { 
+        if (!empty($arOffer["PROPERTY_SHASSI_VALUE"])) {
             $arResult["CS"]["CHASSI"][$arOffer["ID"]] = $arOffer;   //непон€тно дл€ чего нужны подмассивы avail и navail если они дальше не используютс€, а просто сливаютс€ в один
         }
 
@@ -381,20 +354,17 @@
         if(intval($arOffer["~CATALOG_QUANTITY"])>=intval($quantityForDisplay)) $arResult["SIZE_AVAIL"][$offerSize] = 'Y';
 
         if($floatMinPrice > $arOffer["PRICE"] && $arOffer["PRICE"] > 0 && intval($arOffer["CATALOG_QUANTITY"]) >= intval($quantityForDisplay) /*&& !isset($arResult["START_SIZE"])*/)
-        //  if($floatMinPrice > 0 && $arOffer["CATALOG_QUANTITY"] > 0 && !isset($arResult["START_SIZE"]))
         {
 
             $floatMinPrice = $arOffer["PRICE"];
 
-            $arResult["START_SIZE"] = $offerSize;    
+            $arResult["START_SIZE"] = $offerSize;
             $arResult["START_COLOR"] = $offerColor; // dont need
 
-        }                
-         
-        //[$offerSize][$arOffer["TSVET_VALUE"]]
+        }
 
 
-        if( (!isset($arResult["START_OFFERS_BY_SIZE"][$offerSize]) && $arOffer["PRICE"] > 0 && intval($arOffer["~CATALOG_QUANTITY"]) >= intval($quantityForDisplay)) || ($arResult["START_OFFERS_BY_SIZE"][$offerSize]["PRICE"] > $arOffer["PRICE"] && intval($arOffer["~CATALOG_QUANTITY"])>=intval($quantityForDisplay))) 
+        if( (!isset($arResult["START_OFFERS_BY_SIZE"][$offerSize]) && $arOffer["PRICE"] > 0 && intval($arOffer["~CATALOG_QUANTITY"]) >= intval($quantityForDisplay)) || ($arResult["START_OFFERS_BY_SIZE"][$offerSize]["PRICE"] > $arOffer["PRICE"] && intval($arOffer["~CATALOG_QUANTITY"])>=intval($quantityForDisplay)))
         {
             $arResult["START_OFFERS_BY_SIZE"][$offerSize] = $arOffer;
         }
@@ -407,16 +377,12 @@
     $offerSizeID;
     $offerColorID;
     $offerChassisID;
-    
+
     // запись минимальной цены торгового предлоэени€ дл€ выделение € торгового предложени€ в карточке товара
-    $arResult["MIN_PRICE"] = $floatMinPrice; 
-   
+    $arResult["MIN_PRICE"] = $floatMinPrice;
+
 
     ksort($arResult["CS"]);
-    foreach($arResult["CS"] as $strSize => $arData)
-    {
-        // $arResult["CS"][$strSize] = array_merge($arData["AVAIL"], $arData["NAVAIL"]);   //непон€тно, дл€ чего этот код, если avail и navail ничем не отличаютс€ и никак не обрабатываютс€
-    }
 
 
     // если цены нулевые - не выбран стартовый цветоразмер - ставим первый
@@ -428,10 +394,10 @@
         $arResult["START_COLOR"] = $strStartColor;
 
 
-    // аксессуары 
+    // аксессуары
     if(!empty($arResult["PROPERTIES"]["ACCESSORIES"]["VALUE"]))
-    {  
-        $dbEl = CIBlockElement::GetList(Array(), Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "ID" => $arResult["PROPERTIES"]["ACCESSORIES"]["VALUE"]), false, false, array("ID", "IBLOCK_ID", "NAME", "DETAIL_PAGE_URL", "PREVIEW_PICTURE", "PROPERTY_PRICE", "PROPERTY_OLD_PRICE", "PROPERTY_RATING"));    
+    {
+        $dbEl = CIBlockElement::GetList(Array(), Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "ID" => $arResult["PROPERTIES"]["ACCESSORIES"]["VALUE"]), false, false, array("ID", "IBLOCK_ID", "NAME", "DETAIL_PAGE_URL", "PREVIEW_PICTURE", "PROPERTY_PRICE", "PROPERTY_OLD_PRICE", "PROPERTY_RATING"));
         while($obEl = $dbEl->GetNext())
             $arResult["ACCESSORIES_ITEMS"][] = $obEl;
     }
@@ -442,9 +408,9 @@
     $arTmpSections = array();
     $rsElementSections = CIBlockElement::GetElementGroups($arResult["ID"], true);
     while($arElementSection = $rsElementSections->Fetch()){
-        $arTmpSections[] = $arElementSection["ID"]; 
+        $arTmpSections[] = $arElementSection["ID"];
     }
-    
+
 
     $arResult["HARACTERISTICS"] = array();
     $arResult["TYPICAL_OPTIONS"] = array();

@@ -1,17 +1,15 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
     if (!CModule::IncludeModule("forum"))
         return;
-    // arshow($arResult["ITEMS"],true);
     //-------------------------------------------------------------------------------------------------------
     if($arParams["SECTION_ID"]>0)
     {
         $arFilter = Array('IBLOCK_ID'=>$arParams["IBLOCK_ID"], 'ID'=>$arParams["SECTION_ID"]);
-        $db_list = CIBlockSection::GetList(Array(), $arFilter, false, 
-            array("UF_HARACTERISTICS","UF_DESCRIPTION","UF_TITLE","UF_KEYWORDS", 
+        $db_list = CIBlockSection::GetList(Array(), $arFilter, false,
+            array("UF_HARACTERISTICS","UF_DESCRIPTION","UF_TITLE","UF_KEYWORDS",
                 "UF_H1", "UF_H2", "UF_NAME_PAD", "UF_SITEMAP_PROP", "UF_DESCR_PREVIEW"));
         if($ar_result = $db_list->GetNext())
         {
-            //arshow($ar_result);
             $arResult["SECTION"] = $ar_result;
 
             $arResult["UF_HARACTERISTICS"] = $ar_result["UF_HARACTERISTICS"];
@@ -43,38 +41,16 @@
 
     $strDecapitalizedTitle = decapitalizeString($arResult["SECTION"]["NAME"]);
     $strDecapitalizedTitlePad = decapitalizeString($arResult["META"]["UF_NAME_PAD"]);
-    
+
     if(strlen($arResult["META"]["UF_TITLE"])<=0)
         $arResult["META"]["UF_TITLE"] = $strDecapitalizedTitle." по выгодной цене - купить ".$strDecapitalizedTitle." для детей с доставкой по Москве - интернет-магазин ".$strDecapitalizedTitlePad." «Мамин городок»";
 
     if(strlen($arResult["META"]["UF_DESCRIPTION"])<=0)
         $arResult["META"]["UF_DESCRIPTION"] = $strDecapitalizedTitle." отличного качества! Бесплатная доставка при заказе от 3 000 рублей по Москве! Большой выбор в интернет-магазине ".$strDecapitalizedTitlePad." «Мамин городок».";
 
-    //Получаем бренды  
-    /*
-    $arParams["BREND"] = $_REQUEST["brendCode"];
-    if($arParams["BREND"]) $arParams["brendID"] = $_REQUEST["arrLeftFilter_pf"]["CH_PRODUCER"][0];
-
-    if($arParams["BREND"])
-    {   
-    $arResult["BREND_SECTIONS"] = array();
-    $rsSec = CIBlockSection::GetList(Array("SORT"=>"ASC", "NAME" => "ASC"), array("IBLOCK_ID"=>2, "ACTIVE"=>"Y", "PROPERTY"=>array("CH_PRODUCER" => $_REQUEST["arrLeftFilter_pf"]["CH_PRODUCER"])), false);
-    while($arSec = $rsSec -> GetNext())
-    $arResult["BREND_SECTIONS"][$arSec["ID"]] = $arSec;
-
-    $rsB = CIBlockElement::GetList(Array(), array("IBLOCK_ID"=>5, "ID"=>$arParams["brendID"]), false, false, array("ID", "NAME", "PROPERTY_NAME_RUS", "CODE"));
-    if($arB = $rsB -> GetNext()) $arResult["BREND"] = $arB;
-
-    $arResult["SEO"]["TITLE"] = $arResult["BREND"]["NAME"].(empty($arB["PROPERTY_NAME_RUS_VALUE"])?'':' ('.$arB["PROPERTY_NAME_RUS_VALUE"].')').' - детские товары - Мамин городок';
-    $arResult["SEO"]["H1"] = $arResult["BREND"]["NAME"];
-    } 
-
-    else { $arResult["SEO"] = getSEOParams();}
-    */  
 
     $arResult["SEO"] = getSEOParams();
 
-    //arshow($arResult["SEO"],true);
 
 
     //Получаем характеристики
@@ -92,9 +68,9 @@
     }
 
     $arIds=array();
-    foreach ($arResult["ITEMS"] as $arItem) 
+    foreach ($arResult["ITEMS"] as $arItem)
     {
-        $arIds[]=$arItem["ID"]; 
+        $arIds[]=$arItem["ID"];
     }
 
     // actions
@@ -108,7 +84,7 @@
         {
             $rsAction = CIBlockElement::GetList(Array(), array("IBLOCK_ID"=>18, "ACTIVE"=>"Y", "DATE_ACTIVE"=>"Y", "?PROPERTY_ITEMS"=>$strSearch), false, false, array("ID", "NAME", "PROPERTY_BLOG_POST", "PROPERTY_PREVIEW", "DETAIL_PAGE_URL", "DETAIL_PICTURE", "PROPERTY_ITEMS", "PREVIEW_TEXT", "PREVIEW_TEXT_TYPE", "PROPERTY_SPECOFFER"));
             while($arAction = $rsAction->GetNext())
-            {   
+            {
                 $arActionItems = explode("#", substr($arAction["PROPERTY_ITEMS_VALUE"], 1, strlen($arAction["PROPERTY_ITEMS_VALUE"])-2));
                 foreach($arActionItems as $intActionItem)
                     $arResult["ACTIONS_ITEMS"][$intActionItem] = $arAction["ID"];
@@ -121,7 +97,7 @@
         }
     }
 
-    //-------------------------------------------------------------------------------------------------------            
+    //-------------------------------------------------------------------------------------------------------
 
     if($arParams["brendID"]>0)
     {
@@ -146,29 +122,15 @@
             break;
     }
 
-    $intIBlockID = $arParams["IBLOCK_ID"]; 
-    $mxResult = CCatalogSKU::GetInfoByProductIBlock( 
-        $intIBlockID 
+    $intIBlockID = $arParams["IBLOCK_ID"];
+    $mxResult = CCatalogSKU::GetInfoByProductIBlock(
+        $intIBlockID
     );
 
     foreach($arResult["ITEMS"] as $k=>$arItem)
-    { 
-
-        /*
-        if (is_array($mxResult)) 
-        { 
-
-        $rsOffers = CIBlockElement::GetList(array("PRICE"=>"ASC"),array('IBLOCK_ID' => $mxResult['IBLOCK_ID'], 'PROPERTY_'.$mxResult['SKU_PROPERTY_ID'] => $arItem["ID"])); 
-        if ($arOffer = $rsOffers->GetNext()) 
-        {             
-        $db=CPrice::GetList(array(),array("ID" => $arOffer["ID"]),false,false,array());
-        $ob=$db->Fetch();
-        } 
-        } 
-        */
+    {
 
         $ar_res = "";
-        //$ar_res = CForumMessage::GetList(array("ID"=>"ASC"), array("FORUM_ID"=>FORUM_ID, "PARAM2"=>$arItem["ID"]), true);
 
 
 
@@ -195,7 +157,7 @@
             {
                 $price = intval($ar_res2["PRICE"]);
                 if ($price < $minPrice) $minPrice=$price; //вычисляем мин цену торгового предложения
-            } 
+            }
             if($ar_res["QUANTITY"]>0 && $price >0)
                 $qq++;
         }
@@ -251,7 +213,7 @@
 
     if($arResult["SECTION"]["ID"]>0)
     {
-        // cache this block for all pagenav for this section 
+        // cache this block for all pagenav for this section
 
         $strLink = '';
 
@@ -270,18 +232,18 @@
             $curProp = $arResult["ROWS"][0][0]["PROPERTIES"][strtoupper($param[0])];
             $valueId = $curProp["VALUE_ENUM_ID"];
             $propId = $curProp["ID"];
-            $arFilter["PROPERTY_".$propId] = $valueId; 
+            $arFilter["PROPERTY_".$propId] = $valueId;
 
         }
         $rsP = CIBlockElement::GetList(Array("PROPERTY_PROIZVODITEL_VALUE" => "ASC"), $arFilter, array("PROPERTY_PROIZVODITEL"), false, array("IBLOCK_ID", "ID"));
-        while($arP = $rsP -> GetNext()) {  
-            $section = $arResult["SECTION"]["SECTION_PAGE_URL"]."filter/"; 
+        while($arP = $rsP -> GetNext()) {
+            $section = $arResult["SECTION"]["SECTION_PAGE_URL"]."filter/";
             $brand = 'proizvoditel-'.CUtil::Translit($arP["PROPERTY_PROIZVODITEL_VALUE"],"ru",array("replace_space"=>"_","replace_other"=>""))."/";
-            $url = $section.$brand;      
+            $url = $section.$brand;
             $linkText = $arP["PROPERTY_PROIZVODITEL_VALUE"];
 
             if ($filter > 0) {
-                $url = $section.$param[0]."-".$param[1]."/".$brand; 
+                $url = $section.$param[0]."-".$param[1]."/".$brand;
                 $linkText = $arResult["SEO"]["H2"]." ".$arP["PROPERTY_PROIZVODITEL_VALUE"];
             }
 
@@ -289,18 +251,17 @@
             $arBrend[] = $link;
         }
         if(count($arBrend)>0) $strLink .= '<div class="linkBrend">Бренды: '.implode(" | ", $arBrend).'</div>';
-        unset($arBrend);  
+        unset($arBrend);
 
 
         $links = CIBlockElement::GetList(array("NAME"=>"ASC"),array("IBLOCK_ID"=>25,"PROPERTY_SECTION"=>$arResult["SECTION"]["ID"]),false,false,array("NAME","PROPERTY_LINK"));
         while($arLink = $links->Fetch()) {
-            $arProps[] = '<a href="'.$arLink["PROPERTY_LINK_VALUE"].'">'.$arLink["NAME"].'</a>'; 
+            $arProps[] = '<a href="'.$arLink["PROPERTY_LINK_VALUE"].'">'.$arLink["NAME"].'</a>';
         }
 
         if(count($arProps)>0) $strLink .= '<div class="linkBrend">Быстрый переход: '.implode(" | ", $arProps).'</div>';
 
 
-        //echo $strLink;            
 
         $arResult["SEO_LINKING"] = $strLink;
     }
@@ -309,15 +270,14 @@
     if(isset($allpar) && is_object($this->__component))
     {
         $this->__component->arResult["ALLELEMENT"] = $allpar;
-        //$this->__component->arResult["META"] = $arResult["META"];
         $this->__component->SetResultCacheKeys(array("ALLELEMENT"));
     }
 ?>
 
 
-<?     
+<?
 
- 
+
     if(isset($arResult["META"]["UF_KEYWORDS"]) && !empty($arResult["META"]["UF_KEYWORDS"])) {
         $APPLICATION->SetPageProperty("keywords",$arResult["META"]["UF_KEYWORDS"]);
     }
@@ -327,9 +287,8 @@
     }
 
     if(isset($arResult["META"]["UF_TITLE"]) && !empty($arResult["META"]["UF_TITLE"])) {
-        $APPLICATION->SetTitle($arResult["META"]["UF_TITLE"]);   
+        $APPLICATION->SetTitle($arResult["META"]["UF_TITLE"]);
     }
-    //если есть SEO
 
     if(isset($arResult["SEO"]["KEYWORDS"]) && !empty($arResult["SEO"]["KEYWORDS"]) && empty($arResult["META"]["UF_KEYWORDS"])) {
         $APPLICATION->SetPageProperty("keywords",$arResult["SEO"]["KEYWORDS"]);
@@ -339,8 +298,5 @@
         $APPLICATION->SetPageProperty("description",$arResult["SEO"]["DESCRIPTION"]);
     }
 
-    /*if(isset($arResult["SEO"]["TITLE"]) && !empty($arResult["SEO"]["TITLE"]) && empty($arResult["META"]["UF_TITLE"])) {
-        $APPLICATION->SetTitle($arResult["SEO"]["TITLE"]);
-    }*/
 
     $GLOBALS["ALLELEMENT"] = $arResult["ALLELEMENT"];?>

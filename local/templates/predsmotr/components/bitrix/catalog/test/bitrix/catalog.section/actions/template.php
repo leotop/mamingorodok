@@ -21,9 +21,7 @@
         $strCategoryName = $arResult["PATH"][count($arResult["PATH"])-1]["NAME"];
         $strProducer = $GLOBALS["SET_SEO"]["DATA"]["NAME"];
 
-        //$strH1 = "Детские ".ToLower($strCategoryName).' '.$strProducer;
         $strH1 = $strCategoryName.' '.$strProducer;
-        //$strH2 = $strH1;
     } elseif($GLOBALS["SET_SEO"]["type"] == 'property') {
         $strCategoryName = $arResult["PATH"][count($arResult["PATH"])-1]["NAME"];
         $strH1 = $strCategoryName.' '.ToLower($GLOBALS["SET_SEO"]["DATA"]["ENUM"]["VALUE"]);
@@ -40,8 +38,7 @@
             $strH1Addon = 'Детские товары ';
         else $strH1Addon = '';
 
-        //arshow($arResult);
-    ?>    
+    ?>
 
     <div class="compare_comment" style="display: none;">
         <div class="compare_com">
@@ -57,19 +54,19 @@
         <p class="title">Для того чтобы добавить товар в список "Избранное" требуется</p>
         <a href="/personal/registaration/" class="registation">регистрация</a>
         <span> или </span>
-        <a href="/personal/profile/" class="">авторизация</a> 
-        <img src="/bitrix/templates/nmg/img/close_bg.png" class="closeAfterBuy">                                    
-    </div>            
-    <div class="overla"></div> 
+        <a href="/personal/profile/" class="">авторизация</a>
+        <img src="/bitrix/templates/nmg/img/close_bg.png" class="closeAfterBuy">
+    </div>
+    <div class="overla"></div>
     <script type="text/javascript">
         $(function(){
             $(".fast_view").fancybox({
                 'type'    :    'iframe',
                 'width'   :    1000,
                 'height'  :    720,
-            }); 
+            });
         });
-    </script> 
+    </script>
     <style>
         .cn{
             display: none !important;
@@ -118,17 +115,17 @@
             left:-200px;
             top:-200px;
             z-index:5004;
-            display: none;  
+            display: none;
             opacity: 0.5;
             background-color: black;
         }
-        div.noRegister .title{ 
+        div.noRegister .title{
             text-align: center;
-            padding-top: 10px;      
+            padding-top: 10px;
         }
         div.noRegister .noRegister{
             padding-left: 42px;
-            padding-right: 20px;   
+            padding-right: 20px;
         }
 
         .closeAfterBuy{
@@ -141,26 +138,26 @@
         div.card{
             overflow: hidden !important;
             height: 298px;
-        }  
+        }
         div.card:hover{
             overflow: visible;
             height: 320px;
-            width: 218px !important; 
+            width: 218px !important;
             position: relative;
             left: -60px;
         }
         div.card:hover .carousel_contain{
             display: block;
-        } 
+        }
         div.card:hover .photo{
             margin-left: 60px !important;
-        } 
+        }
         div.card:hover .fast_view{
             position: relative;
             left:-15px;
         }
         .li_hover_mod:hover{
-            height: 350px;  
+            height: 350px;
         }
         div.podrob{
             text-align: center;
@@ -184,7 +181,7 @@
             margin-top: 4px;
         }
         .heart_rem{
-            float: left;    
+            float: left;
         }
         img.zoom{
             width: 20px;
@@ -193,11 +190,11 @@
         }
         a.fast_view{
             font-size: 12px !important;
-            height: 21px;   
-            padding-top: 4px;   
+            height: 21px;
+            padding-top: 4px;
             vertical-align: middle;
-            width: 150px;  
-            margin-top: 2px;                            
+            width: 150px;
+            margin-top: 2px;
         }
         a.fast_view:before{
             content: "";
@@ -234,7 +231,7 @@
         }
         input[type="checkbox"]:checked + span.com_span      {
             background-position: 0 0;
-        } 
+        }
         .cn{
             display: none !important;
         }
@@ -252,7 +249,7 @@
             position: relative;
             display: none;
             /*   left: -60px;     */
-        } 
+        }
         .bx-pager-item{
             display: none !important;
         }
@@ -270,12 +267,12 @@
         }
         .carusel_body{
             height: 250px;
-            display: none;   
+            display: none;
             width: 60px;
             float: left;
         }
         .carusel{
-            width: 60px;             
+            width: 60px;
             position: relative;
         }
         div.card:hover .carusel_body{
@@ -329,13 +326,13 @@
             float: left;
             position: relative;
             top:39px;
-            left:10px;   
+            left:10px;
         }
         .showpUpss{
             float: left;
             position: relative;
             top:39px;
-            left:10px;    
+            left:10px;
         }
         .like_com{
             width: 250px;
@@ -356,37 +353,20 @@
             position: fixed;
             left: 50%;
             top:50%;
-            margin: -20px 0 0 -125px;           
+            margin: -20px 0 0 -125px;
             border: 1px solid black;
             border-radius: 15px;
             background-color: white;
             z-index: 3000;
-            text-align: center;    
-        }
-        .like_comment{
-            /*   width: 100%;
-            height: 100%;
-            background-color: #000;
-            opacity:0.7;     */
-        }
-
-        .compare_comment{
-            /*     width: 100%;
-            height: 100%;
-            background-color: #000;
-            opacity:0.7;     */
+            text-align: center;
         }
         .input21{
             width:162px!important;
         }
         .fast_view{
-            /*border: 1px solid #ff701a;
-            background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #ff9f01 0%, #ff701a 100%) repeat scroll 0 0; 
-            border-radius:6px;
-            text-shadow:1px 1px 0 #696969;           */
             color:#808080 !important;
-            text-decoration: underline;        
-            font-size: 14px; 
+            text-decoration: underline;
+            font-size: 14px;
         }
         .remember{
             cursor: pointer;
@@ -420,9 +400,9 @@
         }
         .action_body{
             border: 1px solid #83539F;
-            margin-bottom: 20px;  
+            margin-bottom: 20px;
             margin-top: 20px;
-            padding: 12px; 
+            padding: 12px;
         }
         .comparsion_title{
             color: #0086da;
@@ -431,8 +411,8 @@
             position: relative;
             text-decoration: underline;
             top: -18px!important;
-            cursor: pointer; 
-            background: none!important;   
+            cursor: pointer;
+            background: none!important;
         }
         .catalog_list li .price{
             height: 23px!important;
@@ -452,7 +432,7 @@
                 {
                     $('.compare_comment').css('display','block');
                     setTimeout(function(){$('.compare_comment').css('display','none')},1500);
-                    $(this).attr('data-check','Y');   
+                    $(this).attr('data-check','Y');
                 }
 
 
@@ -460,7 +440,7 @@
         })
         //----------------------------------Для списка товаров----------------------------------------
 
-        $(function() { 
+        $(function() {
 
             //Для динамически созданных
             $('body').on('click','.addToLikeListaa', function(){
@@ -468,7 +448,7 @@
                 setTimeout(function(){$('.like_comment').css('display', 'none')},1500);
 
                 var addDataId = $(this).attr("data-remId");
-                var hrefClass = '.rememb_'+ addDataId;       
+                var hrefClass = '.rememb_'+ addDataId;
                 $.ajax({
                     type: "POST",
                     url: "/bitrix/templates/nmg/ajax/addToWish.php",
@@ -493,15 +473,15 @@
         });
 
 
-        $(function() { 
+        $(function() {
 
             //Для динамически созданных
-            $('body').on('click','.userNoAuthaa', function(){   
+            $('body').on('click','.userNoAuthaa', function(){
                 var idItemAddToLike = $(this).attr('data-id');
                 var hrefItemAddToLike = window.location.href;
 
                 $.cookie('idElemToLike', idItemAddToLike , {path: '/',});
-                $.cookie('hrefElemToLike', hrefItemAddToLike, {path: '/',});      
+                $.cookie('hrefElemToLike', hrefItemAddToLike, {path: '/',});
 
             });
 
@@ -516,7 +496,7 @@
             $('body').on('click','.deleteFromWishListaa', function(){
                 var intID = $(this).attr("data-id");
                 var ID_rem = $(this).attr("data-remId");
-                var hrefClass = '.rememb_'+ ID_rem;      
+                var hrefClass = '.rememb_'+ ID_rem;
                 $.ajax({
                     type: "POST",
                     url: "/personal/products/wishlist/",
@@ -561,9 +541,9 @@
             false,
             array('ID','NAME','XML_ID','SECTION_PAGE_URL','PICTURE'),
             array("nPageSize"=>'1')
-        ); 
+        );
         while ($arSect = $dbActions->GetNext())
-        {   
+        {
             $rsFile = CFile::GetByID($arSect["PICTURE"]);
             $arFile = $rsFile->Fetch();
         ?>
@@ -575,18 +555,18 @@
             <a href="<?=$arSect['SECTION_PAGE_URL']?>"><img src="/upload/<?=$arFile['SUBDIR'].'/'.$arFile['FILE_NAME']?>"></a>
         </div>
         <?
-        } 
+        }
         $dbActions = CIBlockSection::GetList(
             array("SORT"=>"ASC"),
             Array('ACTIVE'=>'Y','IBLOCK_ID'=>$arResult['IBLOCK_ID'],'SECTION_ID'=>$arResult['IBLOCK_SECTION_ID'],'>ID'=>$arResult['ID']),
             false,
             array('ID','NAME','XML_ID','SECTION_PAGE_URL','PICTURE'),
             array("nPageSize"=>'1')
-        ); 
+        );
         while ($arSect = $dbActions->GetNext())
         {
             $rsFile = CFile::GetByID($arSect["PICTURE"]);
-            $arFile = $rsFile->Fetch();   
+            $arFile = $rsFile->Fetch();
         ?>
 
         <div class="links">
@@ -597,7 +577,7 @@
             </div>
         </div>
         <?
-        } 
+        }
     ?>
 
 
@@ -606,7 +586,7 @@
         if(strlen($arResult["DESCRIPTION"])>0 && $_REQUEST["PAGEN_1"]<=1 && $arResult["IBLOCK_SECTION_ID"]=='688')
         {
             $arPreview = smart_trim(strip_tags($arResult["~DESCRIPTION"]), 460, false, '<span class="full_hide">...</span>', true);
-        ?>        
+        ?>
         <?
         }
 
@@ -656,13 +636,13 @@
     <?//arshow($_GET);?>
     <div class="sorting_block"><?
             if(!$isSearch)
-            {?> 
+            {?>
             <?$APPLICATION->IncludeFile(SITE_TEMPLATE_PATH.'/includes/catalog/choose_nmg.php',array("arChoose"=>array(
-                    "0"=>array("NAME"=>"по скидкам", "CODE" => "PROPERTY_DISCOUNT", "sort"=>"DESC"),   
+                    "0"=>array("NAME"=>"по скидкам", "CODE" => "PROPERTY_DISCOUNT", "sort"=>"DESC"),
                     "1"=>array("NAME"=>"новинкам", "CODE" => "PROPERTY_NOVINKA", "sort"=>"DESC"),
                     "2"=>array("NAME"=>"популярности", "CODE" => "PROPERTY_KHIT_PRODAZH", "sort"=>"DESC"),
                     "3"=>array("NAME"=>"названию", "CODE" => "NAME", "sort"=>"ASC"),
-                    "4"=>array("NAME"=>"цене", "CODE"=> "CATALOG_PRICE_2", "sort"=>"ASC"),    
+                    "4"=>array("NAME"=>"цене", "CODE"=> "CATALOG_PRICE_2", "sort"=>"ASC"),
                 )));?><?
         }?>
         <?=$arResult["NAV_STRING"]?>
@@ -674,21 +654,19 @@
     }
 
 ?>
-<script type="">  
+<script type="">
     function filter_click(){
         if($("#cat_for_access").prop("checked")){
             $.cookie('namber_order', 'checked');
-            // $("#check_for_access").val('Y')  
         }else{
-            //  $("#check_for_access").val('');
-            $.cookie('namber_order', null); 
+            $.cookie('namber_order', null);
 
-        }   
+        }
     }
-</script> 
+</script>
 
 <form method="POST" action="<?$APPLICATION->GetCurPage()?>" name="orders_filter" style="margin: 20px 0">
-    <div class="access_check fl">  
+    <div class="access_check fl">
         <input value="" <?=$_COOKIE["namber_order"];?> name="namber_order"  onclick="filter_click();submit();" type="checkbox" id="cat_for_access" class="fl">
         <label for="cat_for_access">Отображать только имеющиеся в наличии</label>
     </div>
@@ -717,43 +695,43 @@
                     }
                 ?>
                 <li id="<?=$strMainID?>" class="li_hover_mod">
-                    <?   
+                    <?
                         //      $smallImg=null;
-                        //      $torgPred=0;              
+                        //      $torgPred=0;
                         //---------------------------------------------------получаем картинки----------------------------------------------------------------------
-                        /*      $rsOffers = CCatalogSKU::getOffersList($arElement["ID"],0,array(),array('XML_ID'));   //получаем список торговых предложений              
+                        /*      $rsOffers = CCatalogSKU::getOffersList($arElement["ID"],0,array(),array('XML_ID'));   //получаем список торговых предложений
                         foreach($rsOffers[$arElement["ID"]] as $arTovar){
 
-                        $imgName=GetImgNameArray($arTovar["XML_ID"]); 
+                        $imgName=GetImgNameArray($arTovar["XML_ID"]);
                         if (!empty($imgName)){
                         $smallImg[$arTovar["ID"]] = CFile::ResizeImageGet($imgName["MAXI"], array("width"=>52, "height"=>55), BX_RESIZE_IMAGE_PROPORTIONAL);
-                        ++$torgPred;    
-                        }  
-                        }        */     
+                        ++$torgPred;
+                        }
+                        }        */
                         //-----------------------------------------------------------------------------------------------------------------------------------------
                         //     $width=count($smallImg)*60;
                     ?>
                     <style>
                         <?echo('.carusel_'.$arElement["ID"])?>{
-                        width: 60px;             
+                        width: 60px;
                         position: relative;
                         top:0;
                         }
                     </style>
                     <div class="catalog_bg stock-item card">
-                        <div class="carusel_body">   
+                        <div class="carusel_body">
                             <?if($torgPred>4){?><div class="down" data-id="<?echo($arElement["ID"])?>" data-width="<?echo $width?>"></div><?}
                                 else{?><div style="height: 26px;"></div><?}?>
                             <div class="tovar_card">
                                 <div class="<?echo('carusel_'.$arElement["ID"])?>">
                                     <?foreach($smallImg as $pict){?>
-                                        <div class="slider_element"><img src="<?=(empty($pict["src"])?'/img/no_photo_52x52.png':$pict["src"])?>" titile="" alt="<?=$strH1orName?>"> </div>                                                                                                                     
-                                        <?}?> 
-                                </div>             
+                                        <div class="slider_element"><img src="<?=(empty($pict["src"])?'/img/no_photo_52x52.png':$pict["src"])?>" titile="" alt="<?=$strH1orName?>"> </div>
+                                        <?}?>
+                                </div>
                             </div>
                             <?if($torgPred>4){?><div class="up" data-id="<?echo($arElement["ID"])?>" data-width="<?echo $width?>"></div><?}?>
-                        </div>      
-                        <?   
+                        </div>
+                        <?
                             if($arElement["ACTIVE"] == "N")
                                 echo '<div class="element_inactive">Деактивирован</div>';
                             if(isset($arResult["ACTIONS_ITEMS"][$arElement["ID"]]))
@@ -773,12 +751,12 @@
                                 }?>
                                 <div class="gift_info ">
                                     <div class="gift_info_text">
-                                        <div style="text-align: center;">Акция!</div> <?=$arAction["PREVIEW_TEXT"]?>                                         
+                                        <div style="text-align: center;">Акция!</div> <?=$arAction["PREVIEW_TEXT"]?>
                                     </div><div class="gift_info_bg"></div></div></div><?
                             }
 
                             if(!empty($arElement["DETAIL_PICTURE"]["ID"])){
-                                $arFileTmp = CFile::ResizeImageGet(                 
+                                $arFileTmp = CFile::ResizeImageGet(
                                     $arElement["DETAIL_PICTURE"]["ID"],
                                     array("width" => 160, 'height' => 160),
                                     BX_RESIZE_IMAGE_PROPORTIONAL,
@@ -787,7 +765,7 @@
                             }else{
                                 $arFileTmp["src"] = "/img/no_foto.jpg";
                                 $arFileTmp["width"] = "160";
-                                $arFileTmp["height"] = "160";   
+                                $arFileTmp["height"] = "160";
                             }
 
                             if($arFileTmp["height"] == 0){$arFileTmp["height"] = "auto" ;}else {$arFileTmp["height"] = "160";}
@@ -801,19 +779,17 @@
                         <?
                             $strAddon = "";
                             if(!$isSearch) {
-                                //   $strAddon = '#REPORT_COUNT_'.$arElement["ID"].'#';
                                 $strAddon = '<a class="comment grey" href="'.$arElement['DETAIL_PAGE_URL'].'#comment">Написать отзыв</a>';
 
-                            } 
+                            }
                             else  {
                                 $strAddon = '<a class="comment grey" href="'.$arElement['DETAIL_PAGE_URL'].'#comment">Написать отзыв</a>';
                             }
                             if(strlen($arElement["PROPERTIES"]["MODEL_3D"]["VALUE"])>0) {
                                 $strAddon .= '<a class="ttp_lnk 3dlink" onclick="window.open(\'/view360.php?idt='.$arElement["ID"].'\', \'wind1\',\'width=900, height=600, resizable=no, scrollbars=yes, menubar=no\')" href="javascript:" title="Подробная 3D - Модель"><i class="img360">3D модель</i></a>';
                             }
-                            //echo showNoindex();
                             $APPLICATION->IncludeFile(SITE_TEMPLATE_PATH."/includes/raiting.php", array("strAddon" => $strAddon, 'Raiting'=>$arElement["PROPERTIES"]['RATING']["VALUE"]), array("MODE"=>"html"));
-                            //echo showNoindex(false); ?>
+                            ?>
                         <div class="info_block">
                             <div class="link"><a href="<?=$arElement['DETAIL_PAGE_URL']?>" title="<?=$arElement["NAME"]?>"><?=smart_trim($arElement['NAME'], 70)?></a></div><?
                                 if(false)
@@ -823,13 +799,11 @@
                             <div class="price">
                                 <?
                                     $arElement["PROPERTIES"]["PRICE_CODE"]["VALUE"] = substr($price, 0, strlen($price)-3);
-                                    //  if($USER->IsAdmin()){arshow($arElement["PROPERTIES"]);};
                                     $price = GetOfferMinPrice($arParams["IBLOCK_ID"],$arElement["ID"]);
 
-                                    // arshow($arElement["PROPERTIES"]["CH_SNYATO"]);
                                     if($price == 0 || $arElement["PROPERTIES"]["STATUS_TOVARA"]["VALUE"] !="" || $arElement["COUNT_SKLAD"] <=0) //проверка цены если больше 0 ....//если количество товаров меньше 2
                                         echo '<span class="currency" style="width: 100%;font-size:12px">Нет в наличии</span>';
-                                    else 
+                                    else
                                     {?>
 
 
@@ -844,25 +818,16 @@
                                 if(strlen($arElement["PROPERTIES"]["CH_SNYATO"]["VALUE_ENUM_ID"]) <= 0 || $arElement["PROPERTIES"]["CH_SNYATO"]["VALUE_ENUM_ID"] == 2100923)
                                 {
                                 ?><!--<i class="addToCartList" title="<?=$arElement["DETAIL_PAGE_URL"]?>"><button type="button" class="input21">Купить</button></i>-->
-                                <a href="<?=$arElement["DETAIL_PAGE_URL"]?>?pred=Y" class="fast_view">Быстрый просмотр</a>   
+                                <a href="<?=$arElement["DETAIL_PAGE_URL"]?>?pred=Y" class="fast_view">Быстрый просмотр</a>
                                 <?
                                 } elseif($arElement["PROPERTIES"]["CH_SNYATO"]["VALUE_ENUM_ID"] == 2100920) {
                                 ?>Новинка! Ожидаем поставку.<?
                                 }
 
-                                /*
-                                if($arElement["COUNT_SKLAD"] == 0)
-                                {?>
-                                <a class="notifyMeButton" href="#ng_<?=$arElement["ID"]?>"><input type="button" class="input1_notify" value="" /></a><?
-                                } else {?>
-                                <a class="addToCartList" href="<?=$arElement["DETAIL_PAGE_URL"]?>#showOffers"><input type="button" class="input1" value="" /></a><?
-                                }
-                                */
-                                //echo showNoindex();
                             ?>
                         </div>
 
-                        <div class="<?echo('rememb_'.$arElement['ID'])?> remember"> 
+                        <div class="<?echo('rememb_'.$arElement['ID'])?> remember">
                             <?if($USER->GetID() > 0){
                                     $rsI = CIBlockElement::GetList(Array("ID" => "DESC"), array(
                                         "ACTIVE" => "Y",
@@ -880,28 +845,26 @@
                                     if($arI = $rsI->GetNext()){
                                         echo ('<a class="deleteFromWishListaa" data-id="'.$arI["ID"].'" data-remId="'.$arElement["ID"].'"  title="В избранное"><img class="heart_like" src="/bitrix/templates/nmg/img/heart_t.png" width="20" height="17" alt="" /><p class="remembering">Запомнить</p></a>');
 
-                                    }                 
+                                    }
                                     else{
-                                        echo ('<a class="add addToLikeListaa" data-remId="'.$arElement["ID"].'"  title="В избранное"><img class="heart_like" src="/bitrix/templates/nmg/img/heart_f.png" width="20" height="17" alt="" /><p class="remembering">Запомнить</p></a> ');   
+                                        echo ('<a class="add addToLikeListaa" data-remId="'.$arElement["ID"].'"  title="В избранное"><img class="heart_like" src="/bitrix/templates/nmg/img/heart_f.png" width="20" height="17" alt="" /><p class="remembering">Запомнить</p></a> ');
 
-                                    }    
+                                    }
                                 }
                                 else{
                                     echo ('<a class="showpUpss" class="userNoAuthaa" data-id="'.$arElement["ID"].'" href="#messageNoUser1" title="В избранное"><img class="heart_like" src="/bitrix/templates/nmg/img/heart_f.png" width="20" height="17" alt="" /><p class="remembering">Запомнить</p></a>');
                             }?>
 
-                            <!-- <p class="addToLikeList"><img src="/bitrix/templates/nmg/img/header/ico-baby-listNotEmpty.png" class="heart_rem"> </p>     -->
+
                         </div>
 
 
 
-                        <div class="comparison"> 
+                        <div class="comparison">
                             <label class="compare"><input type="checkbox" class="input29 add-to-compare-list-ajax" value="<?=$arElement["ID"]?>" /><span class="com_span" data-check=''></span><span class="comparsion_title">Сравнить</span></label>
 
-                        </div> 
+                        </div>
 
-                        <?
-                            //echo showNoindex(false);?>
                         <div class="clear"></div><?
                             if(false)
                             {?>
@@ -942,10 +905,6 @@
                         }?>
                     </div>
 
-
-
-
-
                 </li>
                 <?
             }?>
@@ -961,11 +920,11 @@
                 if(!$isSearch)
                 {?>
                 <?$APPLICATION->IncludeFile(SITE_TEMPLATE_PATH.'/includes/catalog/choose_nmg.php',array("arChoose"=>array(
-                        "0"=>array("NAME"=>"по скидкам", "CODE" => "PROPERTY_DISCOUNT", "sort"=>"DESC"),   
+                        "0"=>array("NAME"=>"по скидкам", "CODE" => "PROPERTY_DISCOUNT", "sort"=>"DESC"),
                         "1"=>array("NAME"=>"новинкам", "CODE" => "PROPERTY_NOVINKA", "sort"=>"DESC"),
                         "2"=>array("NAME"=>"популярности", "CODE" => "PROPERTY_KHIT_PRODAZH", "sort"=>"DESC"),
                         "3"=>array("NAME"=>"названию", "CODE" => "NAME", "sort"=>"ASC"),
-                        "4"=>array("NAME"=>"цене", "CODE"=> "CATALOG_PRICE_2", "sort"=>"ASC"), 
+                        "4"=>array("NAME"=>"цене", "CODE"=> "CATALOG_PRICE_2", "sort"=>"ASC"),
                     )));?><?
             }?>
             <? if(strlen($arResult["NAV_STRING"])>0) echo $arResult["NAV_STRING"].'<br><br><br>'; ?>
@@ -979,11 +938,11 @@
             echo $arResult["SEO_LINKING"];
 
     } ?>
-    <?//arshow($arResult["~DESCRIPTION"]);
+    <?
         if(strlen($arResult["DESCRIPTION"])>0 && $_REQUEST["PAGEN_1"]<=1 && $arResult["IBLOCK_SECTION_ID"]!='688')
         {
             $arPreview = smart_trim(strip_tags($arResult["~DESCRIPTION"]), 460, false, '<span class="full_hide">...</span>', true);
-        ?>        
+        ?>
         <div class="catalogFilter">
             <h2 class="underlined"><?=$strH2?></h2>
             <div class="stext"><?
@@ -1002,73 +961,48 @@
         }
 
 ?></div>
-<script>  
+<script>
     $('.down').click(function(){
         var id=$(this).attr("data-id");
         var carusel_id='.carusel_'+id;
         var width=$(this).attr("data-width")
-        var war=parseInt(width);   
+        var war=parseInt(width);
         var top_val=parseInt($(carusel_id).css('top'));
-        if(top_val<0){                                            
-            $(carusel_id).animate({top:'+=50px'},500);         
-        }         
-    }); 
+        if(top_val<0){
+            $(carusel_id).animate({top:'+=50px'},500);
+        }
+    });
     $('.up').click(function(){
         var id=$(this).attr("data-id");
         var carusel_id='.carusel_'+id;
         var width=$(this).attr("data-width");
         var carus=parseInt(width);
         var top_val=parseInt($(carusel_id).css('top'));
-        var card=parseInt($('.tovar_card').css('height'));   
-        if ((card-top_val)<carus){                                
-            $(carusel_id).animate({top:'-=50px'},500);       
+        var card=parseInt($('.tovar_card').css('height'));
+        if ((card-top_val)<carus){
+            $(carusel_id).animate({top:'-=50px'},500);
         }
     });
     $('.showpUpss').click(function(){
         $(".noRegister").show();
-        $(".overla").show();      
+        $(".overla").show();
     })
     $('.closeAfterBuy').click(function(){
         $(".noRegister").hide();
-        $(".overla").hide();     
+        $(".overla").hide();
     });
 
 </script>
 <?
-    //print_R($arResult);
-    // global $APPLICATION;
-
-    //arshow($arResult["META"]);
 
     if(isset($arResult["META"]["UF_KEYWORDS"]) && !empty($arResult["META"]["UF_KEYWORDS"])) {
         $APPLICATION->SetPageProperty("keywords",$arResult["META"]["UF_KEYWORDS"]);
     }
-
-    /*if(isset($arResult["META"]["UF_DESCRIPTION"]) && !empty($arResult["META"]["UF_DESCRIPTION"])) {
-    $APPLICATION->SetPageProperty("description",$arResult["META"]["UF_DESCRIPTION"]);
-    }  */
-
-    /*if(isset($arResult["META"]["UF_TITLE"]) && !empty($arResult["META"]["UF_TITLE"])) {
-    $APPLICATION->SetTitle($arResult["META"]["UF_TITLE"]);  
-    } */
-
 
     //если есть SEO
 
     if(isset($arResult["SEO"]["KEYWORDS"]) && !empty($arResult["SEO"]["KEYWORDS"])) {
         $APPLICATION->SetPageProperty("keywords",$arResult["SEO"]["KEYWORDS"]);
     }
-
-    /*if(isset($arResult["SEO"]["DESCRIPTION"]) && !empty($arResult["SEO"]["DESCRIPTION"])) {
-    $APPLICATION->SetPageProperty("description",$arResult["SEO"]["DESCRIPTION"]);
-    }    */
-
-    /*if(isset($arResult["SEO"]["TITLE"]) && !empty($arResult["SEO"]["TITLE"])) {
-    $APPLICATION->SetTitle($arResult["SEO"]["TITLE"]);
-    }*/
-
-
-
-
 
     $GLOBALS["ALLELEMENT"] = $arResult["ALLELEMENT"];?>

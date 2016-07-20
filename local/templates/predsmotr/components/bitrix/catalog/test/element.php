@@ -93,11 +93,9 @@
     $obFields=CIBlockElement::GetList(array(),array("ID" => $ElementID),false,false,array("NAME"))->Fetch();
 
 
-    //$producer=$GLOBALS["PRODUCER"];
 
 
     if(!empty($producer) && !empty($arS)) {
-        //arshow($arS);
         $APPLICATION->AddChainItem($arS["NAME"].' '.$producer["NAME"], $arS["~SECTION_PAGE_URL"].'proizvoditel_'.$producer["CODE"].'/');
     }
 
@@ -109,8 +107,6 @@
     // выводим ссылку уже есть или добавить в список малыша //
     // и список сравнения                                   //
     //////////////////////////////////////////////////////////
-    //    arshow($ElementID);
-    //arshow($arResult);
     if ($USER->IsAuthorized()){
         $arResult["ITEMS"] = array();
 
@@ -142,7 +138,7 @@
 ?>
 <input type="hidden" id="elementDataId" value="<?=$arResult["ITEMS"][$ElementID]["ID"]?>"/>
 <input type="hidden" id="elementDataIdAdd" value="<?=$ElementID?>"/>
-<?  //echo($arResult["ITEMS"][$ElementID]["ID"]);
+<?
     if($ElementID > 0)
     {
         $arSearchReplace = array();
@@ -207,7 +203,6 @@
         }
 
         // получаем список пользователей которые уже имеют этот товар
-        //$dbEl = CIBlockElement::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_USER_ID" => $arFriendsIDsI, "PROPERTY_PRODUCT_ID" => $ElementID, "PROPERTY_STATUS" => WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array("PROPERTY_USER_ID"), array("nPageSize"=>$SHOWCOUNTPAGE), array("ID", "IBLOCK_ID", "PROPERTY_USER_ID"));
         $dbEl = CIBlockElement::GetList(Array("SORT"=>"ASC"), Array("IBLOCK_ID"=>WISHLIST_IBLOCK_ID, "ACTIVE"=>"Y", "PROPERTY_PRODUCT_ID" => $ElementID, "PROPERTY_STATUS" => WISHLIST_PROPERTY_STATUS_ALREADY_HAVE_ENUM_ID), array("PROPERTY_USER_ID"), array("nPageSize"=>15), array("ID", "IBLOCK_ID", "PROPERTY_USER_ID"));
         while($obEl = $dbEl->GetNext())
         {
@@ -385,11 +380,8 @@
                         <div class="addInfo">
                             <?
                                 $i=0;
-                                //print_R($arUsersWantIDs);
-                                //echo "<br><br>";
-                                foreach($arUsersWantIDs as $user):?>
+                              foreach($arUsersWantIDs as $user):?>
                                 <div class="friend">
-                                    <?//print_R($arGetUsersByID[$user]["PERSONAL_PHOTO"]); echo "----";?>
                                     <?if($arGetUsersByID[$user]["PERSONAL_PHOTO"] > 0):?>
                                         <?$rsFile = CFile::GetByID($arGetUsersByID[$user]["PERSONAL_PHOTO"]);?>
                                         <?if($arFile = $rsFile->Fetch()):?>
