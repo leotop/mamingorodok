@@ -488,7 +488,7 @@
     margin:10px 0;
 }
 .reviews h2 {
-    margin-left:20px;
+    /*margin-left:20px; */
 }
 .title-line {
     border-bottom: 1px solid #80568D;
@@ -997,7 +997,6 @@ button.left-filter.write-comment span span {
 .brand-info {
     margin-left: 20px;
     margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 .brand-info .brand-title {
