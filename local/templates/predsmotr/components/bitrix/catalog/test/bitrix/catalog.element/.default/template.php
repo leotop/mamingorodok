@@ -1,8 +1,8 @@
 
 <?
-    global $USER; 
+    global $USER;
     $rsGroup = CGroup::GetByID(1, "Y");
-    $arGroup = $rsGroup->Fetch();   
+    $arGroup = $rsGroup->Fetch();
     global $arGroups;
     $arGroups = $USER->GetUserGroupArray();
     //arshow($arGroups[0]);
@@ -11,10 +11,10 @@
 <div class="afterBuy">
     <p class="title">Товар успешно добавлен в корзину</p>
     <a href="javascript:void(0)" class="contin">продолжить выбор товаров</a>
-    <a href="/basket/" onclick="return close_frame(this);" class="next">перейти к оформлению заказа</a> 
-    <img src="/bitrix/templates/nmg/img/close_bg.png" class="closeAfterBuy">                                    
-</div>            
-<div class="overla"></div>  
+    <a href="/basket/" onclick="return close_frame(this);" class="next">перейти к оформлению заказа</a>
+    <img src="/bitrix/templates/nmg/img/close_bg.png" class="closeAfterBuy">
+</div>
+<div class="overla"></div>
 
 <?
     if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
@@ -23,20 +23,20 @@
     $strDeliveryDate = date("d.m.Y", getDeliveryDate(true));
 
     $singleOffer  = count($arResult["CS"]) <= 1;   //торговые предложения имеют одинаковый размер
-    $onlyStandardSize=false;                       
+    $onlyStandardSize=false;
 
     //если для этого размера несколько цветов, то выводим выбор цвета
     if ($singleOffer)
     {
-        $arIndx=array_values($arResult["CS"]);  
-        $singleOffer = count($arIndx[0]) <= 1;     
+        $arIndx=array_values($arResult["CS"]);
+        $singleOffer = count($arIndx[0]) <= 1;
         $onlyStandardSize=true;                   //размер один, значит не выводим выбор размера
 
     }
     //    farshow($arResult["CS"]);
-    foreach ($arResult["CS"] as $arItemCheck => $arCheck) { 
+    foreach ($arResult["CS"] as $arItemCheck => $arCheck) {
         $arCheckCount= count($arCheck)+$arCheckCount;
-    } 
+    }
     //    arshow($arCheckCount);
     if($singleOffer && $arCheckCount==1){
     ?>
@@ -48,7 +48,7 @@
             top: 375px;
             width: 535px;
             padding-top: 20px !important;
-            padding-bottom: 20px !important; 
+            padding-bottom: 20px !important;
         }
         .soc_block div:nth-last-child(1) {
             float:left !important;
@@ -61,20 +61,20 @@
 
     function getColorHtml($strSize, $arResult)
     {
-        ob_start();   
+        ob_start();
 
-        $arColor = $arResult["CS"][$strSize];    
+        $arColor = $arResult["CS"][$strSize];
         $arStartOffer = $arResult["START_OFFERS_BY_SIZE"][$strSize];
 
 
-    ?><div id="colorData_<?=md5($strSize)?>">  
+    ?><div id="colorData_<?=md5($strSize)?>">
 
         <? //Проверяем если у товара только один цвет
             $arCheckColor = $arResult["CS"];
 
-            foreach ($arCheckColor as $arSizeItemCheck => $arSizeCheck) { 
+            foreach ($arCheckColor as $arSizeItemCheck => $arSizeCheck) {
                 $arSizeCheckCount= count($arSizeCheck)+$arSizeCheckCount;
-            }  
+            }
 
             if (count($arCheckColor)!=$arSizeCheckCount) {
             ?>
@@ -91,29 +91,29 @@
             <?
             }
         ?>
-        <div class="sk-product-color-list"> 
-            <?  
+        <div class="sk-product-color-list">
+            <?
                 if(empty($arResult["CS"]["CHASSI"])){
                     $arColorList = $arResult["CS"];
                 } else {
                     $arColorList = $arResult["CS"]["CHASSI"];
                 }
                 //                arshow($arColorList, true);
-                foreach ($arColorList as $arSizeItem => $arSize) { 
+                foreach ($arColorList as $arSizeItem => $arSize) {
                     //                                        arshow(count($arSize), true);
                     if (count($arSize)>=1) {
                         foreach ($arSize as $arColorKey => $arColorItem) {
 
-                            if ($arColorItem["~CATALOG_QUANTITY"]>0) { ?>    
+                            if ($arColorItem["~CATALOG_QUANTITY"]>0) { ?>
                             <div class="sk-product-color-item" id="<?=$arColorItem["ID"]?>" ><?=$arColorKey.' ('.$arSizeItem.')'?></div>
                             <? } } } }
             ?>
         </div>
-        
+
         <?
 
         ?>
-          
+
         <div>
             <ul class="sk-product-color--slider jcarousel jcarousel-skin-color_chose<?=(!$singleOffer?'_one':'')?>">
                 <li><?
@@ -125,33 +125,33 @@
                             $price=GetOfferMinPrice($arParams["IBLOCK_ID"],$arOffer["ID"]);
 
                             if ($arOffer["PRICE"] > 0 && $arOffer["CATALOG_QUANTITY"] > 0){             //проверка на количество элементов у которых указана цена ... // проверка на количество элементов на складе
-                                global $ar_quantity;  
+                                global $ar_quantity;
                                 //  arshow($arOffer,true);
                                 $ar_quantity = $arOffer["~CATALOG_QUANTITY"];
                                 $strH1orName = $arResult["SEO_H1_FROM_NAME"] == "Y" ? $arResult["NAME"].' '.$arOffer["PROPERTY_TSVET_VALUE"] : $arResult["PROPERTIES"]["SEO_H1"]["VALUE"];
                                 // $strH1orName = $arResult['NAME'].' '.$arOffer['PROPERTY_TSVET_VALUE'];
-                                $imgName=GetImgNameArray($arOffer["XML_ID"]);  
-                                $watermark = Array(array("name" => "watermark", "position" => "bottomleft",  "file"=>$_SERVER['DOCUMENT_ROOT']."/img/mmm.png"));  
+                                $imgName=GetImgNameArray($arOffer["XML_ID"]);
+                                $watermark = Array(array("name" => "watermark", "position" => "bottomleft",  "file"=>$_SERVER['DOCUMENT_ROOT']."/img/mmm.png"));
                                 if (!empty($imgName))
-                                {   
-                                    //arshow($imgName); 
+                                {
+                                    //arshow($imgName);
                                     $smallImg = getResizedIMGPath($arOffer["XML_ID"]);
-                                    $bigImg = CFile::ResizeImageGet($imgName["MAXI"], array("width"=>376, "height"=>343), BX_RESIZE_IMAGE_PROPORTIONAL, false, $watermark); 
-                                } 
-                                if($intCnt%$itemsPerLi == 0 && $intCnt>0)                        
-                                    echo '</li><li>';?>    
+                                    $bigImg = CFile::ResizeImageGet($imgName["MAXI"], array("width"=>376, "height"=>343), BX_RESIZE_IMAGE_PROPORTIONAL, false, $watermark);
+                                }
+                                if($intCnt%$itemsPerLi == 0 && $intCnt>0)
+                                    echo '</li><li>';?>
 
-                            <a id="smallOffer<?=$arOffer["ID"]?>" 
-                                href="<?if(empty($bigImg["src"])){echo "/img/no_foto.jpg";}else{echo $bigImg["src"];}?>" 
-                                alt="<?=CFile::GetPath($imgName["MAXI"]["ID"])?>"  
-                                rel="useZoom:'zoom2'" 
-                                <?//активность класса происходит при наличии 1 элемента $intCnt?> 
-                                class="cloud-zoom-gallery sk-product-color--item<?=($intCnt == 0?' sk-product-color--item_active':'' /*or ($arStartOffer["ID"] == $arOffer["ID"]?' sk-product-color--item_active':'')*/)?><?=($intCnt==0?' first':'')?>" 
-                                <?//активность класса происходит при наличии 1 элемента $intCnt?> 
-                                data-code="<?=$arOffer["PROPERTY_ELEMENT_XML_1C_VALUE"]?>" 
-                                data-color="<?=$arOffer["PROPERTY_TSVET_VALUE"]?>" 
-                                data-img="<?if(empty($bigImg["src"])){echo "/img/no_foto.jpg";}else{echo $bigImg["src"];}?>" 
-                                data-offerID="<?=$arOffer["ID"]?>" 
+                            <a id="smallOffer<?=$arOffer["ID"]?>"
+                                href="<?if(empty($bigImg["src"])){echo "/img/no_foto.jpg";}else{echo $bigImg["src"];}?>"
+                                alt="<?=CFile::GetPath($imgName["MAXI"]["ID"])?>"
+                                rel="useZoom:'zoom2'"
+                                <?//активность класса происходит при наличии 1 элемента $intCnt?>
+                                class="cloud-zoom-gallery sk-product-color--item<?=($intCnt == 0?' sk-product-color--item_active':'' /*or ($arStartOffer["ID"] == $arOffer["ID"]?' sk-product-color--item_active':'')*/)?><?=($intCnt==0?' first':'')?>"
+                                <?//активность класса происходит при наличии 1 элемента $intCnt?>
+                                data-code="<?=$arOffer["PROPERTY_ELEMENT_XML_1C_VALUE"]?>"
+                                data-color="<?=$arOffer["PROPERTY_TSVET_VALUE"]?>"
+                                data-img="<?if(empty($bigImg["src"])){echo "/img/no_foto.jpg";}else{echo $bigImg["src"];}?>"
+                                data-offerID="<?=$arOffer["ID"]?>"
                                 data-quantity="<?=$arOffer["~CATALOG_QUANTITY"]?>"
                                 data-price="<?=number_format($arOffer["PRICE"], 0, '.', ' ')?>"<?=($arOffer["PROPERTY_OLD_PRICE_VALUE"]>0?'data-old-price="'.number_format($arOffer["PROPERTY_OLD_PRICE_VALUE"], 0, '.', ' ').'"':'')?>>
                                 <div class="sk-product-color--img"> <img src="<?=(empty($smallImg)?'/img/no_photo_52x52.png':$smallImg)?>" titile="" alt="<?=$strH1orName?>"> </div>
@@ -171,12 +171,12 @@
                             </a><?
                                 $smallImg = '';
                                 $bigImg = '';
-                                $intCnt++; 
+                                $intCnt++;
                             }
                     }?>
                 </li>
             </ul>
-        </div> 
+        </div>
 
     </div><?
 
@@ -205,11 +205,11 @@
     {
         $imgName=GetImgNameArray($arStartOffer["XML_ID"]);  //с.м. result_modifier
 
-        if (!empty($imgName)) 
+        if (!empty($imgName))
         {
-            $bigImg = CFile::ResizeImageGet($imgName["MAXI"], array("width"=>376, "height"=>342), BX_RESIZE_IMAGE_PROPORTIONAL); 
-            //            $bigImg = $imgName['MAXI'];   
-        } 
+            $bigImg = CFile::ResizeImageGet($imgName["MAXI"], array("width"=>376, "height"=>342), BX_RESIZE_IMAGE_PROPORTIONAL);
+            //            $bigImg = $imgName['MAXI'];
+        }
     }
 
     $user_id = $USER->GetID();
@@ -217,10 +217,10 @@
     foreach($arResult["LINKED_ITEMS"] as $arElem)
         if(intval($arElem["QUANTITY"])>0 && intval($arElem["PRICE"])>0) $pr++;
 
-        $arTmpSizeHtml = array(); 
+        $arTmpSizeHtml = array();
     if (!$singleOffer) {
-        foreach($arResult["CS"] as $strSize => $arColor) { 
-            $arTmpSizeHtml[$strSize] = getColorHtml($strSize, $arResult); 
+        foreach($arResult["CS"] as $strSize => $arColor) {
+            $arTmpSizeHtml[$strSize] = getColorHtml($strSize, $arResult);
         }
 
     }
@@ -277,7 +277,7 @@
 
         background-image: url(/bitrix/templates/nmg/img/drop-btn-ico.png);
         background-repeat: no-repeat;
-        background-position: 0 100%;    
+        background-position: 0 100%;
     }
 
     .product_block {
@@ -297,11 +297,11 @@
         margin-bottom: 20px;
     }
     /*Изображение товара*/
-    .product_block_photo .sk-product-img {  
+    .product_block_photo .sk-product-img {
         border: none !important;
         border-bottom: 1px solid #E7E4E8 !important;
         border-radius: 3px !important;
-    } 
+    }
 
     .product_block_photo{
         border: 1px solid #E7E4E8 !important;
@@ -450,7 +450,7 @@
         background: none;
         border: none;
     }
-    .sk-product-price-order a{ 
+    .sk-product-price-order a{
         width: 65px;
         height: 33px;
         background: #714E75  url(/bitrix/templates/nmg/img/arrow.png) no-repeat 10px;
@@ -479,7 +479,7 @@
     .sk-product-color--head-list span {
         font-family: Arial !important;
         color: #322C33 !important;
-        font-weight: normal !important; 
+        font-weight: normal !important;
         font-size: 14px;
     }
     .sk-link-btt {
@@ -492,7 +492,7 @@
 
     }
     .sk-link-btt:after {
-        background-image: none !important; 
+        background-image: none !important;
         height: 30px !important;
         background: #FF8000  url(/bitrix/templates/nmg/img/arrow-select.png) no-repeat 10px !important;
     }
@@ -517,13 +517,13 @@
         height: 98px !important;
     }
     .jcarousel-item .sk-product-color--item_active .sk-product-color--img {
-        border-color: #FF8000 !important;      
+        border-color: #FF8000 !important;
     }
     .jcarousel-item .sk-product-color--item_active .sk-product-color--price {
-        background-color: #FF8000 !important;      
+        background-color: #FF8000 !important;
     }
     .sk-product-color--slider .jcarousel-item .sk-product-color--img {
-        height: 70px !important; 
+        height: 70px !important;
         border-radius: 3px 3px 0px 0px!important;
         border-color: #C0BBC1;
     }
@@ -534,7 +534,7 @@
         background-color: #FF8000;
     }
     .sk-product-color--slider .jcarousel-item .sk-product-color--price {
-        height: 17px !important; 
+        height: 17px !important;
         border-radius: 0px 0px 3px 3px!important;
         background-color: #C0BBC1;
         padding-top: 3px;
@@ -621,7 +621,7 @@
     }
     .sk-sd-delvery--head {
         background: none;
-        padding-left: 0px; 
+        padding-left: 0px;
     }
     .sk-sd-delvery {
         padding-left: 0px;
@@ -656,11 +656,11 @@
         background-color: #E5E1E6;
         margin-top: -161px;
         margin-left: 142px;
-        height: 179px; 
+        height: 179px;
     }
     .sk-small-description tr .sk-sd-options--back {
         padding: 5px 0 5px 30px;
-    }  
+    }
     .sk-small-description tr .sk-sd-options--delveri {
         padding: 5px 0 5px 30px;
     }
@@ -703,7 +703,7 @@
         right: 0px;
         background-image: none !important;
         height: 30px !important;
-        background: #CCC3CD url(/bitrix/templates/nmg/img/arrow-select.png) no-repeat 10px !important; 
+        background: #CCC3CD url(/bitrix/templates/nmg/img/arrow-select.png) no-repeat 10px !important;
     }
     .sk-product-choose--item {
         width: 140px;
@@ -716,7 +716,7 @@
         font-weight: normal;
     }
     .sk-product-choose--item li:first-child a {
-        border-radius: 3px 3px 0px 0px!important;  
+        border-radius: 3px 3px 0px 0px!important;
     }
     .sk-product-choose--item li:nth-last-child(1) a{
         border-radius: 0px 0px 3px 3px!important;
@@ -729,11 +729,11 @@
         font-size: 14px;
         padding-left: 25px;
         background: url(/bitrix/templates/nmg/img/compare.png) no-repeat 0px 100%;
-        cursor: pointer;  
-        height: 15px;             
+        cursor: pointer;
+        height: 15px;
     }
     .product_compare input{
-        display: none;   
+        display: none;
     }
     .product_compare a {
         color: #808080;
@@ -767,7 +767,7 @@
         margin-left: 20px;
         padding-left: 35px;
         font-size: 13px;
-        background: url(/bitrix/templates/nmg/img/battery-quant.png) no-repeat 0px !important; 
+        background: url(/bitrix/templates/nmg/img/battery-quant.png) no-repeat 0px !important;
     }
     .battery-quantity {
         position: absolute;
@@ -785,7 +785,7 @@
     }
     .sk-product-info-bar {
         float: right;
-        font-size: 13px !important; 
+        font-size: 13px !important;
         margin-right: 12px;
     }
     .sk-product-info-bar li:nth-child(2) {
@@ -806,15 +806,15 @@
     }
     .addToBabyList span {
         color: #3C363D !important;
-        background: none !important; 
+        background: none !important;
     }
     .sk-product-price-bar .left_col{
-        float: none; 
+        float: none;
         margin-left: 20px !important;
-        margin-top: 10px;    
+        margin-top: 10px;
     }
     .sk-product-price-bar .left_col .sk-product-price-single {
-        display: inline-block;    
+        display: inline-block;
     }
 
     .sk-product-price-bar .left_col .sk-product-price-single .sk-product-price--cont{
@@ -896,7 +896,7 @@
         width: auto;
         z-index: 1;
         margin-left: 48px;
-        margin-top: -32px; 
+        margin-top: -32px;
         display: none;
         padding-top: 42px;
     }
@@ -905,14 +905,14 @@
         padding-left: 10px;
         height: 20px;
         padding-top: 7px;
-        border: 1px solid #FF8000; 
+        border: 1px solid #FF8000;
         cursor: pointer;
     }
     .sk-product-color-list div:hover {
         border-color: #C0BBC1;
     }
     .sk-product-color-list div:first-child{
-        border-radius: 3px 3px 0px 0px!important;  
+        border-radius: 3px 3px 0px 0px!important;
     }
     .sk-product-color-list div:nth-last-child(1) {
         border-radius: 0px 0px 3px 3px!important;
@@ -928,21 +928,21 @@
     }
     .sk-gallery-holder {
         position: absolute;
-    }   
+    }
     .sk-gallery {
         /*        top: 0px !important;*/
         left: 0px !important;
-    } 
+    }
     .addWishBut {
         color:  #D40000;
         text-decoration: none !important;
     }
     .chassi-title {
         position: absolute;
-        margin-top: 5px; 
+        margin-top: 5px;
         margin-left: 5px;
     }
-    .chassi-select { 
+    .chassi-select {
         margin-left: 130px !important;
     }
     #deleteFromWishList {
@@ -956,10 +956,10 @@
         left: 555px;
         bottom: -27px;
         position: absolute;
-        z-index: 100;  
+        z-index: 100;
         padding: 14px!important;
         border: 1px solid black;
-        border-radius:15px;   
+        border-radius:15px;
     }
     .characteristic_info{
         width: 100% !important;
@@ -998,7 +998,7 @@
         left:-200px;
         top:-200px;
         z-index:5004;
-        display: none;  
+        display: none;
         opacity: 0.5;
         background-color: black;
     }
@@ -1007,14 +1007,14 @@
         font-size: 18px;
         padding-top: 10px;
         text-align: center;
-        padding-bottom: 20px;    
+        padding-bottom: 20px;
     }
     div.afterBuy .contin{
         padding-left: 42px;
-        padding-right: 20px;   
+        padding-right: 20px;
     }
     div.afterBuy .next{
-        
+
     }
     .closeAfterBuy{
         cursor: pointer;
@@ -1025,30 +1025,30 @@
 </style>
 
 <script type="text/javascript">
-    $(function(){ 
-        
+    $(function(){
+
         //Раскрывающийся список дополнительного свойства товара
         $("#sizeLabel").click(function () {
             $(".sk-product-color-list").slideUp();
             if($(".sk-product-choose--item").css("display")=="none"){
                 $(".sk-product-choose--item").slideDown();
             } else {
-                $(".sk-product-choose--item").slideUp(); 
+                $(".sk-product-choose--item").slideUp();
             }
         });
 
         //Раскрывающийся список цвета товара
         $("#colorList").click(function () {
-            $(".sk-product-choose--item").slideUp(); 
+            $(".sk-product-choose--item").slideUp();
             if($(".sk-product-color-list").css("display")=="none"){
                 $(".sk-product-color-list").slideDown();
             } else {
-                $(".sk-product-color-list").slideUp(); 
+                $(".sk-product-color-list").slideUp();
             }
         });
-        //Выбор цвета 
+        //Выбор цвета
         $(".sk-product-color-item").click(function () {
-            $(".sk-product-color-list").slideUp(); 
+            $(".sk-product-color-list").slideUp();
             var id = $(this).attr('id');
             var galId = "#galleryOffer"+id;
             //            alert (galId);
@@ -1057,7 +1057,7 @@
         });
         //Выбор шасси
         $(".chassiItem").click(function () {
-            $(".sk-product-choose--item").slideUp(); 
+            $(".sk-product-choose--item").slideUp();
             var id = $(this).attr('id');
             var galId = "#galleryOffer"+id;
             //            alert (galId);
@@ -1074,8 +1074,8 @@
 <!-- product_block -->
 
 <span itemscope itemtype="http://data-vocabulary.org/Product">
-    <div class="product_block"> 
-        <h1 class="product_name" itemprop="name"><?=$strH1orName?></h1> 
+    <div class="product_block">
+        <h1 class="product_name" itemprop="name"><?=$strH1orName?></h1>
         <div class="infobar_product_name">
             <div class="top-div">
                 <script>
@@ -1084,10 +1084,10 @@
                         $(".product_compare label").click(function(){
                             if($(".product_compare input").prop("checked") == true){
                                 check = true;
-                                $('.product_compare label').css({"background-position": "0 10%"});     
+                                $('.product_compare label').css({"background-position": "0 10%"});
                             }else if(check = true){
-                                check = false;  
-                                $('.product_compare label').css({"background-position": "0 100%"}); 
+                                check = false;
+                                $('.product_compare label').css({"background-position": "0 100%"});
                             }
                         });
                     });
@@ -1100,16 +1100,16 @@
                         {
                         ?><span></span><?
                     }?>
-                </div> 
+                </div>
                 <?
                     //                      arshow($arResult["PROPERTY_1238"]);
-                ?> 
+                ?>
                 <div class="product_code"><span class="s_like">Код:</span> <? if ($arResult["PROPERTY_1238"]["2"]!="") { ?>
                     <span><?=$arResult["PROPERTY_1238"]["2"]?></span>
                     <? } ?>
                 </div>
             </div>
-            <?  //Определение количества товара в наличии 
+            <?  //Определение количества товара в наличии
                 if ($arStartOffer["~CATALOG_QUANTITY"]<=2){
                     $productQuantity = '<span class="low-quant">заканчивается</span>';
                     $img_name='low-battery';
@@ -1123,36 +1123,36 @@
             ?>
             <div id="product-quantity" class="product-quantity"><img class="battery-quantity" src="/bitrix/templates/nmg/img/<?=$img_name?>.png">Наличие: <?=$productQuantity?></div>
             <script>
-                function close_iframe() {     
+                function close_iframe() {
                     window.top.location = document.location.pathname+'#comment';
-                    
+
                 return false;
-                }function close_iframes() {     
+                }function close_iframes() {
                     window.top.location = document.location.pathname;
-                    
+
                 return false;
                 }
                 function close_frame(){
                     window.top.location = '/basket/'
-                }    
+                }
             </script>
-            
-            
+
+
             <div class="infobar-div">
             <?
-                $page = $APPLICATION->GetCurPageParam("", array("pred")); 
+                $page = $APPLICATION->GetCurPageParam("", array("pred"));
                 $strAddon = '<a class="comment grey" href="'.$page.'#comment" onclick="return close_iframe(this);">Написать отзыв</a>';
                 $APPLICATION->IncludeFile(SITE_TEMPLATE_PATH."/includes/raiting.php", array("strAddon" => $strAddon, 'Raiting'=>$arElement["PROPERTIES"]['RATING']["VALUE"]), array("MODE"=>"html"));
              ?>
                 <ul class="sk-product-info-bar">
                     <li>
-                       
+
                     </li>
                     <li>
 
                         <?=showNoindex()?>
-                        <div class="links "> 
-                        
+                        <div class="links ">
+
                         #ADD_TO_WISH_LIST#
                             <!--                        <a href="#" title=""><img src="/bitrix/templates/nmg/img/icon3.png" width="12" height="12" alt="" /><span>К сравнению</span></a>-->
                         </div>
@@ -1162,8 +1162,8 @@
                     </li>
 
                 </ul>
-            </div> 
-        </div>   
+            </div>
+        </div>
         <!-- product_block_photo -->
 
         <div class="product_block_photo">
@@ -1172,12 +1172,12 @@
                 <table>
                     <tr>
                         <td>
-                            
-                                <img src="<?=$bigImg["src"]?>" 
-                                    title="<?=$arResult["NAME"]?>" 
-                                    alt="<?=$strH1orName?>" 
-                                    data-last-img="<?=$bigImg["src"]?>"  
-                                    itemprop="image"/>                 
+
+                                <img src="<?=$bigImg["src"]?>"
+                                    title="<?=$arResult["NAME"]?>"
+                                    alt="<?=$strH1orName?>"
+                                    data-last-img="<?=$bigImg["src"]?>"
+                                    itemprop="image"/>
                         </td>
                     </tr>
                 </table>
@@ -1231,7 +1231,7 @@
                 $arResult["DETAIL_PICTURE"]["ID"])), array('NAME'=>'Социальные кнопочки', 'ACTIVE'=>false)); ?></div>
 
         </div>
-        <!-- EDN product_block_photo --> 
+        <!-- EDN product_block_photo -->
         <!-- product_block_info -->
         <div class="product_block_info">
 
@@ -1264,8 +1264,8 @@
                                     } else {
 
                                     ?>
-                                    
-                                    
+
+
                                     <div class="sk-product-price-one"><?=($arResult["COLORS_HAS_SAME_PRICE"]?'':'от ')?><?=number_format($arStartOffer["PRICE"], 0, '.', ' ')?>  <span class="rouble">a</span>
                                         <?
 
@@ -1278,7 +1278,7 @@
                                             ?><?
                                             }
                                             */
-                                       
+
 
                                     ?></div><?
                                     }
@@ -1290,9 +1290,9 @@
                         </div>
                         <div class="sk-product-price-count">
 
-                            <input type="text" name="<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>" value="1" id="<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>" readonly> 
+                            <input type="text" name="<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>" value="1" id="<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>" readonly>
                             <a class="count_arrow dec" href="javascript:void(0)" onclick="if (BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value &gt; 1) BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value--;">&#9660;</a>
-                            <a class="count_arrow inc" href="javascript:void(0)" onclick="BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value++;">&#9650;</a> 
+                            <a class="count_arrow inc" href="javascript:void(0)" onclick="BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value++;">&#9650;</a>
                             <!--<input type="submit" name="<?echo $arParams["ACTION_VARIABLE"]."ADD2BASKET"?>" value="шт. В корзину" class="add_b_item">-->
                         </div>
                         <div class="sk-product-price-buy"><a onclick="_gaq.push(['_trackEvent', 'Button', 'buy', 'card']);after_buy();post_func();" href="#" class="addToCartButton">Купить</a></div>
@@ -1335,8 +1335,8 @@
                         </div>
                     </div>
                     <div class="sk-product-price-count">
-                        <input type="text" name="<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>" value="1" id="<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>" readonly> 
-                        <a class="count_arrow inc" href="javascript:void(0)" onclick="BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value++;">&#9650;</a> 
+                        <input type="text" name="<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>" value="1" id="<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>" readonly>
+                        <a class="count_arrow inc" href="javascript:void(0)" onclick="BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value++;">&#9650;</a>
                         <a class="count_arrow dec" href="javascript:void(0)" onclick="if (BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value &gt; 1) BX('<?echo $arParams["PRODUCT_QUANTITY_VARIABLE"]?>').value--;">&#9660;</a>
 
                         <!--<input type="submit" name="<?echo $arParams["ACTION_VARIABLE"]."ADD2BASKET"?>" value="шт. В корзину" class="add_b_item">-->
@@ -1354,10 +1354,10 @@
                         }
                     ?>
                 </div>
-                <div class="single-price-deliter"></div>  
-                <?//Скрываем поле если стандарт 
+                <div class="single-price-deliter"></div>
+                <?//Скрываем поле если стандарт
                     if($arStartOffer["PROPERTY_TSVET_VALUE"]!="Стандарт") {
-                    ?>   
+                    ?>
                     <div class="single-price-color">Цвет: <span><?=$arStartOffer["PROPERTY_TSVET_VALUE"]?></span></div>
                     <!--<div class="sk-product-price-credit"><a onclick="_gaq.push(['_trackEvent', 'Button', 'buy_credit', 'card']);" href="#" title="Купить в кредит" class="sk-dotted addToCartButton" >В кредит - <span id="creditprice"></span> р.</a></div>-->
                     <? } ?>
@@ -1391,8 +1391,8 @@
                                     if ($strSize!="Стандарт") {
                                         $strTmp .= '
                                         <li'.($arResult["SIZE_AVAIL"][$strSize] == "Y"?'':' sizeNotAvailable').($strSize == $arStartOffer["PROPERTY_RAZMER_VALUE"]?' class="sk-product-choose--item_active"':'').' id="lisize_'.md5($strSize).'"><a href="#" title="'.$strSize.'" data-color="'.$strSize.'">'.$strSize.'</a></li>';
-                                    } 
-                                }  
+                                    }
+                                }
                         }?>
 
                         <?if (!$onlyStandardSize && empty($arResult["CS"]["CHASSI"]) ){?>
@@ -1412,9 +1412,9 @@
                                     <span class="s_like chassi-title"><?=(strlen($arResult["PROPERTIES"]["CH_VYBIRAEM"]["VALUE"])>0 ? 'Выберите '.$arResult["PROPERTIES"]["CH_VYBIRAEM"]["VALUE"].':':'Выберите шасси:')?></span> <span class="chassi-select" id="sizeLabel"><?=$arStartOffer["PROPERTY_SHASSI_VALUE"]?></span>
                                 </div>
                                 <ul class="sk-product-choose--item" id="sk-product-choose--item">
-                                    <? foreach ($arResult["CS"]["CHASSI"] as $strChassi => $arChassi){ 
+                                    <? foreach ($arResult["CS"]["CHASSI"] as $strChassi => $arChassi){
                                             foreach ($arChassi as $strColor => $arColor) {
-                                            ?> 
+                                            ?>
 
                                             <li ><a class="chassiItem" id="<?=$arColor["ID"]?>"><?=$strChassi.' ('.$strColor.')'?></a></li>
                                             <?} }
@@ -1430,8 +1430,8 @@
                         <div class="sk-supply">Официальная поставка</div>
                         <?$paged = $APPLICATION->GetCurPageParam("", array("pred","comment"));?>
                         <div class="sk-question">Задать вопрос</div>
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -1460,12 +1460,12 @@
                                     <!--<li><span class="s_like">Гарантия:</span> <?=$arResult["DISPLAY_PROPERTIES"]["GARANTIYA_PROIZVODITELYA"]["DISPLAY_VALUE"]?></li>        -->
                                     <?
                                 }?>
-                                <li><a id="show_char" href="javascript:void(0)" title="Все характеристики" class="sk-dotted">Все характеристики</a></li> 
-                                <li><a href="<?=$paged?>" onclick="return close_iframes(this);" class="sk-dotted">Подробнее о товаре</a></li>                    
+                                <li><a id="show_char" href="javascript:void(0)" title="Все характеристики" class="sk-dotted">Все характеристики</a></li>
+                                <li><a href="<?=$paged?>" onclick="return close_iframes(this);" class="sk-dotted">Подробнее о товаре</a></li>
                             </ul>
                             <!--                            <div class="sk-sd-features-deliter" ></div>-->
                         </td>
-                        
+
                         <td>
                             <ul class="sk-sd-delvery">
                                 <li>
@@ -1514,16 +1514,16 @@
                                     //echo $intLocationID; arshow($arResult["PROPERTIES"]["SBOR"]);
                                 ?>
                                 <?=$strDeliveryData.$strConstruct?>
-                                <li> 
-                                    <a id="deliveryShowLink" 
-                                        data-id="<?=$arResult["ID"]?>" 
-                                        href="#" 
-                                        title="Доставка по Москве и Подмосковью" 
-                                        class="sk-popup-open sk-dotted" 
+                                <li>
+                                    <a id="deliveryShowLink"
+                                        data-id="<?=$arResult["ID"]?>"
+                                        href="#"
+                                        title="Доставка по Москве и Подмосковью"
+                                        class="sk-popup-open sk-dotted"
                                         data-popup-name="<?=(in_array($intLocationID, array(1732, 2399))?
-                                            'delivery-moskow':'delivery-region')?>" >О доставке<?=($arResult["PROPERTIES"]["SBOR"]["VALUE"]>0 && 
+                                            'delivery-moskow':'delivery-region')?>" >О доставке<?=($arResult["PROPERTIES"]["SBOR"]["VALUE"]>0 &&
                                             in_array($intLocationID, array(1732, 2399))?' и сборке':'')?>
-                                    </a> 
+                                    </a>
                                 </li>
                             </ul>
                             <div class="sk-sd-delvery-deliter"></div>
@@ -1542,13 +1542,13 @@
 
         </div>
         <!-- END product_block_info -->
-    
-<!--------------------------------------блок подробных характеристик-------------------------------------------------------------------------------------------------------->       
-       <div class="characteristic_block char_popup" id="characteristic_block" style="display: none;">     
+
+<!--------------------------------------блок подробных характеристик-------------------------------------------------------------------------------------------------------->
+       <div class="characteristic_block char_popup" id="characteristic_block" style="display: none;">
         <!-- Tabs -->
         <div class="sk-tab">
             <img src="/bitrix/templates/nmg/img/close_bg.png" id='char_close'>
-            <?      
+            <?
                 $strProps = '';
                 if(!empty($arResult["PROPERTIES"]["CML2_ARTICLE"]["VALUE"]))
                 {
@@ -1560,55 +1560,55 @@
                     $strProps .= '<li><div class="oh4">Страна производителя</div><p>'.$arResult["PRODUCER"]["PROPERTY_COUNTRY_PRODUCER_NAME"].'</p></li>';
                 unset($arResult["PROPERTIES"]["CH_STRANA_1"]);
                 if(strlen($arResult["PRODUCER"]["PROPERTY_COUNTRY_ITEM_NAME"])>0) $strProps .= '<li><div class="oh4">Страна производства</div><p>'.$arResult["PRODUCER"]["PROPERTY_COUNTRY_ITEM_NAME"].'</p></li>';
-                unset($arResult["PROPERTIES"]["CH_STRANA"]);    
-                if(strlen($arResult["PRODUCER"]["PROPERTY_WARRANTY_VALUE"])>0) $strProps .= '<li><div class="oh4">Гарантия</div><p>'.$arResult["PRODUCER"]["PROPERTY_WARRANTY_VALUE"].'</p></li>';            
-                $strOtherPropsHidden = '';     
+                unset($arResult["PROPERTIES"]["CH_STRANA"]);
+                if(strlen($arResult["PRODUCER"]["PROPERTY_WARRANTY_VALUE"])>0) $strProps .= '<li><div class="oh4">Гарантия</div><p>'.$arResult["PRODUCER"]["PROPERTY_WARRANTY_VALUE"].'</p></li>';
+                $strOtherPropsHidden = '';
                 foreach($arResult["DISPLAY_PROPERTIES"] as $key => $arProp)
                 {
                     if($arProp["MULTIPLE"] != "Y")
-                        $arTmp = CIBlockFormatProperties::GetDisplayValue($arResult, $arResult["PROPERTIES"][$key], "news_out");         
+                        $arTmp = CIBlockFormatProperties::GetDisplayValue($arResult, $arResult["PROPERTIES"][$key], "news_out");
                     if (($arTmp["PROPERTY_TYPE"]=='S' || $arTmp["PROPERTY_TYPE"]=='N' || $arTmp["PROPERTY_TYPE"]=='L') && ($arTmp["CODE"]!='UPDATE_HASH' && $arTmp["CODE"]!='PRICE' && $arTmp["CODE"]!='GARANTIYA_PROIZVODITELYA' && $arTmp["CODE"]!='PHASH' && $arTmp["CODE"]!='GARANTIYA_PROIZVODITELYA' && $arTmp["CODE"]!='WISH_RATING' && $arTmp["CODE"]!='CML2_ARTICLE' && $arTmp["CODE"]!='title' && $arTmp["CODE"]!='SALES_RATING' && $arTmp["CODE"]!='CML2_BASE_UNIT' && $arTmp["CODE"]!='SERVICE_QSORT' && $arTmp["CODE"]!='description' && $arTmp["CODE"]!='CATALOG_AVAILABLE' && $arTmp["CODE"]!='QU_ACTIVE' && $arTmp["CODE"]!='NEW' && $arTmp["CODE"]!='SALE_RATING' && $arTmp["CODE"]!='RATING' && !strstr($arTmp["CODE"], "SEO")))
                     {
-                        $arTmp["DISPLAY_VALUE"] = prepareMultilineText($arTmp["DISPLAY_VALUE"]);       
-                        $strProps .= '<li><div class="oh4">'.$arProp["NAME"].'</div>    <p>'.$arTmp["DISPLAY_VALUE"].'</p></li>';    
+                        $arTmp["DISPLAY_VALUE"] = prepareMultilineText($arTmp["DISPLAY_VALUE"]);
+                        $strProps .= '<li><div class="oh4">'.$arProp["NAME"].'</div>    <p>'.$arTmp["DISPLAY_VALUE"].'</p></li>';
                     }
                 }
-            ?>  
-                <div  class="sk-tab--item" style="display: block;">       
-                    <div class="characteristic_info">      
+            ?>
+                <div  class="sk-tab--item" style="display: block;">
+                    <div class="characteristic_info">
                             <div class="characteristic_info-head">Типовые характеристики</div>
                             <ul class="sk-characteristic-list">
                                 <?=$strProps?>
-                            </ul>     
-                    </div>   
+                            </ul>
+                    </div>
                 </div>
         </div>
     </div>
-<!--------------------------------------КОНЕЦ--------блок подробных характеристик-------------------------------------------------------------------------------------------------------->       
-  
+<!--------------------------------------КОНЕЦ--------блок подробных характеристик-------------------------------------------------------------------------------------------------------->
+
     <script>
 //------------------------------------появление блока характеристик---------------------------------------------------
-        $('#show_char').click(function(){             
-           $("#characteristic_block").toggle();   
+        $('#show_char').click(function(){
+           $("#characteristic_block").toggle();
         });
-        $('#char_close').click(function(){             
-           $("#characteristic_block").toggle();   
-        });  
-//----------------------------------------------------------------------------------------------------------------------                                       
-    </script>   
-       
-       
-       
-       
-       
-        
+        $('#char_close').click(function(){
+           $("#characteristic_block").toggle();
+        });
+//----------------------------------------------------------------------------------------------------------------------
+    </script>
+
+
+
+
+
+
         <div class="clear"></div>
-        <?   
+        <?
             global $ar_quantity;
             foreach($arResult["OFFERS"] as $arPrices){
                 global $prises;
                 if($arPrices["CATALOG_PRICE_2"] > 0){
-                    $prises = $arPrices["CATALOG_PRICE_2"];   
+                    $prises = $arPrices["CATALOG_PRICE_2"];
                 }
             }
             // arshow($prises);
@@ -1648,7 +1648,7 @@
         }?>
         <!-- END Попап -->
         <!-- Галерея -->
- 
+
         <!-- END Галерея -->
     </div>
     <!--noindex-->
@@ -1694,29 +1694,29 @@
         arDelivery[<?=$intCnt?>][2] = <?=$arDelivery["PRICE"]?>;
         <?
     }?>
-</script>  
-<?     
-/*    $res = CCatalogSKU::getOffersList(array($arResult['ID']),$arResult['IBLOCK_ID']);          
+</script>
+<?
+/*    $res = CCatalogSKU::getOffersList(array($arResult['ID']),$arResult['IBLOCK_ID']);
     foreach($res[$arResult['ID']] as $arTorgPred){
         //arshow($arTorgPred);
         $dbBasketItems = CSaleBasket::GetList(array("NAME" => "ASC"),array('USER_ID'=>$user_id, 'ORDER_ID'=>'NULL','PRODUCT_ID'=>$arTorgPred['ID']),false,false,array("ID","QUANTITY",'PRODUCT_ID'));
         while ($arItems = $dbBasketItems->Fetch()){
             ?>
-             <script>         
+             <script>
                 $('.addToCartButton').html('В корзине');
-                $('.sk-product-price-buy a').css({'background':'#C0BBC1','padding-left':'38px'});    
-                
+                $('.sk-product-price-buy a').css({'background':'#C0BBC1','padding-left':'38px'});
+
             </script>
         <?
-        }     
+        }
      }*/?>
 <script>
 function after_buy(){
     $('.addToCartButton').html('В корзине');
-    $('.sk-product-price-buy a').css({'background':'#C0BBC1','padding-left':'38px'});     
-    $('.afterBuy').show();    
+    $('.sk-product-price-buy a').css({'background':'#C0BBC1','padding-left':'38px'});
+    $('.afterBuy').show();
     $('.overla').show();
-                           
+
 };
 $('.contin').click(function(){
     $('.afterBuy').hide();

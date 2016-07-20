@@ -44,7 +44,6 @@
         "MODULE" => "catalog",
         "USER_ID" => $rsUsers["ID"],
     );
-
     $arResult["ORDER_ID"] = (int)CSaleOrder::DoSaveOrder($arFields_props, $arFields, 0, $arResult["ERROR"]);//сохраняем все параметры корзины
 
     $arOrder = CSaleOrder::GetByID($arResult["ORDER_ID"]);      //получем id сохраненного заказа
@@ -71,7 +70,6 @@
 
     $arSend = array("LINK"=>'http://'.$_SERVER["HTTP_HOST"].'/basket/order/?ORDER_ID='.$ORDER_ID, "NAME" => utf8win1251($name), "CODE"=>$phone, "ACTIVE_FROM" => date("d.m.Y H:i:s"), "XML_ID"=>$email, "PREVIEW_TEXT" => utf8win1251($comments));
     CEvent::Send("QUICK_ORDER", SITE_ID, $arSend);
-
     $USER->Logout();
 
 ?>
