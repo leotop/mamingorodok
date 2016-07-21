@@ -138,9 +138,9 @@ if(CModule::IncludeModule("sale") && CModule::IncludeModule("catalog"))    // по
             $arFields_props = array("ORDER_ID" => $arResult["ORDER_ID"], "ORDER_PROPS_ID" => 7, "NAME" => "Комментарий", "CODE" => "COMMENT", "VALUE" => utf8win1251($comments));
             CSaleOrderPropsValue::Add($arFields_props);
 
-                $aar_items = CSaleBasket::OrderBasket( $arOrder, $_SESSION["SALE_USER_ID"], SITE_ID);
+            $aar_items = CSaleBasket::OrderBasket( $arOrder, $_SESSION["SALE_USER_ID"], SITE_ID);
 
-                CSaleOrder::Update($arResult["ORDER_ID"], $arFields);
+            CSaleOrder::Update($arResult["ORDER_ID"], $arFields);
         }
         if($user_new){
             $USER->Logout();

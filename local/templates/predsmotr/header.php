@@ -13,8 +13,8 @@
     {
         if (CModule::IncludeModule("blog"))
         {
-            $arBlog = CBlog::GetByOwnerID($user_id); 
-            if(is_array($arBlog)) 
+            $arBlog = CBlog::GetByOwnerID($user_id);
+            if(is_array($arBlog))
 
                 $user_blog = $arBlog["URL"];
         }
@@ -32,7 +32,7 @@
     } else {
     ?>
     <!DOCTYPE html>
-    <html><?	
+    <html><?
     }
 ?>
 <head>
@@ -121,8 +121,8 @@
     <script type="text/javascript" src="http://userapi.com/js/api/openapi.js?32"></script>
     <script type="text/javascript">
         VK.init({apiId: 2400096, onlyWidgets: true});
-    </script>  
-                         
+    </script>
+
     <script type="text/javascript">
 
         var _gaq = _gaq || [];
@@ -132,7 +132,7 @@
         _gaq.push(['_addOrganic','blogs.yandex.ru', 'text', true]);
         _gaq.push(['_addOrganic','go.mail.ru', 'q']);
         _gaq.push(['_addOrganic','nova.rambler.ru', 'query']);
-        _gaq.push(['_addOrganic','nigma.ru', 's']); 
+        _gaq.push(['_addOrganic','nigma.ru', 's']);
         _gaq.push(['_addOrganic','webalta.ru', 'q']);
         _gaq.push(['_addOrganic','aport.ru', 'r']);
         _gaq.push(['_addOrganic','poisk.ru', 'text']);
@@ -141,7 +141,7 @@
         _gaq.push(['_addOrganic','quintura.ru', 'request']);
         _gaq.push(['_addOrganic','search.qip.ru', 'query']);
         _gaq.push(['_addOrganic','gde.ru', 'keywords']);
-        _gaq.push(['_addOrganic','ru.yahoo.com', 'p']); 
+        _gaq.push(['_addOrganic','ru.yahoo.com', 'p']);
         _gaq.push(['_trackPageview']);
         setTimeout('_gaq.push([\'_trackEvent\', \'NoBounce\', \'Over 10 seconds\'])',10000);
 
@@ -165,7 +165,7 @@
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     var yaParams = {/*«десь параметры визита*/};
-</script>  
+</script>
 
 <script type="text/javascript">
     (function (d, w, c) {
@@ -188,7 +188,7 @@
     })(document, window, "yandex_metrika_callbacks");
 </script>
 <noscript><div><img src="//mc.yandex.ru/watch/8129698" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter --> 
+<!-- /Yandex.Metrika counter -->
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
 
 <?
@@ -207,7 +207,7 @@
                             $('.sk-action--credit').fadeOut();
                             $('.sk-action--delivery').fadeIn();
                         }
-                        }, 3000)		
+                        }, 3000)
                 }
             })();
             (function() {
@@ -215,10 +215,10 @@
                 $('.sk-sticky-bar--minimiz a').bind('click', function() {
                     if ($('.sk-sticky-bar').hasClass('sk-sticky-bar_min')) {
                         $('.sk-sticky-bar').removeClass('sk-sticky-bar_min');
-                        $(this).parent().removeClass('sk-sticky-bar--minimiz_off');		
+                        $(this).parent().removeClass('sk-sticky-bar--minimiz_off');
                     } else {
-                        $('.sk-sticky-bar').addClass('sk-sticky-bar_min');		
-                        $(this).parent().addClass('sk-sticky-bar--minimiz_off');	
+                        $('.sk-sticky-bar').addClass('sk-sticky-bar_min');
+                        $(this).parent().addClass('sk-sticky-bar--minimiz_off');
                     }
 
                     return false;
@@ -282,7 +282,7 @@
                 <div class="sk-city-select-btn">
                     <a href="#" onclick="$('#skLocationConfirm').hide(); return false;">ƒа</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <a class="sk-popup-open" onclick="$('#skLocationConfirm').hide();" data-popup-name="city-sel" href="#">¬ыбрать другой</a>
-                </div>	
+                </div>
             </div>
             <script type="text/javascript">
                 $(document).ready(function() {
@@ -293,12 +293,12 @@
             </script><?
         } ?>
         <div class="popup_block" id="city-sel" data-popup-head="”кажите ваш город" style="display: none;"></div>
-        
+
         <!-- new header -->
         <? } else {?>
         <!-- Old header -->
 
-       
+
 
         <?}?>
     <!-- Old header --><?
@@ -316,7 +316,7 @@
 
 
     <?=showNoindex()?>
-   
+
     <?=showNoindex(false)?>
     <?
     }
@@ -358,13 +358,13 @@
     if(!$NO_BROAD)
     {
         if($showSravn)
-        {?>                                                                                                
+        {?>
         <div class="rel" style="width:100%; height:1px; z-index:100;">
             <div class="sravn" id="sravn">
                 <?if(count($_SESSION["CATALOG_COMPARE_LIST"][CATALOG_IBLOCK_ID]["ITEMS"])>2):?>
                     <div class="add-to-compare-list">
-                        <a href="/catalog/compare/">сравнение товаров:</a> 
-                        <span><?=count($_SESSION["CATALOG_COMPARE_LIST"][CATALOG_IBLOCK_ID]["ITEMS"])?></span> 
+                        <a href="/catalog/compare/">сравнение товаров:</a>
+                        <span><?=count($_SESSION["CATALOG_COMPARE_LIST"][CATALOG_IBLOCK_ID]["ITEMS"])?></span>
                         <a id="clearCompear" href="#">очистить</a>
                     </div>
                     <?endif;?>
@@ -382,12 +382,12 @@
     if(preg_match("/\/catalog\/.+\/.+\//i", $APPLICATION->GetCurDir())) $HIDE_LEFT_COLUMN = true;
 
     if((!$HIDE_LEFT_COLUMN || ($HIDE_LEFT_COLUMN && $ignoreHideLeftColumn)) || ERROR_404 == "Y" )
-    {?>                      
-    <td class="left_sitebar">                  
+    {?>
+    <td class="left_sitebar">
         <div class="left_column<?=($IS_MAIN?'':'1')?>"><?
-               
 
-                
+
+
 
 
                 if($IS_MAIN || strpos($APPLICATION -> GetCurDir(), "/tools/search/") === 0 || preg_match("/\/community\/user\/\d+\//", $APPLICATION -> GetCurDir()))
@@ -395,7 +395,7 @@
 
                 ?><?
                 }
-       
+
                 if(strpos($_SERVER["REQUEST_URI"], "catalog") !== false && ERROR_404 != "Y")
                 {
                     $catal = true;
@@ -404,8 +404,8 @@
 
                     $rsS = CIBlockSection::GetList(Array(), array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "CODE"=>$arURL[2], "ACTIVE"=>"Y"), false);
                     if($arS = $rsS -> GetNext())
-                        $current_section_id = $arS["ID"]; 
-                    else $current_section_id = -1;  
+                        $current_section_id = $arS["ID"];
+                    else $current_section_id = -1;
 
                     if (count($arURL) > 1 /*&& count($arURL) < 5*/) $SHOW_FILTER = true;
 
@@ -420,7 +420,7 @@
 
                     if(count($arURL) > 4)
                     {
-                        $IS_DETAIL = true;             
+                        $IS_DETAIL = true;
                         $IS_PARENT_SECTION = false;
                     }
 
@@ -456,7 +456,7 @@
                 } else {
                     if ($SHOW_FILTER)
                     {
-                        if(true) {  
+                        if(true) {
 
                             echo '<div id="catalogFilter" data-template="left-filter" data-section="'.
                             intval($current_section_id).'" data-query="ajax=Y'.
@@ -517,7 +517,7 @@
     <td>&nbsp;</td><?
 }?>
 <td class="right_sitebar"><?
-    
+
 
     $APPLICATION->ShowProperty('h1Html');
 
@@ -526,7 +526,7 @@
 
     if(false)
     {
-    ?>   
+    ?>
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
     <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -544,9 +544,9 @@
             if($obCache->StartDataCache($CACHE_TIME, $CACHE_ID, $CACHE_DIR))
             {
                 if (!CModule::IncludeModule("blog"))return false;
-                $arBlog = CBlog::GetByOwnerID($user_id); 
+                $arBlog = CBlog::GetByOwnerID($user_id);
                 //print_R($arBlog);
-                if(is_array($arBlog)) 
+                if(is_array($arBlog))
 
                     $user_blog = $arBlog["URL"];
 
@@ -643,11 +643,11 @@
             <a class="logo" href="/"></a>
             <?endif?>
         <?if($IS_BASKET):?>
-           
+
             <?else:?>
-            
+
             <?endif;?>
-        
+
 
         <?if(!$IS_BASKET):?>
             <div class="header_right">
@@ -664,13 +664,13 @@
             <?endif;?>
     </div>
     <div class="clear"></div>
-    
+
     <?if(!$IS_BASKET):?>
 
-       
+
         <?endif;?>
     <?if(!$IS_BASKET):?>
-       
+
         <?endif;?>
     <? if(!$IS_MAIN):?>
         <div id="WorkArea">
@@ -689,8 +689,8 @@
                     <div class="sravn" id="sravn">
                         <?if(count($_SESSION["CATALOG_COMPARE_LIST"][CATALOG_IBLOCK_ID]["ITEMS"])>2):?>
                             <div class="add-to-compare-list">
-                                <a href="/catalog/compare/">сравнение товаров:</a> 
-                                <span><?=count($_SESSION["CATALOG_COMPARE_LIST"][CATALOG_IBLOCK_ID]["ITEMS"])?></span> 
+                                <a href="/catalog/compare/">сравнение товаров:</a>
+                                <span><?=count($_SESSION["CATALOG_COMPARE_LIST"][CATALOG_IBLOCK_ID]["ITEMS"])?></span>
                                 <a id="clearCompear" href="#">очистить</a>
                             </div>
                             <?endif;?>
@@ -727,7 +727,7 @@
                 $catal = true;
                 CModule::IncludeModule('iblock');
                 $arURL = explode('/', $_SERVER["REDIRECT_URL"]);
-                $current_section_id = $arURL[2];      
+                $current_section_id = $arURL[2];
 
 
                 if (count($arURL) > 1 && count($arURL) < 5)
@@ -743,7 +743,7 @@
                     $res = CIBlockSection::GetList(array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "SECTION_ID" => $current_section_id), false, array());
                     if($arSect = $res->GetNext())
                     {
-                        $IS_PARENT_SECTION = true;    
+                        $IS_PARENT_SECTION = true;
                     }
                 }
 
@@ -759,10 +759,10 @@
             }
         ?>
 
-     
+
         <?endif?>
     <?if (!$IS_DETAIL):?>
-        <div id="CatalogCenterColumn" class="LExist<?if ($HIDE_LEFT_COLUMN):?> wide<?endif?>">   
+        <div id="CatalogCenterColumn" class="LExist<?if ($HIDE_LEFT_COLUMN):?> wide<?endif?>">
         <?endif?><?
     }
 

@@ -1,22 +1,14 @@
 <? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-  
-//echo "test";
-//arshow($_REQUEST); die();
-
-$filter = substr_count($_SERVER["REQUEST_URI"],"/filter/");
+$filter = substr_count($_SERVER["REQUEST_URI"],"/filter/") || isset($_GET['ajax']);
 
 if($filter) // см. individ.catalog.filter
-{   //arshow($_REQUEST);
-    //echo "test1";  
-    //arshow($_REQUEST);
+{   
 	if($filter > 0)
     {
-        //echo "test2";    
 		include("section.php");
     }
 	else 
     {
-        //echo "test3";
         include($_SERVER["DOCUMENT_ROOT"].'/404.php');   
     }
 
@@ -51,8 +43,7 @@ if($filter) // см. individ.catalog.filter
 		"CACHE_FILTER"=>"Y",
 		"CACHE_GROUPS" => "Y",
 		"DISPLAY_COMPARE" => "N",
-		"PRICE_CODE" => array(
-		),
+		"PRICE_CODE" => $arParams["PRICE_CODE"],
 		"USE_PRICE_COUNT" => "N",
 		"SHOW_PRICE_COUNT" => "1",
 		"PRICE_VAT_INCLUDE" => "Y",
@@ -92,8 +83,7 @@ if($filter) // см. individ.catalog.filter
 	"CACHE_GROUPS" => "Y",
 	"CACHE_FILTER"=>"Y",
 	"DISPLAY_COMPARE" => "N",
-	"PRICE_CODE" => array(
-	),
+	"PRICE_CODE" => $arParams["PRICE_CODE"],
 	"USE_PRICE_COUNT" => "N",
 	"SHOW_PRICE_COUNT" => "1",
 	"PRICE_VAT_INCLUDE" => "Y",
@@ -133,8 +123,7 @@ if($filter) // см. individ.catalog.filter
 	"CACHE_GROUPS" => "Y",
 	"CACHE_FILTER"=>"Y",
 	"DISPLAY_COMPARE" => "N",
-	"PRICE_CODE" => array(
-	),
+	"PRICE_CODE" => $arParams["PRICE_CODE"],
 	"USE_PRICE_COUNT" => "N",
 	"SHOW_PRICE_COUNT" => "1",
 	"PRICE_VAT_INCLUDE" => "Y",
@@ -174,8 +163,7 @@ if($filter) // см. individ.catalog.filter
 	"CACHE_GROUPS" => "Y",
 	"CACHE_FILTER"=>"Y",
 	"DISPLAY_COMPARE" => "N",
-	"PRICE_CODE" => array(
-	),
+	"PRICE_CODE" => $arParams["PRICE_CODE"],
 	"USE_PRICE_COUNT" => "N",
 	"SHOW_PRICE_COUNT" => "1",
 	"PRICE_VAT_INCLUDE" => "Y",
@@ -185,4 +173,6 @@ if($filter) // см. individ.catalog.filter
 	),
 	false
 );
+
+
 }?>
