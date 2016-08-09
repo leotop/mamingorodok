@@ -90,13 +90,6 @@ $APPLICATION->SetTitle("Блог");
 		"DO_NOT_SHOW_MENU" => "N",
 		"COMPONENT_TEMPLATE" => "userBlog",
 		"USE_SOCNET" => "N",
-		"PATH_TO_BLOG" => "/club/user/#user_id#/blog/",
-		"PATH_TO_POST" => "/club/user/#user_id#/blog/#post_id#/",
-		"PATH_TO_GROUP_BLOG" => "/club/group/#group_id#/blog/",
-		"PATH_TO_GROUP_BLOG_POST" => "/club/group/#group_id#/blog/#post_id#/",
-		"PATH_TO_USER" => "/club/user/#user_id#/",
-		"PATH_TO_BLOG_CATEGORY" => "/club/user/#user_id#/blog/?category=#category_id#",
-		"PATH_TO_GROUP_BLOG_CATEGORY" => "/club/group/#group_id#/blog/?category=#category_id#",
 		"SEF_URL_TEMPLATES" => array(
 			"index" => "index.php",
 			"group" => "top-authors/",
