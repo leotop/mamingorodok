@@ -53,7 +53,7 @@ $APPLICATION->IncludeComponent(
 		"SHOW_RATING" => "Y",
 		"COMMENT_ALLOW_VIDEO" => "N",
 		"SHOW_SPAM" => "N",
-		"NO_URL_IN_COMMENTS" => "",
+		"NO_URL_IN_COMMENTS" => "L",
 		"NO_URL_IN_COMMENTS_AUTHORITY" => "",
 		"ALLOW_POST_CODE" => "Y",
 		"USE_GOOGLE_CODE" => "Y",

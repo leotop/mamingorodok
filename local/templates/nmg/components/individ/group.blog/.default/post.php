@@ -81,7 +81,7 @@ $APPLICATION->IncludeComponent(
 	
 CModule::IncludeModule('iblock');
 $APPLICATION->IncludeComponent(
-		"individ:blog.post.comment",
+		"bitrix:blog.post.comment",
 		"comments", 
 		Array(
 				"BLOG_VAR"		=> $arResult["ALIASES"]["blog"],
