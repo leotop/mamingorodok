@@ -1,5 +1,5 @@
 <?
-
+    CModule::IncludeModule("forum");
     AddEventHandler('main', 'OnEpilog', array('jquery', 'loadJquery'));
     //подключение jquery в админке
     class jquery {
@@ -2287,7 +2287,7 @@
             }
         }
 
-        function onAfterMessageAddHandler($id,&$arFields)
+        function onAfterMessageAddHandler($id,$arFields)
         {
             // print_R();
             // echo "<br><BR>";
@@ -2305,7 +2305,6 @@
                     $arBlog = CBlog::GetByOwnerID($user);
                     if(is_array($arBlog)){
 
-
                         $arResult = array();
                         $arResult["USER_ID"] = $user;
                         $arResult["ELEMENT_ID"] = $arFields["PARAM2"];
@@ -2316,8 +2315,7 @@
 
 
                         $arResult = serialize($arResult);
-
-                        $arFields = array(
+                        $ar_fields = array(
                             "TITLE" => "Add Comment #".$id,
                             "DETAIL_TEXT" => $arResult,
                             "BLOG_ID" => $arBlog["ID"],
@@ -2331,7 +2329,6 @@
                             //"PERMS_C" => $PERMS_C
                         );
 
-                        $newID = CBlogPost::Add($arFields);
                         if(intval($newID)>0){
                             $typeClass->ISetType($newID,ADD_COMMENT_TYPE);
                         }
@@ -2693,7 +2690,7 @@
                 'IBLOCK_ID' => $mxResult['IBLOCK_ID'], //id инфоблока торг предлож
                 'PROPERTY_'.$mxResult['SKU_PROPERTY_ID'] => $elem_id,   //внешний ключ товара
                 ">CATALOG_PRICE_".PRICE_CODE => 0, //розничная цена не пустая
-                ">CATALOG_QUANTITY" => 0    // количетво товаров больше 0
+                ">CATALOG_QUANTITY" => 2    // количетво товаров больше 0
             );
             $rsOffers = CIBlockElement::GetList(
                 array("CATALOG_PRICE_".PRICE_CODE => "asc"),  //для минимальной цены
@@ -2719,7 +2716,7 @@
             return null;
         }
     }
-
+    
 
     /****
     * функция для обновления у товара свойства "доступен в каталоге" (CATALOG_AVAILABLE)

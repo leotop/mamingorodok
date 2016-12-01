@@ -103,16 +103,16 @@ $arUrlRewrite = array(
 		"PATH" => "/test_catalog.php",
 	),
 	array(
-		"CONDITION" => "#^/forum/#",
-		"RULE" => "",
-		"ID" => "bitrix:forum",
-		"PATH" => "/forum/index.php",
-	),
-	array(
 		"CONDITION" => "#^\\??(.*)#",
 		"RULE" => "&\$1",
 		"ID" => "bitrix:catalog.top",
 		"PATH" => "/basket/index.php",
+	),
+	array(
+		"CONDITION" => "#^/forum/#",
+		"RULE" => "",
+		"ID" => "bitrix:forum",
+		"PATH" => "/forum/index.php",
 	),
 );
 
